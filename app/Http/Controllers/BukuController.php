@@ -40,6 +40,7 @@ class BukuController extends Controller
     {   
         $validated = $request->validate([
             'judul_buku' => 'required|max:255',
+            'isbn' => 'required|min:13|max:13|',
             'kategori' => 'required',
             'penulis' => 'required|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/', 
             'penerbit' => 'required|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/',

@@ -61,12 +61,12 @@
                       <thead>              
                         <tr>
                           <th> Judul </th>
+                          <th> ISBN </th>
                           <th> Kategori </th>
                           <th> Penulis </th>
                           <th> Penerbit </th>
                           <th> Terbitan </th>
                           <th> Jumlah </th>
-                          {{-- <th> Tanggal </th> --}}
                           <th> Aksi </th>
                         </tr>
                       </thead>
@@ -83,6 +83,7 @@
                               <img src="assets/images/sampul/{{$buku->sampul}}" class="me-2" alt="image">{{ $buku->judul_buku }}
                             <?php }?>  
                           </td>
+                          <td>{{$buku->isbn}}</td>
                           <td>{{$buku->kategori}}</td>
                           <td>{{$buku->penulis}}</td>
                           <td>
@@ -132,8 +133,8 @@
                                     <?php }?> 
                                   </div>
                                   <div class="col-sm-6">
-                                   
-                                    
+                                    <h6>ISBN</h6>
+                                    <p>{{$buku->isbn}}</p>
                                     <h6>Kategori</h6>
                                     <p>{{$buku->kategori}}</p>
                                     <h6>Penulis</h6>
@@ -148,7 +149,6 @@
                                     <p>{{$buku->getCreatedAttribute()}}</p>
                                     <h6>Diperbarui Pada</h6>
                                     <p>{{$buku->getUpdatedAttribute()}}</p>
-                                    
                                   </div>
                                 </div>
                               </div>
@@ -177,16 +177,18 @@
                                 
                                 <form action="/updatebuku/{{$buku->id}}" method="POST" enctype="multipart/form-data" class="forms-sample">
                                   @csrf
-                                  
-            
                                   <div class="form-group">
                                     <label for="judul_buku">Judul Buku</label>
                                     <input value="{{$buku->judul_buku}}" type="text" name="judul_buku" class="form-control" id="judul_buku" placeholder="Judul Buku">
                                   </div>
                                   <div class="form-group">
+                                    <label for="isbn">ISBN</label>
+                                    <input value="{{$buku->isbn}}" type="text" name="isbn" class="form-control" id="isbn" placeholder="ISBN Buku">
+                                  </div>
+                                  <div class="form-group">
                                     <label for="kategori">Kategori</label>
                                     <select  class="form-control" name="kategori" id="kategori">
-                                      <option class="" value="{{$buku->kategori}}">{{$buku->kategori}}</option>
+                                      <option class="" value="{{$buku->kategori}}">{{ $buku->kategori}}</option>
                                       <option value="fiksi">Fiksi</option>
                                       <option value="nonfiksi">Non Fiksi</option>
                                     </select>
