@@ -61,7 +61,8 @@
                       <thead>              
                         <tr>
                           <th> Nama </th>
-                          <th> Kelas </th>
+                          <th> NIS/NIP </th>
+                          <th> Kelas/Jabatan </th>
                           <th> Nomor HP </th>
                           <th> Alamat </th>
                           <th> Aksi </th>
@@ -80,6 +81,7 @@
                               <img src="assets/images/foto_anggota/{{$anggota->foto_anggota}}" class="me-2" alt="image">{{ $anggota->nama }}
                             <?php }?>  
                           </td>
+                          <td>{{$anggota->nis}}</td>
                           <td>{{$anggota->kelas}}</td>
                           <td>{{$anggota->no_hp}}</td>
                           <td>
@@ -127,9 +129,9 @@
                                   }?> 
                                   </div>
                                   <div class="col-sm-6">
-                                   
-                                    
-                                    <h6>Kelas</h6>
+                                    <h6>NIS/NIP</h6>
+                                    <p>{{$anggota->nis}}</p>
+                                    <h6>Kelas/Jabatan</h6>
                                     <p>{{$anggota->kelas}}</p>
                                     <h6>Nomor HP</h6>
                                     <p>{{$anggota->no_hp}}</p>
@@ -175,9 +177,14 @@
                                     <input value="{{$anggota->nama}}" type="text" name="nama" class="form-control" id="nama" placeholder="Nama">
                                   </div>
                                   <div class="form-group">
-                                    <label for="kelas">Kelas</label>
+                                    <label for="nis">NIS/NIP</label>
+                                    <input value="{{$anggota->nis}}" type="number" name="nis" class="form-control" id="nis" placeholder="NIS/NIP">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="kelas">Kelas/Jabatan</label>
                                     <select  class="form-control" name="kelas" id="kelas">
                                       <option class="" value="{{$anggota->kelas}}">{{$anggota->kelas}}</option>
+                                      <option value="pengajar">Pengajar</option>
                                       <option value="10">10</option>
                                       <option value="11">11</option>
                                       <option value="12">12</option>

@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('anggotas', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('no_hp');
+            $table->string('nis');
+            $table->string('no_hp')->nullable();
             $table->string('kelas');
-            $table->string('alamat');
+            $table->string('alamat')->nullable();
             $table->string('foto_anggota')->nullable();
             $table->timestamps();
         });

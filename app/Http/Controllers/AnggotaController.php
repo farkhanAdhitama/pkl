@@ -34,6 +34,13 @@ class AnggotaController extends Controller
      */
     public function insertAnggota(Request $request)
     {   
+        $validated = $request->validate([
+            'nama' => 'required|max:255|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/',
+            'nis' => 'required|numeric',
+            'kelas' => 'required', 
+            
+        ]);
+
         $data = Anggota::create($request->all());
         if($request->hasFile('foto_anggota')){
             $request->file('foto_anggota')->move('assets/images/foto_anggota/', $request->file('foto_anggota')->getClientOriginalName());
