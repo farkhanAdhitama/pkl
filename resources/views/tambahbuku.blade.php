@@ -66,6 +66,15 @@
                       </div>
 
                       <div class="form-group">
+                        <label for="jenis">Jenis Buku</label>
+                        <select class="form-control" name="jenis" id="jenis">
+                          @foreach ($jenisbukus as $jenisbuku)
+                            <option value="{{$jenisbuku->jenis}}">{{$jenisbuku->jenis}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+
+                      <div class="form-group">
                         <label for="penulis">Penulis</label>
                         <input type="text" name="penulis" class="form-control" id="penulis" placeholder="Penulis" required value="{{ old('penulis') }}" autocomplete="penulis"
                         class="@error('penulis') is-invalid @enderror">

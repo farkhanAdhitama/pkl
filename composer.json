@@ -11,7 +11,9 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.1",
-        "maatwebsite/excel": "*"
+        "laravelcollective/html": "^6.3",
+        "maatwebsite/excel": "^1.1",
+        "psr/simple-cache": "3.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

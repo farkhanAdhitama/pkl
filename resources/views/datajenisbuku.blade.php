@@ -22,7 +22,18 @@
             
           </div>
 
-          @if($message = Session::get('success'))
+          @if($message = Session::get('insertsuccess'))
+          {{-- Notif buku berhasil ditambah --}}
+            <script>
+              Swal.fire(
+              'Berhasil!',
+              'Data Jenis Buku Berhasil Ditambahkan!',
+              'success'
+              )
+            </script>
+          @endif
+
+          @if($message = Session::get('deletesuccess'))
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{$message}}
           </div>

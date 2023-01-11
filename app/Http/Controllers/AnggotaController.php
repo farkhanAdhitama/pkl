@@ -47,7 +47,7 @@ class AnggotaController extends Controller
             $data->foto_anggota = $request->file('foto_anggota')->getClientOriginalName();
             $data->save();
         }
-        return redirect()->route('tambahanggota')->with('success', 'Anggota Berhasil Ditambahkan');
+        return redirect()->route('dataanggota')->with('insertsuccess', 'Anggota Berhasil Ditambahkan');
     }
 
     //Delete Anggota
@@ -55,7 +55,7 @@ class AnggotaController extends Controller
     {
         $data = Anggota::find($id);
         $data->delete();
-        return redirect()->route('dataanggota')->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('dataanggota')->with('deletesuccess', 'Data Berhasil Dihapus');
 
     }
 

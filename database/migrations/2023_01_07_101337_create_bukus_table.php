@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('penerbit');
             $table->string('tahun_terbit');
             $table->enum('kategori',['fiksi','nonfiksi']);
+            $table->string('jenis')->nullable();
             $table->integer('jumlah');
             $table->date('dicatat_pada')->nullable();
             $table->string('sampul')->nullable();

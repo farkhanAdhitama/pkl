@@ -17,19 +17,9 @@
             <h3 class="page-title">
               <span class="page-title-icon bg-gradient-primary text-white me-2">
                 <i class="mdi mdi-book-open "></i>
-              </span> Tambah Data Buku
+              </span> Tambah Jenis Buku
             </h3>
           </div>
-          @if($message = Session::get('success'))
-          {{-- Notif buku berhasil ditambah --}}
-            <script>
-              Swal.fire(
-              'Berhasil!',
-              'Data Jenis Buku Berhasil Ditambahkan!',
-              'success'
-              )
-            </script>
-          @endif
 
           <div class="col-12 grid-margin stretch-card">
                 <div class="card">

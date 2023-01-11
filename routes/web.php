@@ -44,6 +44,7 @@ Route::get('/tambahanggota', [App\Http\Controllers\AnggotaController::class, 'sh
 Route::post('/insertAnggota', [App\Http\Controllers\AnggotaController::class, 'insertAnggota'])->name('insertAnggota');
 Route::post('/updateanggota/{id}', [App\Http\Controllers\AnggotaController::class, 'updateanggota'])->name('updateanggota');
 Route::get('/deleteanggota/{id}', [App\Http\Controllers\AnggotaController::class, 'deleteanggota'])->name('deleteanggota');
+Route::get('/exportexcel', [App\Http\Controllers\AnggotaController::class, 'exportexcel'])->name('exportexcel');
 
 // anggota route
 Route::get('/datajenisbuku', [App\Http\Controllers\JenisbukuController::class, 'index'])->name('datajenisbuku');

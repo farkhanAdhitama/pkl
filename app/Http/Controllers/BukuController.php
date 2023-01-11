@@ -7,6 +7,7 @@ use App\Http\Requests\StoreBukuRequest;
 use App\Http\Requests\UpdateBukuRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use App\Models\Jenisbuku;
 
 class BukuController extends Controller
 {
@@ -18,8 +19,8 @@ class BukuController extends Controller
     public function index()
     {   
         $bukus = Buku::all();
-        
-        return view('databuku', compact('bukus'));
+        $jenisbukus = Jenisbuku::all();
+        return view('databuku', compact('bukus'), compact('jenisbukus'));
     }
 
     /**
@@ -27,7 +28,8 @@ class BukuController extends Controller
      */
     public function showTambahBuku()
     {  
-        return view('tambahbuku');
+        $jenisbukus = Jenisbuku::all();
+        return view('tambahbuku', compact('jenisbukus'));
     }
     
 
@@ -54,7 +56,7 @@ class BukuController extends Controller
             $data->sampul = $request->file('sampul')->getClientOriginalName();
             $data->save();
         }
-        return redirect()->route('tambahbuku')->with('success', 'Buku Berhasil Ditambahkan');
+        return redirect()->route('databuku')->with('addsuccess', 'Buku Berhasil Ditambahkan');
     }
 
     //Delete Buku
@@ -62,7 +64,7 @@ class BukuController extends Controller
     {
         $data = Buku::find($id);
         $data->delete();
-        return redirect()->route('databuku')->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('databuku')->with('deletesuccess', 'Data Berhasil Dihapus');
 
     }
 

@@ -38,7 +38,7 @@ class JenisbukuController extends Controller
         ]);
 
         $data = Jenisbuku::create($request->all());
-        return redirect()->route('tambahjenisbuku')->with('success', 'Jenis Buku Berhasil Ditambahkan');
+        return redirect()->route('datajenisbuku')->with('insertsuccess', 'Jenis Buku Berhasil Ditambahkan');
     }
 
     //Delete Anggota
@@ -46,7 +46,7 @@ class JenisbukuController extends Controller
     {
         $data = Jenisbuku::find($id);
         $data->delete();
-        return redirect()->route('datajenisbuku')->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('datajenisbuku')->with('deletesuccess', 'Data Berhasil Dihapus');
 
     }
 

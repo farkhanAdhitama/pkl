@@ -22,7 +22,18 @@
             
           </div>
 
-          @if($message = Session::get('success'))
+          @if($message = Session::get('addsuccess'))
+          {{-- Notif buku berhasil ditambah --}}
+            <script>
+              Swal.fire(
+              'Berhasil!',
+              'Data Buku Berhasil Ditambahkan!',
+              'success'
+              )
+            </script>
+          @endif
+
+          @if($message = Session::get('deletesuccess'))
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{$message}}
           </div>
@@ -48,7 +59,7 @@
               <div class="float-end mb-3">
                 
               <button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  PDF  </button>
-              <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button>
+              <a href="/exportexcel"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button></a>
               <button type="button" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button>
              </div>
               </div>
@@ -63,6 +74,7 @@
                           <th> Judul </th>
                           <th> ISBN </th>
                           <th> Kategori </th>
+                          <th> Jenis Buku</th>
                           <th> Penulis </th>
                           <th> Penerbit </th>
                           <th> Terbitan </th>
@@ -85,6 +97,7 @@
                           </td>
                           <td>{{$buku->isbn}}</td>
                           <td>{{$buku->kategori}}</td>
+                          <td>{{$buku->jenis}}</td>
                           <td>{{$buku->penulis}}</td>
                           <td>
                             {{$buku->penerbit}}
@@ -137,6 +150,8 @@
                                     <p>{{$buku->isbn}}</p>
                                     <h6>Kategori</h6>
                                     <p>{{$buku->kategori}}</p>
+                                    <h6>Jenis Buku</h6>
+                                    <p>{{$buku->jenis}}</p>
                                     <h6>Penulis</h6>
                                     <p>{{$buku->penulis}}</p>
                                     <h6>Penerbit</h6>
@@ -191,6 +206,15 @@
                                       <option class="" value="{{$buku->kategori}}">{{ $buku->kategori}}</option>
                                       <option value="fiksi">Fiksi</option>
                                       <option value="nonfiksi">Non Fiksi</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="jenis">Jenis Buku</label>
+                                    <select class="form-control" name="jenis" id="jenis">
+                                      <option class="" value="{{$buku->jenis}}">{{ $buku->jenis}}</option>
+                                      @foreach ($jenisbukus as $jenisbuku)
+                                        <option value="{{$jenisbuku->jenis}}">{{$jenisbuku->jenis}}</option>
+                                      @endforeach
                                     </select>
                                   </div>
                                   <div class="form-group">

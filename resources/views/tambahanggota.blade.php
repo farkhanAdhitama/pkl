@@ -20,17 +20,7 @@
               </span> Tambah Data Anggota Perpustakaan
             </h3>
           </div>
-          @if($message = Session::get('success'))
-          {{-- Notif buku berhasil ditambah --}}
-            <script>
-              Swal.fire(
-              'Berhasil!',
-              'Data Anggota Berhasil Ditambahkan!',
-              'success'
-              )
-            </script>
-          @endif
-
+          
           <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
