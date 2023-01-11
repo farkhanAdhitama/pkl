@@ -2,8 +2,16 @@
 
 @section('content')
 
+<style>
+    .content-wrapper{
+     background-image: url("assets/images/smanka_login.jpg") ;
+     -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+</style>
 <body>
-
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper full-page-wrapper">
           <div class="content-wrapper d-flex align-items-center auth">

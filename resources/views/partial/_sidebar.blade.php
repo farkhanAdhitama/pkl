@@ -38,6 +38,7 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="{{ route('databuku') }}">Data Buku</a></li>
           {{-- <li class="nav-item"> <a class="nav-link" href="{{ route('kategori') }}">Kategori Buku</a></li> --}}
+          <li class="nav-item"> <a class="nav-link" href="{{ route('datajenisbuku') }}">Jenis Buku</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('dataanggota') }}">Data Anggota</a></li>
         </ul>
       </div>
