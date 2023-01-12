@@ -69,7 +69,7 @@
                         <label for="jenis">Jenis Buku</label>
                         <select class="form-control" name="jenis" id="jenis">
                           @foreach ($jenisbukus as $jenisbuku)
-                            <option value="{{$jenisbuku->jenis}}">{{$jenisbuku->jenis}}</option>
+                            <option value="{{$jenisbuku->nama}}">{{$jenisbuku->nama}}</option>
                           @endforeach
                         </select>
                       </div>

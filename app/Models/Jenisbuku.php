@@ -9,7 +9,11 @@ class Jenisbuku extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    // protected $guarded = [];
+    protected $fillable = [
+        'nama',
+        'rak',
+    ];
     protected $dates = ['created_at'];
 
     public function getCreatedAttribute(){

@@ -30,10 +30,10 @@
                       @csrf
                       
                       <div class="form-group">
-                        <label for="jenis">Jenis Buku</label>
-                        <input type="text" name="jenis" class="form-control" id="jenis" placeholder="Jenis Buku" required value="{{ old('jenis') }}" autocomplete="jenis"
-                        class="@error('jenis') is-invalid @enderror">
-                        @error('jenis')
+                        <label for="nama">Jenis Buku</label>
+                        <input type="text" name="nama" class="form-control" id="nama" placeholder="Jenis Buku" required value="{{ old('nama') }}" autocomplete="nama"
+                        class="@error('nama') is-invalid @enderror">
+                        @error('nama')
                             <sub class="p fst-italic text-danger">{{ "Jenis Buku Harus Diisi" }}</sub>
                         @enderror
                       </div>

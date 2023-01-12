@@ -79,7 +79,7 @@
                       <tbody>
                       @foreach ($jenisbukus as $jenisbuku)
                         <tr>
-                          <td>{{$jenisbuku->jenis}}</td>
+                          <td>{{$jenisbuku->nama}}</td>
                           <td>{{$jenisbuku->rak}}</td>
                           <td>
                             <button type="button" class="btn btn-inverse-info btn-icon" data-bs-toggle="modal" data-bs-target="#view{{$jenisbuku->id}}">
@@ -91,7 +91,7 @@
                             </button>
                             
                             <a href="#">
-                            <button class="btn btn-inverse-danger btn-icon delete " data-id = "{{$jenisbuku->id}}" data-jenisbuku = "{{$jenisbuku->jenis}}"> 
+                            <button class="btn btn-inverse-danger btn-icon delete " data-id = "{{$jenisbuku->id}}" data-jenisbuku = "{{$jenisbuku->nama}}"> 
                               <i class="mdi mdi-delete "></i>
                             </button></a>
                           </td>
@@ -112,7 +112,7 @@
                                 <div class="row">
                                   <div class="col-sm-6">
                                     <h6>Jenis Buku</h6>
-                                    <p>{{$jenisbuku->jenis}}</p>
+                                    <p>{{$jenisbuku->nama}}</p>
                                     <h6>Rak</h6>
                                     <p>{{$jenisbuku->rak}}</p>
                                     <h6>Diinput Pada</h6>
@@ -149,8 +149,8 @@
                                 <form action="/updateJenisBuku/{{$jenisbuku->id}}" method="POST" enctype="multipart/form-data" class="forms-sample">
                                   @csrf
                                   <div class="form-group">
-                                    <label for="jenis">Jenis Buku</label>
-                                    <input value="{{$jenisbuku->jenis}}" type="text" name="jenis" class="form-control" id="jenis" placeholder="jenis">
+                                    <label for="nama">Jenis Buku</label>
+                                    <input value="{{$jenisbuku->nama}}" type="text" name="nama" class="form-control" id="nama" placeholder="Jenis Buku">
                                   </div>
                                   <div class="form-group">
                                     <label for="rak">Rak</label>

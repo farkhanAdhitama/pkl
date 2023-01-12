@@ -34,7 +34,7 @@ class JenisbukuController extends Controller
     public function insertJenisbuku(Request $request)
     {   
         $validated = $request->validate([
-            'jenis' => 'required|max:255|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/',
+            'nama' => 'required|max:255|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/',
         ]);
 
         $data = Jenisbuku::create($request->all());
