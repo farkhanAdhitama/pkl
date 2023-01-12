@@ -97,7 +97,7 @@
                           </td>
                           <td>{{$buku->isbn}}</td>
                           <td>{{$buku->kategori}}</td>
-                          <td>{{$buku->jenis}}</td>
+                          <td>{{$buku->jenis->nama}}</td>
                           <td>{{$buku->penulis}}</td>
                           <td>
                             {{$buku->penerbit}}
@@ -151,7 +151,7 @@
                                     <h6>Kategori</h6>
                                     <p>{{$buku->kategori}}</p>
                                     <h6>Jenis Buku</h6>
-                                    <p>{{$buku->jenis}}</p>
+                                    <p>{{$buku->jenis->nama}}</p>
                                     <h6>Penulis</h6>
                                     <p>{{$buku->penulis}}</p>
                                     <h6>Penerbit</h6>
@@ -203,17 +203,17 @@
                                   <div class="form-group">
                                     <label for="kategori">Kategori</label>
                                     <select  class="form-control" name="kategori" id="kategori">
-                                      <option class="" value="{{$buku->kategori}}">{{ $buku->kategori}}</option>
+                                      <option class="" value="{{$buku->kategori}}"><div style="text-transform: capitalize;">{{ $buku->kategori}}</div></option>
                                       <option value="fiksi">Fiksi</option>
                                       <option value="nonfiksi">Non Fiksi</option>
                                     </select>
                                   </div>
                                   <div class="form-group">
-                                    <label for="jenis">Jenis Buku</label>
-                                    <select class="form-control" name="jenis" id="jenis">
-                                      <option class="" value="{{$buku->nama}}">{{ $buku->nama}}</option>
-                                      @foreach ($jenisbukus as $jenisbuku)
-                                        <option value="{{$jenisbuku->nama}}">{{$jenisbuku->nama}}</option>
+                                    <label for="jenis_id">Jenis Buku</label>
+                                    <select class="form-control" name="jenis_id" id="jenis_id">
+                                      <option class="disabled" value="{{$buku->jenis->id}}">{{ $buku->jenis->nama}}</option>
+                                      @foreach ($jen as $jenisbuku)
+                                        <option value="{{$jenisbuku->id}}">{{$jenisbuku->nama}}</option>
                                       @endforeach
                                     </select>
                                   </div>

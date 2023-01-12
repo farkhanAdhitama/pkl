@@ -66,10 +66,10 @@
                       </div>
 
                       <div class="form-group">
-                        <label for="jenis">Jenis Buku</label>
-                        <select class="form-control" name="jenis" id="jenis">
-                          @foreach ($jenisbukus as $jenisbuku)
-                            <option value="{{$jenisbuku->nama}}">{{$jenisbuku->nama}}</option>
+                        <label for="jenis_id">Jenis Buku</label>
+                        <select class="form-control" name="jenis_id" id="jenis_id">
+                          @foreach ($jen as $jenisbuku)
+                            <option value="{{$jenisbuku->id}}">{{$jenisbuku->nama}}</option>
                           @endforeach
                         </select>
                       </div>

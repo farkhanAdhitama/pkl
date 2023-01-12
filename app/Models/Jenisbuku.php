@@ -25,4 +25,8 @@ class Jenisbuku extends Model
         return Carbon::parse($this->attributes['updated_at'])
             ->translatedFormat('l, d M Y');
     }
+
+    public function buku(){
+        return $this->hasMany(Buku::class);
+    }
 }
