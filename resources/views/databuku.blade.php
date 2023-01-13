@@ -78,14 +78,23 @@
 
                         <!-- Modal Header -->
                         <div class="modal-header">
-                          <h4 class="modal-title ">Detail Buku</h4>
+                          <h4 class="modal-title ">Import Data Buku</h4>
                           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <!-- Modal body -->
+                      
+                        <div class="card m-3 text-center" >
+                          <div class="card-body m-3">
+                            <h5 class="card-title text-center">Download Template Excel</h5>
+                            <h6 class="card-subtitle mb-2 text-muted text-center">Untuk Import Data</h6>
+                            <a href="assets/template_import/importdata_buku.xlsx"><button type="button" class="btn btn-primary text-center">Download</button></a>
+                          </div>
+                        </div>
                         <form action="/importexcel" method="POST" enctype="multipart/form-data">
                           @csrf
                           
                           <div class="modal-body px-4">
+                            <h5>Pilih File yang Akan Diimport</h5>
                             <div class="form-group">
                               <input class="" type="file" name="file" id="" required> 
                             </div>
@@ -112,6 +121,7 @@
                     <table class="table " id="myTable">
                       <thead>              
                         <tr>
+                          <th> No </th>
                           <th> Judul </th>
                           <th> ISBN </th>
                           <th> Kategori </th>
@@ -124,8 +134,9 @@
                         </tr>
                       </thead>
                       <tbody>
-                      @foreach ($bukus as $buku)
+                      @foreach ($bukus as $index => $buku)
                         <tr>
+                          <td scope="buku">{{$index + $bukus->firstItem()}}</td>
                           <td>
                             <?php
                               if (empty($buku->sampul)){?>
