@@ -60,7 +60,7 @@
                 
               <button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  PDF  </button>
               <a href="/exportexcel"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button></a>
-              <button type="button" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button>
+              <a href="/importexcel"><button type="button" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button></a> 
              </div>
               </div>
               
@@ -194,11 +194,11 @@
                                   @csrf
                                   <div class="form-group">
                                     <label for="judul_buku">Judul Buku</label>
-                                    <input value="{{$buku->judul_buku}}" type="text" name="judul_buku" class="form-control" id="judul_buku" placeholder="Judul Buku">
+                                    <input required value="{{$buku->judul_buku}}" type="text" name="judul_buku" class="form-control" id="judul_buku" placeholder="Judul Buku">
                                   </div>
                                   <div class="form-group">
                                     <label for="isbn">ISBN</label>
-                                    <input value="{{$buku->isbn}}" type="text" name="isbn" class="form-control" id="isbn" placeholder="ISBN Buku">
+                                    <input required value="{{$buku->isbn}}" type="text" name="isbn" class="form-control" id="isbn" placeholder="ISBN Buku">
                                   </div>
                                   <div class="form-group">
                                     <label for="kategori">Kategori</label>
@@ -219,20 +219,20 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="penulis">Penulis</label>
-                                    <input value="{{$buku->penulis}}" type="text" name="penulis" class="form-control" id="penulis" placeholder="Penulis">
+                                    <input required value="{{$buku->penulis}}" type="text" name="penulis" class="form-control" id="penulis" placeholder="Penulis">
                                   </div>
                                   <div class="form-group">
                                     <label for="penerbit">Penerbit</label>
-                                    <input value="{{$buku->penerbit}}" type="text" name="penerbit" class="form-control" id="penerbit" placeholder="Penerbit">
+                                    <input required value="{{$buku->penerbit}}" type="text" name="penerbit" class="form-control" id="penerbit" placeholder="Penerbit">
                                   </div>
                                   <div class="form-group">
                                     <label for="tahun_terbit">Tahun Terbit</label>
-                                    <input value="{{$buku->tahun_terbit}}" type="text" name="tahun_terbit" class="form-control" id="tahun_terbit" placeholder="Tahun Terbit">
+                                    <input required value="{{$buku->tahun_terbit}}" type="text" name="tahun_terbit" class="form-control" id="tahun_terbit" placeholder="Tahun Terbit">
                                   </div>
                                   
                                   <div class="form-group">
                                     <label for="jumlah">Jumlah Buku</label>
-                                    <input value="{{$buku->jumlah}}" type="number" name="jumlah" class="form-control" id="jumlah" placeholder="kode">
+                                    <input required value="{{$buku->jumlah}}" type="number" name="jumlah" class="form-control" id="jumlah" placeholder="kode">
                                   </div>
                                   <div class="form-group">
                                     <label>Sampul Buku</label><br>

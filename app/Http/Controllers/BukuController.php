@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
-use App\Http\Requests\StoreBukuRequest;
-use App\Http\Requests\UpdateBukuRequest;
+use App\Models\Jenisbuku;
+use App\Exports\BukuExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use App\Models\Jenisbuku;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\StoreBukuRequest;
+use App\Http\Requests\UpdateBukuRequest;
 
 class BukuController extends Controller
 {
@@ -79,6 +81,10 @@ class BukuController extends Controller
         }
         return redirect()->route('databuku')->with('updatesuccess', 'Data Berhasil Diperbarui');
 
+    }
+
+    public function exportexcel(){
+        return Excel::download(new BukuExport, 'databuku.xlsx');
     }
 
 

@@ -98,7 +98,7 @@
                             {{$anggota->alamat}}
                           </td>
                           <td>
-                            <button type="button" class="btn btn-inverse-info btn-icon" data-bs-toggle="modal" data-bs-target="#view{{$anggota->id}}">
+                            <button type="button" class="btn btn-inverse-info btn-icon" data-bs-toggle="modal" data-bs-target="#view{{$anggota->id}}" >
                               <i class="mdi mdi-information-outline"></i>
                             </button>
                             
@@ -184,11 +184,11 @@
             
                                   <div class="form-group">
                                     <label for="nama">Nama</label>
-                                    <input value="{{$anggota->nama}}" type="text" name="nama" class="form-control" id="nama" placeholder="Nama">
+                                    <input value="{{$anggota->nama}}" type="text" name="nama" class="form-control" id="nama" placeholder="Nama" required>
                                   </div>
                                   <div class="form-group">
                                     <label for="nis">NIS/NIP</label>
-                                    <input value="{{$anggota->nis}}" type="number" name="nis" class="form-control" id="nis" placeholder="NIS/NIP">
+                                    <input value="{{$anggota->nis}}" type="number" name="nis" class="form-control" id="nis" placeholder="NIS/NIP" required>
                                   </div>
                                   <div class="form-group">
                                     <label for="kelas">Kelas/Jabatan</label>
@@ -202,11 +202,11 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="no_hp">Nomor HP</label>
-                                    <input value="{{$anggota->no_hp}}" type="text" name="no_hp" class="form-control" id="no_hp" placeholder="Nomor HP">
+                                    <input value="{{$anggota->no_hp}}" type="text" name="no_hp" class="form-control" id="no_hp" placeholder="Nomor HP" required>
                                   </div>
                                   <div class="form-group">
                                     <label for="alamat">Alamat</label>
-                                    <input value="{{$anggota->alamat}}" type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat">
+                                    <input value="{{$anggota->alamat}}" type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat" required>
                                   </div>
                                   
                                   <div class="form-group">

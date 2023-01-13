@@ -150,11 +150,11 @@
                                   @csrf
                                   <div class="form-group">
                                     <label for="nama">Jenis Buku</label>
-                                    <input value="{{$jenisbuku->nama}}" type="text" name="nama" class="form-control" id="nama" placeholder="Jenis Buku">
+                                    <input value="{{$jenisbuku->nama}}" type="text" name="nama" class="form-control" id="nama" placeholder="Jenis Buku" required>
                                   </div>
                                   <div class="form-group">
                                     <label for="rak">Rak</label>
-                                    <input value="{{$jenisbuku->rak}}" type="number" name="rak" class="form-control" id="rak" placeholder="Rak">
+                                    <input value="{{$jenisbuku->rak}}" type="number" name="rak" class="form-control" id="rak" placeholder="Rak" required>
                                   </div>
                                   <button type="submit" class="btn btn-primary me-2 ">Submit</button>
                                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
