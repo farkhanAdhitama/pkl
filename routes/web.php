@@ -29,7 +29,7 @@ Route::get('/deletebuku/{id}', [App\Http\Controllers\BukuController::class, 'del
 Route::post('/updatebuku/{id}', [App\Http\Controllers\BukuController::class, 'updatebuku'])->name('updatebuku');
 
 // upload/import
-Route::get('/importexcel', [App\Http\Controllers\BukuController::class, 'importexcel'])->name('importexcel');
+Route::post('/importexcel', [App\Http\Controllers\BukuController::class, 'importexcel'])->name('importexcel');
 //export buku
 Route::get('/exportexcel', [App\Http\Controllers\BukuController::class, 'exportexcel'])->name('exportexcel');
 

@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreBukuRequest;
 use App\Http\Requests\UpdateBukuRequest;
+use App\Imports\BukuImport;
 
 class BukuController extends Controller
 {
@@ -20,7 +21,7 @@ class BukuController extends Controller
      */
     public function index()
     {   
-        $bukus = Buku::with('jenis')->paginate(5);
+        $bukus = Buku::with('jenis')->paginate(1000000);
         $jen = Jenisbuku::all();
         return view('databuku', compact('bukus'), compact('jen'));
     }
@@ -85,6 +86,17 @@ class BukuController extends Controller
 
     public function exportexcel(){
         return Excel::download(new BukuExport, 'databuku.xlsx');
+    }
+
+    public function importexcel(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('assets/data_buku_excel/', $namafile);
+
+        Excel::import(new BukuImport, \public_path('/assets/data_buku_excel/'.$namafile));
+        return \redirect()->back()->with('importsuccess', 'Data Berhasil Diimport');;
+
     }
 
 

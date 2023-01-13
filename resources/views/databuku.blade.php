@@ -21,8 +21,20 @@
             </h3>
             
           </div>
-
+          {{-- swall berhasil insert --}}
           @if($message = Session::get('addsuccess'))
+          {{-- Notif buku berhasil ditambah --}}
+            <script>
+              Swal.fire(
+              'Berhasil!',
+              'Data Buku Berhasil Ditambahkan!',
+              'success'
+              )
+            </script>
+          @endif
+
+          {{-- swal berhasil import --}}
+          @if($message = Session::get('importsuccess'))
           {{-- Notif buku berhasil ditambah --}}
             <script>
               Swal.fire(
@@ -53,15 +65,44 @@
           <div class="row">
             <div class="col-12 grid-margin">
               <div class="float">
-              
               <a href="/tambahbuku" type="button" class="btn btn-sm btn-primary mb-3"  ><i class="mdi mdi-library-plus mdi-icon"></i> Tambah Buku</a>
-              
-              <div class="float-end mb-3">
+                <div class="float-end mb-3">
+                <button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  PDF  </button>
+                <a href="/exportexcel"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button></a>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#importbuku" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button>
                 
-              <button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  PDF  </button>
-              <a href="/exportexcel"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button></a>
-              <a href="/importexcel"><button type="button" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button></a> 
-             </div>
+                  <!-- The Import Excel Modal -->
+                  <div class="modal fade" id="importbuku">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h4 class="modal-title ">Detail Buku</h4>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <!-- Modal body -->
+                        <form action="/importexcel" method="POST" enctype="multipart/form-data">
+                          @csrf
+                          
+                          <div class="modal-body px-4">
+                            <div class="form-group">
+                              <input class="" type="file" name="file" id="" required> 
+                            </div>
+                          </div>
+
+                        <!-- Modal footer -->
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Import</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                          </div>
+                        </form>
+
+                      </div>
+                    </div>
+                  </div>
+              
+                </div>
               </div>
               
               <div class="card">
