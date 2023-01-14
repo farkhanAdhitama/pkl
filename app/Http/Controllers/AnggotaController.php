@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AnggotaExport;
 use App\Models\Anggota;
 use App\Http\Requests\StoreAnggotaRequest;
 use App\Http\Requests\UpdateAnggotaRequest;
+use App\Imports\AnggotaImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class AnggotaController extends Controller
@@ -13,7 +16,7 @@ class AnggotaController extends Controller
 
     public function index()
     {   
-        $anggotas = Anggota::all();
+        $anggotas = Anggota::paginate(1000000);
         
         return view('dataanggota', compact('anggotas'));
     }
@@ -69,6 +72,21 @@ class AnggotaController extends Controller
             $data->save();
         }
         return redirect()->route('dataanggota')->with('updatesuccess', 'Data Berhasil Diperbarui');
+
+    }
+
+    public function exportexcel_anggota(){
+        return Excel::download(new AnggotaExport, 'Data_Anggota.xlsx');
+    }
+
+    public function importexcel_anggota(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('assets/data_anggota_excel/', $namafile);
+
+        Excel::import(new AnggotaImport, \public_path('/assets/data_anggota_excel/'.$namafile));
+        return \redirect()->back()->with('importsuccess', 'Data Berhasil Diimport');;
 
     }
 

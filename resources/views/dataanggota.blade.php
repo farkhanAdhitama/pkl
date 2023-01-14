@@ -32,6 +32,18 @@
             </script>
           @endif
 
+          {{-- swal berhasil import --}}
+          @if($message = Session::get('importsuccess'))
+          {{-- Notif buku berhasil ditambah --}}
+            <script>
+              Swal.fire(
+              'Berhasil!',
+              'Data Anggota Berhasil Ditambahkan!',
+              'success'
+              )
+            </script>
+          @endif
+
           @if($message = Session::get('deletesuccess'))
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{$message}}
@@ -58,9 +70,50 @@
               <div class="float-end mb-3">
                 
               <button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  PDF  </button>
-              <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button>
-              <button type="button" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button>
-             </div>
+              <a href="/exportexcel_anggota"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button></a>
+              <button type="button" data-bs-toggle="modal" data-bs-target="#importanggota" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button>
+                
+               <!-- The Import Anggota Excel Modal -->
+               <div class="modal fade" id="importanggota">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h4 class="modal-title ">Import Data Anggota</h4>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!-- Modal body -->
+                  
+                    <div class="card m-3 text-center" >
+                      <div class="card-body m-3">
+                        <h5 class="card-title text-center">Download Template Excel</h5>
+                        <h6 class="card-subtitle mb-2 text-muted text-center">Untuk Import Data</h6>
+                        <a href="assets/template_import/importdata_buku.xlsx"><button type="button" class="btn btn-primary text-center">Download</button></a>
+                      </div>
+                    </div>
+                    <form action="/importexcel_anggota" method="POST" enctype="multipart/form-data">
+                      @csrf
+                      
+                      <div class="modal-body px-4">
+                        <h5>Pilih File yang Akan Diimport</h5>
+                        <div class="form-group">
+                          <input class="" type="file" name="file" id="" required> 
+                        </div>
+                      </div>
+
+                    <!-- Modal footer -->
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Import</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            
+            
+            </div>
               </div>
               
               <div class="card">
@@ -70,6 +123,7 @@
                     <table class="table " id="myTable">
                       <thead>              
                         <tr>
+                          <th> No </th>
                           <th> Nama </th>
                           <th> NIS/NIP </th>
                           <th> Kelas/Jabatan </th>
@@ -79,8 +133,9 @@
                         </tr>
                       </thead>
                       <tbody>
-                      @foreach ($anggotas as $anggota)
+                      @foreach ($anggotas as $index => $anggota)
                         <tr>
+                          <td scope="anggota">{{ $index + $anggotas->firstItem()}}</td>
                           <td>
                             <?php
                               if (empty($anggota->foto_anggota)){?>
