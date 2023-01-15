@@ -19,11 +19,11 @@ class BukuImport implements ToModel, WithStartRow
 
             'judul_buku' => $row[1],
             'isbn' => $row[2],
-            'penulis' => $row[3],
-            'penerbit' => $row[4],
-            'tahun_terbit' => $row[5],
-            'kategori' => $row[6],
-            'jenis_id' => $row[7],
+            'kategori' => $row[3],
+            'jenis_buku' => $row[4],
+            'penulis' => $row[5],
+            'penerbit' => $row[6],
+            'tahun_terbit' => $row[7],
             'jumlah'=> $row[8],
           
         ]);

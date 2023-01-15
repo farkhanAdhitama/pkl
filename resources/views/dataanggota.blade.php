@@ -88,7 +88,7 @@
                       <div class="card-body m-3">
                         <h5 class="card-title text-center">Download Template Excel</h5>
                         <h6 class="card-subtitle mb-2 text-muted text-center">Untuk Import Data</h6>
-                        <a href="assets/template_import/importdata_buku.xlsx"><button type="button" class="btn btn-primary text-center">Download</button></a>
+                        <a href="assets/template_import/importanggota_template.xlsx"><button type="button" class="btn btn-primary text-center">Download</button></a>
                       </div>
                     </div>
                     <form action="/importexcel_anggota" method="POST" enctype="multipart/form-data">

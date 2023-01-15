@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('penulis');
             $table->string('penerbit');
             $table->string('tahun_terbit');
-            $table->enum('kategori',['fiksi','nonfiksi']);
-            $table->integer('jenis_id')->nullable();
+            $table->enum('kategori',['Fiksi','Nonfiksi']);
+            $table->string('jenis_buku')->nullable();
             $table->integer('jumlah');
             $table->string('sampul')->nullable();
             $table->timestamps();

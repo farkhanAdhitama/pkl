@@ -21,9 +21,10 @@ class BukuController extends Controller
      */
     public function index()
     {   
-        $bukus = Buku::with('jenis')->paginate(1000000);
-        $jen = Jenisbuku::all();
-        return view('databuku', compact('bukus'), compact('jen'));
+        $bukus = Buku::paginate(99999);
+        // $jen = Jenisbuku::all();
+        $jenisbukus = Jenisbuku::all();
+        return view('databuku', compact('bukus'), compact('jenisbukus'));
     }
 
     /**
@@ -31,8 +32,10 @@ class BukuController extends Controller
      */
     public function showTambahBuku()
     {  
-       $jen = Jenisbuku::all();
-        return view('tambahbuku', compact('jen'));
+        //$jen = Jenisbuku::all();
+        $bukus = Buku::paginate(99999);
+        $jenisbukus = Jenisbuku::all();
+        return view('tambahbuku', compact('jenisbukus'));
     }
     
 

@@ -37,8 +37,11 @@ class BukuExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
         return [
             $buku->judul_buku,
             $buku->isbn,
+            $buku->kategori,
+            $buku->jenis_buku,
             $buku->penulis,
             $buku->penerbit,
+            $buku->tahun_terbit,
             $buku->jumlah,
             $buku->created_at,
         ];
@@ -49,8 +52,11 @@ class BukuExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
         return [
             'JUDUL BUKU',
             'ISBN',
+            'KATEGORI',
+            'JENIS BUKU',
             'PENULIS',
             'PENERBIT',
+            'TAHUN TERBIT',
             'JUMLAH',
             'DICATAT PADA',
         ];

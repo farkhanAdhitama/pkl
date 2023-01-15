@@ -26,7 +26,7 @@ class Jenisbuku extends Model
             ->translatedFormat('l, d M Y');
     }
 
-    public function buku(){
-        return $this->hasMany(Buku::class);
-    }
+    // public function buku(){
+    //     return $this->hasMany(Buku::class);
+    // }
 }
