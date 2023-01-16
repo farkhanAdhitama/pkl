@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\JenisbukuExport;
 use App\Models\Jenisbuku;
 use App\Http\Requests\StoreJenisbukuRequest;
 use App\Http\Requests\UpdateJenisbukuRequest;
 use Illuminate\Http\Request;
+use App\Imports\AnggotaImport;
+use App\Imports\JenisbukuImport;
+use Maatwebsite\Excel\Facades\Excel;
+Use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class JenisbukuController extends Controller
@@ -57,6 +62,29 @@ class JenisbukuController extends Controller
         return redirect()->route('datajenisbuku')->with('updatesuccess', 'Data Berhasil Diperbarui');
 
     }
+
+    public function exportexcel_jenisbuku(){
+        return Excel::download(new JenisbukuExport, 'Data_Jenisbuku.xlsx');
+    }
+
+    public function importexcel_jenisbuku(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('assets/data_jenisbuku_excel/', $namafile);
+
+        Excel::import(new JenisbukuImport, \public_path('/assets/data_jenisbuku_excel/'.$namafile));
+        return \redirect()->back()->with('importsuccess', 'Data Berhasil Diimport');;
+
+    }
+
+    public function exportpdf_jenisbuku(){
+        $data = Jenisbuku::all();
+        view()->share('data', $data);
+        $pdf = PDF::loadview('data_jenisbuku-pdf');
+        return $pdf->download('data_jenisbuku.pdf');
+    }
+
 }
 
 

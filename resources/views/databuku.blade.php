@@ -67,7 +67,7 @@
               <div class="float">
               <a href="/tambahbuku" type="button" class="btn btn-sm btn-primary mb-3"  ><i class="mdi mdi-library-plus mdi-icon"></i> Tambah Buku</a>
                 <div class="float-end mb-3">
-                <button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  PDF  </button>
+                <a href="/exportpdf_buku"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  PDF  </button></a>
                 <a href="/exportexcel"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button></a>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#importbuku" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button>
                 
@@ -106,11 +106,11 @@
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                           </div>
                         </form>
-
                       </div>
                     </div>
                   </div>
-              
+
+               
                 </div>
               </div>
               

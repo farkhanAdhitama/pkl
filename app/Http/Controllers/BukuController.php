@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreBukuRequest;
 use App\Http\Requests\UpdateBukuRequest;
 use App\Imports\BukuImport;
+Use Barryvdh\DomPDF\Facade\Pdf;
 
 class BukuController extends Controller
 {
@@ -91,6 +92,7 @@ class BukuController extends Controller
         return Excel::download(new BukuExport, 'Data_Buku.xlsx');
     }
 
+
     public function importexcel(Request $request)
     {
         $data = $request->file('file');
@@ -100,6 +102,13 @@ class BukuController extends Controller
         Excel::import(new BukuImport, \public_path('/assets/data_buku_excel/'.$namafile));
         return \redirect()->back()->with('importsuccess', 'Data Berhasil Diimport');;
 
+    }
+
+    public function exportpdf_buku(){
+        $data = Buku::all();
+        view()->share('data', $data);
+        $pdf = PDF::loadview('data_buku-pdf');
+        return $pdf->download('data_buku.pdf');
     }
 
 

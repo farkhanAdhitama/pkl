@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateAnggotaRequest;
 use App\Imports\AnggotaImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class AnggotaController extends Controller
@@ -88,6 +89,13 @@ class AnggotaController extends Controller
         Excel::import(new AnggotaImport, \public_path('/assets/data_anggota_excel/'.$namafile));
         return \redirect()->back()->with('importsuccess', 'Data Berhasil Diimport');;
 
+    }
+
+    public function exportpdf_anggota(){
+        $data = Anggota::all();
+        view()->share('data', $data);
+        $pdf = PDF::loadview('data_anggota-pdf');
+        return $pdf->download('data_anggota.pdf');
     }
 
 }
