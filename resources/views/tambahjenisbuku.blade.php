@@ -34,7 +34,7 @@
                         <input type="text" name="nama" class="form-control" id="nama" placeholder="Jenis Buku" required value="{{ old('nama') }}" autocomplete="nama"
                         class="@error('nama') is-invalid @enderror">
                         @error('nama')
-                            <sub class="p fst-italic text-danger">{{ "Jenis Buku Harus Diisi" }}</sub>
+                            <sub class="p fst-italic text-danger">{{"$message"}}</sub>
                         @enderror
                       </div>
 

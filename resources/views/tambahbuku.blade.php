@@ -44,7 +44,7 @@
                         <input type="text" name="judul_buku" class="form-control" id="judul_buku" placeholder="Judul Buku" required value="{{ old('judul_buku') }}" autocomplete="judul_buku"
                         class="@error('judul_buku') is-invalid @enderror">
                         @error('judul_buku')
-                            <sub class="p fst-italic text-danger">{{ "Judul Buku Harus Diisi" }}</sub>
+                            <sub class="p fst-italic text-danger">{{ "$message"  }}</sub>
                         @enderror
                       </div>
 
@@ -53,7 +53,7 @@
                         <input type="text" name="isbn" class="form-control" id="isbn" placeholder="ISBN Buku" required value="{{ old('isbn') }}" autocomplete="isbn"
                         class="@error('isbn') is-invalid @enderror">
                         @error('isbn')
-                            <sub class="p fst-italic text-danger">{{ "ISBN Buku Harus Diisi 13 Angka" }}</sub>
+                            <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
                         @enderror
                       </div>
 
@@ -80,7 +80,7 @@
                         <input type="text" name="penulis" class="form-control" id="penulis" placeholder="Penulis" required value="{{ old('penulis') }}" autocomplete="penulis"
                         class="@error('penulis') is-invalid @enderror">
                         @error('penulis')
-                            <sub class="fst-italic text-danger">{{ "Harus Diisi dengan Huruf" }}</p>
+                            <sub class="fst-italic text-danger">{{ "$message"  }}</p>
                         @enderror
                       </div>
 
@@ -89,7 +89,7 @@
                         <input type="text" name="penerbit" class="form-control" id="penerbit" placeholder="Penerbit" required value="{{ old('penerbit') }}" autocomplete="penerbit"
                         class="@error('penerbit') is-invalid @enderror">
                         @error('penerbit')
-                            <sub class="fst-italic text-danger">{{ "Harus Diisi dengan Huruf" }}</sub>
+                            <sub class="fst-italic text-danger">{{ "$message"  }}</sub>
                         @enderror
                       </div>
 
@@ -98,7 +98,7 @@
                         <input type="number" name="tahun_terbit" class="form-control" id="tahun_terbit" placeholder="Tahun Terbit" required value="{{ old('tahun_terbit') }}" autocomplete="tahun_terbit"
                         class="@error('tahun_terbit') is-invalid @enderror">
                         @error('tahun_terbit')
-                            <sub class="fst-italic text-danger">{{ "Format Tahun Kosong atau Salah" }}</sub>
+                            <sub class="fst-italic text-danger">{{ "$message"  }}</sub>
                         @enderror
                       </div>
 
@@ -106,7 +106,7 @@
                         <label for="jumlah">Jumlah Buku</label>
                         <input type="number" name="jumlah" class="form-control" id="jumlah @error('jumlah') is-invalid @enderror" placeholder="Jumlah" required value="{{ old('jumlah') }}" autocomplete="jumlah">  
                         @error('jumlah')
-                        <sub class="text-danger fst-italic">{{ "Harus Diisi dengan Angka Jumlah" }}</sub>
+                        <sub class="text-danger fst-italic">{{ "$message"  }}</sub>
                         @enderror
                       </div>
                       <div class="form-group">

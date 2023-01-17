@@ -40,9 +40,15 @@ class AnggotaController extends Controller
     {   
         $validated = $request->validate([
             'nama' => 'required|max:255|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/',
-            'nis' => 'required|numeric',
+            'nis' => 'required|numeric|unique:anggotas',
             'kelas' => 'required', 
+            'no_hp' => 'required|numeric'
             
+        ],[
+            'nama.regex' => 'Nama Harus Berisi Alphabet',
+            'nis.numeric' => 'NIS/NIP Harus Berisi Angka',
+            'nis.numeric' => 'NIS/NIP Sudah Ada',
+            'no_hp.numeric'=> 'Nomor HP Harus Berisi Angka',
         ]);
 
         $data = Anggota::create($request->all());

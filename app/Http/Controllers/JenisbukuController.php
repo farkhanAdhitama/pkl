@@ -39,7 +39,10 @@ class JenisbukuController extends Controller
     public function insertJenisbuku(Request $request)
     {   
         $validated = $request->validate([
-            'nama' => 'required|max:255|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/',
+            'nama' => 'required|max:255|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|unique:jenisbukus',
+        ],[
+            'nama.unique'=> 'Jenis Buku Sudah Ada',
+            'nama.regex' => 'Jenis Buku Harus Berisi Alphabet',
         ]);
 
         $data = Jenisbuku::create($request->all());

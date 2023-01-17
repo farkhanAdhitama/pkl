@@ -34,7 +34,7 @@
                         <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Anggota" required value="{{ old('nama') }}" autocomplete="nama"
                         class="@error('nama') is-invalid @enderror">
                         @error('nama')
-                            <sub class="p fst-italic text-danger">{{ "Nama Harus Diisi dengan Huruf" }}</sub>
+                            <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
                         @enderror
                       </div>
 
@@ -43,7 +43,7 @@
                         <input type="number" name="nis" class="form-control" id="nis" placeholder="NIS/NIP Anggota" required value="{{ old('nis') }}" autocomplete="nis"
                         class="@error('nis') is-invalid @enderror">
                         @error('nis')
-                            <sub class="p fst-italic text-danger">{{ "NIS/NIP harus Diisi dengan Angka" }}</sub>
+                            <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
                         @enderror
                       </div>
 
@@ -62,7 +62,7 @@
                         <input type="number" name="no_hp" class="form-control" id="no_hp" placeholder="Nomor HP" value="{{ old('no_hp') }}" autocomplete="no_hp"
                         class="@error('no_hp') is-invalid @enderror">
                         @error('no_hp')
-                            <sub class="p fst-italic text-danger">{{ "Nomor HP Harus Diisi dengan Angka" }}</sub>
+                            <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
                         @enderror
                       </div>
 

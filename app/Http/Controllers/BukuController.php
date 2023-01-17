@@ -25,7 +25,7 @@ class BukuController extends Controller
         $bukus = Buku::paginate(99999);
         // $jen = Jenisbuku::all();
         $jenisbukus = Jenisbuku::all();
-        return view('databuku', compact('bukus'), compact('jenisbukus'));
+        return view('databuku', compact('bukus', 'jenisbukus'));
     }
 
     /**
@@ -49,12 +49,20 @@ class BukuController extends Controller
     {   
         $validated = $request->validate([
             'judul_buku' => 'required|max:255',
-            'isbn' => 'required|min:13|max:13|',
+            'isbn' => 'required|unique:bukus|max:255|numeric',
             'kategori' => 'required',
-            'penulis' => 'required|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/', 
-            'penerbit' => 'required|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/',
-            'tahun_terbit' => 'required|min:4|max:4|',
+            'penulis' => 'required', 
+            'penerbit' => 'required',
+            'tahun_terbit' => 'required|numeric|min:4|max:4',
             'jumlah' => 'required|numeric',
+        ],[
+            'judul_buku.required'=> 'Judul Buku Tidak Boleh Kosong',
+            'isbn.unique' => 'Data Buku Sudah Ada, Silahkan Dicek Kembali',
+            'isbn.numeric' => 'ISBN Harus Berisi Angka',
+            'tahun_terbit.min' => 'Silahkan Isi dengan Format Tahun yang Tepat',
+            'tahun_terbit.max' => 'Silahkan Isi dengan Format Tahun yang Tepat',
+            'jumlah.numeric' => 'Jumlah Harus Berisi Angka',
+
         ]);
        
         $data = Buku::create($request->all());
