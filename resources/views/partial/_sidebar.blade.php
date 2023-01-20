@@ -38,25 +38,40 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="{{ route('databuku') }}">Data Buku</a></li>
           {{-- <li class="nav-item"> <a class="nav-link" href="{{ route('kategori') }}">Kategori Buku</a></li> --}}
+          <li class="nav-item"> <a class="nav-link" href="{{ route('datajenisbuku') }}">Jenis Buku</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('dataanggota') }}">Data Anggota</a></li>
         </ul>
       </div>
     </li>
-    
+
     <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+        <span class="menu-title">Transaksi</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi mdi-dns menu-icon"></i>
+      </a>
+      <div class="collapse" id="general-pages">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="{{ route('peminjaman') }}">Peminjaman</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('pengembalian') }}">Pengembalian</a></li>
+        </ul>
+      </div>
+    </li>
+    
+    {{-- <li class="nav-item">
       <a class="nav-link" href="{{ route('peminjaman') }}">
         <span class="menu-title">Peminjaman</span>
         <i class="mdi mdi-arrow-up-bold-circle menu-icon"></i>
       </a>
     </li>
     
-
     <li class="nav-item">
       <a class="nav-link" href="{{ route('pengembalian') }}">
         <span class="menu-title">Pengembalian</span>
         <i class="mdi mdi-arrow-down-bold-circle menu-icon"></i>
       </a>
-    </li>
+    </li> --}}
+
     <li class="nav-item">
       <a class="nav-link" href="{{ route('pengaturan') }}">
         <span class="menu-title">Pengaturan</span>

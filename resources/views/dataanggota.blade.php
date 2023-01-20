@@ -21,8 +21,30 @@
             </h3>
             
           </div>
+          @if($message = Session::get('insertsuccess'))
+          {{-- Notif buku berhasil ditambah --}}
+            <script>
+              Swal.fire(
+              'Berhasil!',
+              'Data Anggota Berhasil Ditambahkan!',
+              'success'
+              )
+            </script>
+          @endif
 
-          @if($message = Session::get('success'))
+          {{-- swal berhasil import --}}
+          @if($message = Session::get('importsuccess'))
+          {{-- Notif buku berhasil ditambah --}}
+            <script>
+              Swal.fire(
+              'Berhasil!',
+              'Data Anggota Berhasil Ditambahkan!',
+              'success'
+              )
+            </script>
+          @endif
+
+          @if($message = Session::get('deletesuccess'))
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{$message}}
           </div>
@@ -47,10 +69,51 @@
               
               <div class="float-end mb-3">
                 
-              <button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  PDF  </button>
-              <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button>
-              <button type="button" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button>
-             </div>
+              <a href="/exportpdf_anggota"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  PDF  </button></a>
+              <a href="/exportexcel_anggota"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button></a>
+              <button type="button" data-bs-toggle="modal" data-bs-target="#importanggota" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button>
+                
+               <!-- The Import Anggota Excel Modal -->
+               <div class="modal fade" id="importanggota">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h4 class="modal-title ">Import Data Anggota</h4>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!-- Modal body -->
+                  
+                    <div class="card m-3 text-center" >
+                      <div class="card-body m-3">
+                        <h5 class="card-title text-center">Download Template Excel</h5>
+                        <h6 class="card-subtitle mb-2 text-muted text-center">Untuk Import Data</h6>
+                        <a href="assets/template_import/importanggota_template.xlsx"><button type="button" class="btn btn-primary text-center">Download</button></a>
+                      </div>
+                    </div>
+                    <form action="/importexcel_anggota" method="POST" enctype="multipart/form-data">
+                      @csrf
+                      
+                      <div class="modal-body px-4">
+                        <h5>Pilih File yang Akan Diimport</h5>
+                        <div class="form-group">
+                          <input class="" type="file" name="file" id="" required> 
+                        </div>
+                      </div>
+
+                    <!-- Modal footer -->
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Import</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            
+            
+            </div>
               </div>
               
               <div class="card">
@@ -60,16 +123,19 @@
                     <table class="table " id="myTable">
                       <thead>              
                         <tr>
+                          <th> No </th>
                           <th> Nama </th>
-                          <th> Kelas </th>
+                          <th> NIS/NIP </th>
+                          <th> Kelas/Jabatan </th>
                           <th> Nomor HP </th>
                           <th> Alamat </th>
                           <th> Aksi </th>
                         </tr>
                       </thead>
                       <tbody>
-                      @foreach ($anggotas as $anggota)
+                      @foreach ($anggotas as $index => $anggota)
                         <tr>
+                          <td scope="anggota">{{ $index + $anggotas->firstItem()}}</td>
                           <td>
                             <?php
                               if (empty($anggota->foto_anggota)){?>
@@ -80,13 +146,14 @@
                               <img src="assets/images/foto_anggota/{{$anggota->foto_anggota}}" class="me-2" alt="image">{{ $anggota->nama }}
                             <?php }?>  
                           </td>
+                          <td>{{$anggota->nis}}</td>
                           <td>{{$anggota->kelas}}</td>
                           <td>{{$anggota->no_hp}}</td>
                           <td>
                             {{$anggota->alamat}}
                           </td>
                           <td>
-                            <button type="button" class="btn btn-inverse-info btn-icon" data-bs-toggle="modal" data-bs-target="#view{{$anggota->id}}">
+                            <button type="button" class="btn btn-inverse-info btn-icon" data-bs-toggle="modal" data-bs-target="#view{{$anggota->id}}" >
                               <i class="mdi mdi-information-outline"></i>
                             </button>
                             
@@ -127,9 +194,9 @@
                                   }?> 
                                   </div>
                                   <div class="col-sm-6">
-                                   
-                                    
-                                    <h6>Kelas</h6>
+                                    <h6>NIS/NIP</h6>
+                                    <p>{{$anggota->nis}}</p>
+                                    <h6>Kelas/Jabatan</h6>
                                     <p>{{$anggota->kelas}}</p>
                                     <h6>Nomor HP</h6>
                                     <p>{{$anggota->no_hp}}</p>
@@ -172,12 +239,17 @@
             
                                   <div class="form-group">
                                     <label for="nama">Nama</label>
-                                    <input value="{{$anggota->nama}}" type="text" name="nama" class="form-control" id="nama" placeholder="Nama">
+                                    <input value="{{$anggota->nama}}" type="text" name="nama" class="form-control" id="nama" placeholder="Nama" required>
                                   </div>
                                   <div class="form-group">
-                                    <label for="kelas">Kelas</label>
+                                    <label for="nis">NIS/NIP</label>
+                                    <input value="{{$anggota->nis}}" type="number" name="nis" class="form-control" id="nis" placeholder="NIS/NIP" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="kelas">Kelas/Jabatan</label>
                                     <select  class="form-control" name="kelas" id="kelas">
                                       <option class="" value="{{$anggota->kelas}}">{{$anggota->kelas}}</option>
+                                      <option value="pengajar">Pengajar</option>
                                       <option value="10">10</option>
                                       <option value="11">11</option>
                                       <option value="12">12</option>
@@ -185,11 +257,11 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="no_hp">Nomor HP</label>
-                                    <input value="{{$anggota->no_hp}}" type="text" name="no_hp" class="form-control" id="no_hp" placeholder="Nomor HP">
+                                    <input value="{{$anggota->no_hp}}" type="text" name="no_hp" class="form-control" id="no_hp" placeholder="Nomor HP" required>
                                   </div>
                                   <div class="form-group">
                                     <label for="alamat">Alamat</label>
-                                    <input value="{{$anggota->alamat}}" type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat">
+                                    <input value="{{$anggota->alamat}}" type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat" required>
                                   </div>
                                   
                                   <div class="form-group">

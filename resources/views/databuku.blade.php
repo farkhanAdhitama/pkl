@@ -21,8 +21,31 @@
             </h3>
             
           </div>
+          {{-- swall berhasil insert --}}
+          @if($message = Session::get('addsuccess'))
+          {{-- Notif buku berhasil ditambah --}}
+            <script>
+              Swal.fire(
+              'Berhasil!',
+              'Data Buku Berhasil Ditambahkan!',
+              'success'
+              )
+            </script>
+          @endif
 
-          @if($message = Session::get('success'))
+          {{-- swal berhasil import --}}
+          @if($message = Session::get('importsuccess'))
+          {{-- Notif buku berhasil ditambah --}}
+            <script>
+              Swal.fire(
+              'Berhasil!',
+              'Data Buku Berhasil Ditambahkan!',
+              'success'
+              )
+            </script>
+          @endif
+
+          @if($message = Session::get('deletesuccess'))
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{$message}}
           </div>
@@ -42,15 +65,53 @@
           <div class="row">
             <div class="col-12 grid-margin">
               <div class="float">
-              
               <a href="/tambahbuku" type="button" class="btn btn-sm btn-primary mb-3"  ><i class="mdi mdi-library-plus mdi-icon"></i> Tambah Buku</a>
-              
-              <div class="float-end mb-3">
+                <div class="float-end mb-3">
+                <a href="/exportpdf_buku"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  PDF  </button></a>
+                <a href="/exportexcel"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button></a>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#importbuku" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button>
                 
-              <button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  PDF  </button>
-              <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button>
-              <button type="button" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button>
-             </div>
+                  <!-- The Import Excel Modal -->
+                  <div class="modal fade" id="importbuku">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h4 class="modal-title ">Import Data Buku</h4>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <!-- Modal body -->
+                      
+                        <div class="card m-3 text-center" >
+                          <div class="card-body m-3">
+                            <h5 class="card-title text-center">Download Template Excel</h5>
+                            <h6 class="card-subtitle mb-2 text-muted text-center">Untuk Import Data</h6>
+                            <a href="assets/template_import/importdata_buku.xlsx"><button type="button" class="btn btn-primary text-center">Download</button></a>
+                          </div>
+                        </div>
+                        <form action="/importexcel" method="POST" enctype="multipart/form-data">
+                          @csrf
+                          
+                          <div class="modal-body px-4">
+                            <h5>Pilih File yang Akan Diimport</h5>
+                            <div class="form-group">
+                              <input class="" type="file" name="file" id="" required> 
+                            </div>
+                          </div>
+
+                        <!-- Modal footer -->
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Import</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+               
+                </div>
               </div>
               
               <div class="card">
@@ -60,19 +121,22 @@
                     <table class="table " id="myTable">
                       <thead>              
                         <tr>
+                          <th> No </th>
                           <th> Judul </th>
+                          <th> ISBN </th>
                           <th> Kategori </th>
+                          <th> Jenis Buku</th>
                           <th> Penulis </th>
                           <th> Penerbit </th>
                           <th> Terbitan </th>
                           <th> Jumlah </th>
-                          {{-- <th> Tanggal </th> --}}
                           <th> Aksi </th>
                         </tr>
                       </thead>
                       <tbody>
-                      @foreach ($bukus as $buku)
+                      @foreach ($bukus as $index => $buku)
                         <tr>
+                          <td scope="buku">{{$index + $bukus->firstItem()}}</td>
                           <td>
                             <?php
                               if (empty($buku->sampul)){?>
@@ -83,7 +147,9 @@
                               <img src="assets/images/sampul/{{$buku->sampul}}" class="me-2" alt="image">{{ $buku->judul_buku }}
                             <?php }?>  
                           </td>
+                          <td>{{$buku->isbn}}</td>
                           <td>{{$buku->kategori}}</td>
+                          <td>{{$buku->jenis_buku}}</td>
                           <td>{{$buku->penulis}}</td>
                           <td>
                             {{$buku->penerbit}}
@@ -132,10 +198,12 @@
                                     <?php }?> 
                                   </div>
                                   <div class="col-sm-6">
-                                   
-                                    
+                                    <h6>ISBN</h6>
+                                    <p>{{$buku->isbn}}</p>
                                     <h6>Kategori</h6>
                                     <p>{{$buku->kategori}}</p>
+                                    <h6>Jenis Buku</h6>
+                                    <p>{{$buku->jenis_buku}}</p>
                                     <h6>Penulis</h6>
                                     <p>{{$buku->penulis}}</p>
                                     <h6>Penerbit</h6>
@@ -148,7 +216,6 @@
                                     <p>{{$buku->getCreatedAttribute()}}</p>
                                     <h6>Diperbarui Pada</h6>
                                     <p>{{$buku->getUpdatedAttribute()}}</p>
-                                    
                                   </div>
                                 </div>
                               </div>
@@ -177,36 +244,47 @@
                                 
                                 <form action="/updatebuku/{{$buku->id}}" method="POST" enctype="multipart/form-data" class="forms-sample">
                                   @csrf
-                                  
-            
                                   <div class="form-group">
                                     <label for="judul_buku">Judul Buku</label>
-                                    <input value="{{$buku->judul_buku}}" type="text" name="judul_buku" class="form-control" id="judul_buku" placeholder="Judul Buku">
+                                    <input required value="{{$buku->judul_buku}}" type="text" name="judul_buku" class="form-control" id="judul_buku" placeholder="Judul Buku">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="isbn">ISBN</label>
+                                    <input required value="{{$buku->isbn}}" type="text" name="isbn" class="form-control" id="isbn" placeholder="ISBN Buku">
                                   </div>
                                   <div class="form-group">
                                     <label for="kategori">Kategori</label>
                                     <select  class="form-control" name="kategori" id="kategori">
-                                      <option class="" value="{{$buku->kategori}}">{{$buku->kategori}}</option>
+                                      <option class="" value="{{$buku->kategori}}"><div style="text-transform: capitalize;">{{ $buku->kategori}}</div></option>
                                       <option value="fiksi">Fiksi</option>
                                       <option value="nonfiksi">Non Fiksi</option>
                                     </select>
                                   </div>
                                   <div class="form-group">
+                                    <label for="jenis_buku">Jenis Buku</label>
+                                    <select class="form-control" name="jenis_buku" id="jenis_buku"> 
+                                      <option value="{{$buku->jenis_buku}}">{{$buku->jenis_buku}}</option>
+                                      @foreach ($jenisbukus as $jenisbuku)
+                                        <option value="{{$jenisbuku->nama}}">{{$jenisbuku->nama}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
                                     <label for="penulis">Penulis</label>
-                                    <input value="{{$buku->penulis}}" type="text" name="penulis" class="form-control" id="penulis" placeholder="Penulis">
+                                    <input required value="{{$buku->penulis}}" type="text" name="penulis" class="form-control" id="penulis" placeholder="Penulis">
                                   </div>
                                   <div class="form-group">
                                     <label for="penerbit">Penerbit</label>
-                                    <input value="{{$buku->penerbit}}" type="text" name="penerbit" class="form-control" id="penerbit" placeholder="Penerbit">
+                                    <input required value="{{$buku->penerbit}}" type="text" name="penerbit" class="form-control" id="penerbit" placeholder="Penerbit">
                                   </div>
                                   <div class="form-group">
                                     <label for="tahun_terbit">Tahun Terbit</label>
-                                    <input value="{{$buku->tahun_terbit}}" type="text" name="tahun_terbit" class="form-control" id="tahun_terbit" placeholder="Tahun Terbit">
+                                    <input required value="{{$buku->tahun_terbit}}" type="text" name="tahun_terbit" class="form-control" id="tahun_terbit" placeholder="Tahun Terbit">
                                   </div>
                                   
                                   <div class="form-group">
                                     <label for="jumlah">Jumlah Buku</label>
-                                    <input value="{{$buku->jumlah}}" type="number" name="jumlah" class="form-control" id="jumlah" placeholder="kode">
+                                    <input required value="{{$buku->jumlah}}" type="number" name="jumlah" class="form-control" id="jumlah" placeholder="kode">
                                   </div>
                                   <div class="form-group">
                                     <label>Sampul Buku</label><br>

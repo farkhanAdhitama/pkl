@@ -2,8 +2,16 @@
 
 @section('content')
 
+<style>
+    .content-wrapper{
+     background-image: url("assets/images/smanka_login.jpg") ;
+     -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+</style>
 <body>
-
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper full-page-wrapper">
           <div class="content-wrapper d-flex align-items-center auth">
@@ -19,16 +27,16 @@
                     @csrf
 
                     <div class="row">
-                        <label for="email" class="col col-form-label ">{{ __('Email') }}</label>
+                        <label for="username" class="col col-form-label ">{{ __('Username atau Email') }}</label>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col">
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan Email" name="email" value="{{ old('email') }}" required  autocomplete="email" autofocus>
+                            <input id="username" name="username" type="text" class="form-control @error('username') is-invalid @enderror" placeholder="Masukkan Username atau Email" name="username" value="{{ old('username') }}" required  autocomplete="username" autofocus>
 
-                            @error('email')
+                            @error('username')
                                 <span class="text-danger">
-                                    <sub>{{ "Harap Masukkan Email yang Tepat" }}</sub>
+                                    <sub>{{ "Harap Masukkan Username atau Email yang Tepat" }}</sub>
                                 </span>
                             @enderror
                         </div>

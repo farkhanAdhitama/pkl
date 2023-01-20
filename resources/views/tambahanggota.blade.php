@@ -20,17 +20,7 @@
               </span> Tambah Data Anggota Perpustakaan
             </h3>
           </div>
-          @if($message = Session::get('success'))
-          {{-- Notif buku berhasil ditambah --}}
-            <script>
-              Swal.fire(
-              'Berhasil!',
-              'Data Anggota Berhasil Ditambahkan!',
-              'success'
-              )
-            </script>
-          @endif
-
+          
           <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
@@ -41,13 +31,26 @@
                       
                       <div class="form-group">
                         <label for="nama">Nama Anggota</label>
-                        <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Anggota" required
-                        >
+                        <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Anggota" required value="{{ old('nama') }}" autocomplete="nama"
+                        class="@error('nama') is-invalid @enderror">
+                        @error('nama')
+                            <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
+                        @enderror
                       </div>
 
                       <div class="form-group">
-                        <label for="kelas">Kelas</label>
+                        <label for="nis">NIS/NIP Anggota</label>
+                        <input type="number" name="nis" class="form-control" id="nis" placeholder="NIS/NIP Anggota" required value="{{ old('nis') }}" autocomplete="nis"
+                        class="@error('nis') is-invalid @enderror">
+                        @error('nis')
+                            <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
+                        @enderror
+                      </div>
+
+                      <div class="form-group">
+                        <label for="kelas">Kelas/Jabatan</label>
                         <select class="form-control" name="kelas" id="kelas">
+                          <option value="pengajar">Pengajar</option>
                           <option value="10">10</option>
                           <option value="11">11</option>
                           <option value="11">12</option>
@@ -56,14 +59,17 @@
 
                       <div class="form-group">
                         <label for="no_hp">Nomor HP</label>
-                        <input type="number" name="no_hp" class="form-control" id="no_hp" placeholder="Nomor HP" required
-                        >
+                        <input type="number" name="no_hp" class="form-control" id="no_hp" placeholder="Nomor HP" value="{{ old('no_hp') }}" autocomplete="no_hp"
+                        class="@error('no_hp') is-invalid @enderror">
+                        @error('no_hp')
+                            <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
+                        @enderror
                       </div>
 
                       <div class="form-group">
                         <label for="alamat">Alamat</label>
-                        <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat" required
-                       >
+                        <textarea type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat" value="{{ old('alamat') }}" autocomplete="alamat"
+                       ></textarea>
                       </div>
 
                       <div class="form-group">

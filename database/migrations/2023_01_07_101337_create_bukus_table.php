@@ -16,12 +16,13 @@ return new class extends Migration
         Schema::create('bukus', function (Blueprint $table) {
             $table->id();
             $table->string('judul_buku');
+            $table->string('isbn');
             $table->string('penulis');
             $table->string('penerbit');
             $table->string('tahun_terbit');
-            $table->enum('kategori',['fiksi','nonfiksi']);
+            $table->enum('kategori',['Fiksi','Nonfiksi']);
+            $table->string('jenis_buku')->nullable();
             $table->integer('jumlah');
-            $table->date('dicatat_pada')->nullable();
             $table->string('sampul')->nullable();
             $table->timestamps();
     
