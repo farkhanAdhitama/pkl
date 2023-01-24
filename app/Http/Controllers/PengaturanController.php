@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PengaturanController extends Controller
@@ -13,6 +14,7 @@ class PengaturanController extends Controller
      */
     public function showPengaturan()
     {
-        return view('pengaturan');
+        $profil = User::all();
+        return view('pengaturan', compact('profil'));
     }
 }

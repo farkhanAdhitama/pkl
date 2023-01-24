@@ -38,7 +38,7 @@ class BukuExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
             $buku->judul_buku,
             $buku->isbn,
             $buku->kategori,
-            $buku->jenis_buku,
+            $buku->jenis->nama ?? 'N/A',
             $buku->penulis,
             $buku->penerbit,
             $buku->tahun_terbit,
@@ -46,6 +46,7 @@ class BukuExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
             $buku->created_at,
         ];
     }
+           
 
     public function headings(): array
     {

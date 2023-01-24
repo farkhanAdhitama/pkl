@@ -60,6 +60,9 @@ Route::get('/exportexcel_jenisbuku', [App\Http\Controllers\JenisbukuController::
 Route::get('/exportpdf_jenisbuku', [App\Http\Controllers\JenisbukuController::class, 'exportpdf_jenisbuku'])->name('exportpdf_jenisbuku');
 
 Route::get('/kategori', [App\Http\Controllers\KategoriController::class, 'index'])->name('kategori');
-Route::get('/peminjaman', [App\Http\Controllers\PeminjamanController::class, 'showPeminjaman'])->name('peminjaman');
-Route::get('/pengembalian', [App\Http\Controllers\PengembalianController::class, 'showPengembalian'])->name('pengembalian');
+Route::get('/peminjaman', [App\Http\Controllers\TransaksiController::class, 'showPeminjaman'])->name('peminjaman');
+Route::get('/pengembalian', [App\Http\Controllers\TransaksiController::class, 'showPengembalian'])->name('pengembalian');
 Route::get('/pengaturan', [App\Http\Controllers\PengaturanController::class, 'showPengaturan'])->name('pengaturan');
+
+//update foto profil
+Route::post('/updateFotoProfil/', [App\Http\Controllers\PengaturanController::class, 'updateFotoProfil'])->name('updateFotoProfil');

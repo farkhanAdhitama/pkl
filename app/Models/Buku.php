@@ -24,8 +24,8 @@ class Buku extends Model
             ->translatedFormat('l, d M Y');
     }
 
-    // public function jenis()
-    // {
-    //     return $this->belongsTo(Jenisbuku::class);
-    // }
+    public function jenis()
+    {
+        return $this->belongsTo(Jenisbuku::class);
+    }
 }

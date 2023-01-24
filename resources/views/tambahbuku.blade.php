@@ -60,17 +60,18 @@
                       <div class="form-group">
                         <label for="kategori">Kategori</label>
                         <select class="form-control"  name="kategori" id="kategori" >
+                          <option value="">--Piih Kategori Buku--</option>
                           <option value="Fiksi">Fiksi</option>
                           <option value="Nonfiksi">Non Fiksi</option>
                         </select>
                       </div>
 
                       <div class="form-group">
-                        <label for="jenis_buku">Jenis Buku</label>
-                        <select class="form-control" name="jenis_buku" id="jenis_buku"> 
-                          <option class="disabled" value="" >{{"--Pilih Jenis Buku--"}}</option>
-                          @foreach ($jenisbukus as $jenisbuku)
-                            <option value="{{$jenisbuku->nama}}">{{$jenisbuku->nama}}</option>
+                        <label for="jenis_id">Jenis Buku</label>
+                        <select class="form-control" name="jenis_id" id="jenis_id">
+                          <option value="">--Piih Jenis Buku--</option>
+                          @foreach ($jen as $jenisbuku)
+                            <option value="{{$jenisbuku->id}}">{{$jenisbuku->nama}}</option>
                           @endforeach
                         </select>
                       </div>

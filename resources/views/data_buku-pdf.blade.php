@@ -35,6 +35,10 @@
 <div class="judul">
     <h3>Data Buku Perpustakaan</h3>
     <p>SMA Negeri 1 Kajen</p>
+    <?php
+    echo "Dicetak Tanggal : " . date("d-m-Y") . "<br>";
+    ?>
+    <br>
 </div>
 
 <table id="book">
@@ -59,7 +63,7 @@
         <td>{{$buku->judul_buku}}</td>
         {{-- <td>{{$buku->isbn}}</td> --}}
         <td>{{$buku->kategori}}</td>
-        <td>{{$buku->jenis_buku}}</td>
+        <td>{{$buku->jenis->nama ?? 'N/A'}}</td>
         <td>{{$buku->penulis}}</td>
         <td>{{$buku->penerbit}}</td>
         <td>{{$buku->tahun_terbit}} </td>

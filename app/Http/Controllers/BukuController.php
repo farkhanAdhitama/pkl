@@ -22,10 +22,9 @@ class BukuController extends Controller
      */
     public function index()
     {   
-        $bukus = Buku::paginate(99999);
-        // $jen = Jenisbuku::all();
-        $jenisbukus = Jenisbuku::all();
-        return view('databuku', compact('bukus', 'jenisbukus'));
+        $bukus = Buku::with('jenis')->paginate(99999);
+        $jen = Jenisbuku::all();
+        return view('databuku', compact('bukus'), compact('jen'));
     }
 
     /**
@@ -33,10 +32,8 @@ class BukuController extends Controller
      */
     public function showTambahBuku()
     {  
-        //$jen = Jenisbuku::all();
-        $bukus = Buku::paginate(99999);
-        $jenisbukus = Jenisbuku::all();
-        return view('tambahbuku', compact('jenisbukus'));
+        $jen = Jenisbuku::all();
+        return view('tambahbuku', compact('jen'));;
     }
     
 
@@ -49,11 +46,11 @@ class BukuController extends Controller
     {   
         $validated = $request->validate([
             'judul_buku' => 'required|max:255',
-            'isbn' => 'required|unique:bukus|max:255|numeric',
+            'isbn' => 'required|unique:bukus|numeric',
             'kategori' => 'required',
             'penulis' => 'required', 
             'penerbit' => 'required',
-            'tahun_terbit' => 'required|numeric|min:4|max:4',
+            'tahun_terbit' => 'required|numeric|min:4',
             'jumlah' => 'required|numeric',
         ],[
             'judul_buku.required'=> 'Judul Buku Tidak Boleh Kosong',
@@ -114,7 +111,8 @@ class BukuController extends Controller
 
     public function exportpdf_buku(){
         $data = Buku::all();
-        view()->share('data', $data);
+        $jen = Jenisbuku::all();
+        view()->share('data', $data, $jen);
         $pdf = PDF::loadview('data_buku-pdf');
         return $pdf->download('data_buku.pdf');
     }

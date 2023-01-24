@@ -124,6 +124,7 @@
                       <thead>              
                         <tr>
                           <th> Jenis Buku </th>
+                          <th> ID </th>
                           <th> Rak </th>
                           <th> Aksi </th>
                         </tr>
@@ -132,6 +133,7 @@
                       @foreach ($jenisbukus as $jenisbuku)
                         <tr>
                           <td>{{$jenisbuku->nama}}</td>
+                          <td>{{$jenisbuku->id}}</td>
                           <td>{{$jenisbuku->rak}}</td>
                           <td>
                             <button type="button" class="btn btn-inverse-info btn-icon" data-bs-toggle="modal" data-bs-target="#view{{$jenisbuku->id}}">
