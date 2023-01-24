@@ -19,12 +19,24 @@
                 <i class="mdi mdi-arrow-up-bold-circle"></i>
               </span> Peminjaman Buku
             </h3>
+
+          {{-- swall berhasil insert --}}
+          @if($message = Session::get('insertsuccess'))
+          {{-- Notif buku berhasil ditambah --}}
+            <script>
+              Swal.fire(
+              'Berhasil!',
+              'Data Peminjaman Ditambahkan!',
+              'success'
+              )
+            </script>
+          @endif
             
           </div>  
           <div class="row">
             <div class="col-12 grid-margin">
               <div class="float">
-              <a href="" type="button" class="btn btn-sm btn-primary mb-3"  ><i class="mdi mdi-library-plus mdi-icon"></i> Tambah Transaksi Peminjaman</a>
+              <a href="/showTambahPeminjaman" type="button" class="btn btn-sm btn-primary mb-3"  ><i class="mdi mdi-library-plus mdi-icon"></i> Tambah Transaksi Peminjaman</a>
               <div class="float-end mb-3">
               </div>
 
@@ -32,34 +44,39 @@
                 <div class="card-body">
                   <h4 class="card-title">Daftar Peminjaman Buku</h4>
                   <div class="table-responsive">
-                    <table class="table">
-                      <thead>
+                    <table class="table " id="myTable">
+                      <thead>              
                         <tr>
                           <th> No </th>
                           <th> Nama </th>
-                          <th> Buku </th>
-                          <th> Tanggal Pinjam </th>
+                          <th> Judul </th>
+                          <th> Tanggal Pinjam</th>
                           <th> Tanggal Kembali</th>
                           <th> Denda </th>
-                          <th> Aksi</th>
+                          <th> Aksi </th>
                         </tr>
                       </thead>
                       <tbody>
+                      @foreach ($peminjaman as $index => $pinjam)
                         <tr>
-                          <td>1</td>
+                          <td scope="pinjam">{{$index + $peminjaman->firstItem()}}</td>
+                          <td>{{$pinjam->anggota->nama ?? 'N/A'}}</td>
+                          <td>{{$pinjam->buku->judul_buku ?? 'N/A'}}</td>
+                          <td>{{$pinjam->getCreatedAttribute()}}</td>
+                          <td>{{$pinjam->getTanggalKembali()}}</td>
+                          <td>{{$pinjam->denda}}</td>
                           <td>
-                            <img src="assets/images/faces/face1.jpg" class="me-2" alt="image"> David Grey
-                          </td>
-                          <td> Bajigur Goreng </td>
-                          <td> Dec 5, 2017 </td>
-                          <td> Dec 12, 2017 </td>
-                          <td>12999</td>
-                          <td>
-                          <button type="button" class="btn btn-inverse-info btn-sm" data-bs-toggle="modal" data-bs-target="">Selesai</button>
-                          <button type="button" class="btn btn-inverse-danger btn-sm" data-bs-toggle="modal" data-bs-target="">Perpanjang</button>
+                            <button type="button" class="btn btn-inverse-danger btn-sm" data-bs-toggle="modal ">
+                              Perpanjang
+                            </button>
+                            <button type="button" class="btn btn-inverse-info btn-sm" data-bs-toggle="modal">
+                              Kembalikan
+                            </button>
+                            
+
                           </td>
                         </tr>
-                        
+                        @endforeach
                       </tbody>
                     </table>
                   </div>

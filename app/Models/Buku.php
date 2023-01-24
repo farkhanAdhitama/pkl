@@ -28,4 +28,8 @@ class Buku extends Model
     {
         return $this->belongsTo(Jenisbuku::class);
     }
+
+    public function transaksi(){
+        return $this->hasMany(Transaksi::class);
+    }
 }
