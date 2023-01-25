@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('buku_id')->nullable();
             $table->string('anggota_id')->nullable();
+            $table->enum('status',['Dipinjam','Dikembalikan'])->default('Dipinjam');
+            $table->integer('lama');
             $table->integer('denda')->nullable();
             $table->timestamp('tgl_kembali');
             $table->timestamps();

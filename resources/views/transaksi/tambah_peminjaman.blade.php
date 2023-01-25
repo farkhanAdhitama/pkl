@@ -60,10 +60,15 @@
                       </div>                  
 
                       <div class="form-group">
-                        <label for="denda">Denda</label>
-                        <input type="number" name="denda" class="form-control" id="denda" placeholder="Denda" value="{{ old('denda') }}" autocomplete="denda"
-                        class="@error('denda') is-invalid @enderror">
-                        @error('denda')
+                        <label for="lama">Lama Pinjam</label>
+                        {{-- <input type="number" name="lama" class="form-control" id="lama" placeholder="Lama Peminjaman (Hari)" value="{{ old('lama') }}" autocomplete="lama"
+                        class="@error('lama') is-invalid @enderror"> --}}
+                        <select class="form-control selectpicker" data-live-search="true" name="lama" id="lama">
+                          <option value="7">1 Minggu</option>
+                          <option value="30">1 Bulan</option>
+                          <option value="365">1 Tahun</option>
+                        </select>
+                        @error('lama')
                             <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
                         @enderror
                       </div>

@@ -17,17 +17,23 @@ class Transaksi extends Model
         'id',
         'buku_id',
         'anggota_id',
+        'lama',
         'denda',
     ];
 
     public function getCreatedAttribute(){
         return Carbon::parse($this->attributes['created_at'])
+            ->translatedFormat('l, d M Y, H:i');
+    }
+
+    public function getTenggatWaktu($lama){
+        return Carbon::parse($this->attributes['created_at'])->addDays($lama)
             ->translatedFormat('l, d M Y');
     }
 
     public function getTanggalKembali(){
-        return Carbon::parse($this->attributes['updated_at'])->addWeek()
-            ->translatedFormat('l, d M Y');
+        return Carbon::parse($this->attributes['updated_at'])
+            ->translatedFormat('l, d M Y, H:i');
     }
 
     public function buku()

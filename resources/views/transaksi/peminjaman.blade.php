@@ -51,8 +51,10 @@
                           <th> Nama </th>
                           <th> Judul </th>
                           <th> Tanggal Pinjam</th>
-                          <th> Tanggal Kembali</th>
+                          <th> Batas Kembali</th>
+                          <th> Lama </th>
                           <th> Denda </th>
+                          <th> Status </th>
                           <th> Aksi </th>
                         </tr>
                       </thead>
@@ -63,15 +65,19 @@
                           <td>{{$pinjam->anggota->nama ?? 'N/A'}}</td>
                           <td>{{$pinjam->buku->judul_buku ?? 'N/A'}}</td>
                           <td>{{$pinjam->getCreatedAttribute()}}</td>
-                          <td>{{$pinjam->getTanggalKembali()}}</td>
+                          <td>{{$pinjam->getTenggatWaktu($pinjam->lama)}}</td>
+                          <td>{{$pinjam->lama}} Hari</td>
                           <td>{{$pinjam->denda}}</td>
+                          <td><label class="badge badge-gradient-warning">{{$pinjam->status}}</label></td>
                           <td>
                             <button type="button" class="btn btn-inverse-danger btn-sm" data-bs-toggle="modal ">
                               Perpanjang
                             </button>
-                            <button type="button" class="btn btn-inverse-info btn-sm" data-bs-toggle="modal">
-                              Kembalikan
-                            </button>
+                            <a href="#">
+                              <button class="btn btn-sm btn-inverse-primary perpanjang" data-id = "{{$pinjam->id}}"data-buku = "{{$pinjam->buku->judul_buku}}" data-anggota = "{{$pinjam->anggota->nama}}"> 
+                                Kembalikan
+                              </button>
+                            </a>
                             
 
                           </td>
@@ -93,5 +99,35 @@
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
+
+
+{{-- perpanjang swal --}}
+  <script>
+    $('.perpanjang').click(function(){
+      var idpinjam = $(this).attr('data-id');
+      var databuku = $(this).attr('data-buku');
+      var dataanggota = $(this).attr('data-anggota');
+      Swal.fire({
+      title: 'Apakah Yakin?',
+      text: "Kembalikan Buku "+databuku + " Atas Nama " +dataanggota+"",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = "/kembalikan/"+idpinjam+""
+        Swal.fire(
+          'Berhasil!',
+          'Buku Berhasil Dikembalikan',
+          'success'
+        )
+      }
+    })
+    })
+  </script>
+
   </div>
 @endsection

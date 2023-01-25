@@ -12,7 +12,7 @@ class TransaksiController extends Controller
     //
     public function showPeminjaman()
     {
-        $peminjaman = Transaksi::with('buku','anggota')->paginate(99999);
+        $peminjaman = Transaksi::with('buku','anggota')->where('status', 'Dipinjam')->paginate(99999);
         $bukus = Buku::all();
         $anggotas = Anggota::all();
         return view('transaksi.peminjaman', compact('peminjaman','bukus', 'anggotas'));
@@ -32,10 +32,21 @@ class TransaksiController extends Controller
         return redirect()->route('peminjaman')->with('insertsuccess', 'Peminjaman Berhasil');
     }
 
+    public function kembalikan(Request $request,$id)
+    {
+        $data = Transaksi::where('id', $id)->update(['status' => "Dikembalikan"]);
+        return redirect()->route('peminjaman')->with('succeskembalikan', 'Buku Berhasil Dikembalikan');
+
+    }
+
+
 
     public function showPengembalian()
     {
-        return view('transaksi.pengembalian');
+        $peminjaman = Transaksi::with('buku','anggota')->where('status', 'Dikembalikan')->paginate(99999);
+        $bukus = Buku::all();
+        $anggotas = Anggota::all();
+        return view('transaksi.pengembalian', compact('peminjaman','bukus', 'anggotas'));
     }
 
     
