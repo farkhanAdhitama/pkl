@@ -70,6 +70,11 @@ Route::get('/kembalikan/{id}', [App\Http\Controllers\TransaksiController::class,
 Route::get('/perpanjang/{id}', [App\Http\Controllers\TransaksiController::class, 'perpanjang'])->name('perpanjang');
 Route::get('/exportpdf_peminjaman', [App\Http\Controllers\TransaksiController::class, 'exportpdf_peminjaman'])->name('exportpdf_peminjaman');
 Route::get('/exportpdf_pengembalian', [App\Http\Controllers\TransaksiController::class, 'exportpdf_pengembalian'])->name('exportpdf_pengembalian');
+Route::get('/exportexcel_peminjaman', [App\Http\Controllers\TransaksiController::class, 'exportexcel_peminjaman'])->name('exportexcel_peminjaman');
+Route::get('/exportexcel_pengembalian', [App\Http\Controllers\TransaksiController::class, 'exportexcel_pengembalian'])->name('exportexcel_pengembalian');
+Route::get('/deletePengembalian/{id}', [App\Http\Controllers\TransaksiController::class, 'deletePengembalian'])->name('deletePengembalian');
+
+
 
 Route::get('/pengaturan', [App\Http\Controllers\PengaturanController::class, 'showPengaturan'])->name('pengaturan');
 Route::post('/updateAdmin/{id}', [App\Http\Controllers\PengaturanController::class, 'updateAdmin'])->name('updateAdmin');

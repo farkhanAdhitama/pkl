@@ -39,7 +39,7 @@
               <a href="/showTambahPeminjaman" type="button" class="btn btn-sm btn-primary mb-3"  ><i class="mdi mdi-library-plus mdi-icon"></i> Tambah Transaksi Peminjaman</a>
               <div class="float-end mb-3">
                 <a href="/exportpdf_peminjaman"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i> Cetak PDF  </button></a>
-                <a href=""> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i> Cetak Excel  </button></a>
+                <a href="/exportexcel_peminjaman"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i> Cetak Excel  </button></a>
               </div>
 
               <div class="card">

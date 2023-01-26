@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PeminjamanExport;
+use App\Exports\PengembalianExport;
 use App\Models\Anggota;
 use App\Models\Buku;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransaksiController extends Controller
 {
@@ -50,6 +53,14 @@ class TransaksiController extends Controller
 
     }
 
+    public function exportexcel_peminjaman(){
+        return Excel::download(new PeminjamanExport, 'Data_Peminjaman.xlsx');
+    }
+
+    public function exportexcel_pengembalian(){
+        return Excel::download(new PengembalianExport, 'Data_Pengembalian.xlsx');
+    }
+
     public function exportpdf_peminjaman(){
         $data = Transaksi::all()->where('status', 'Dipinjam');
         $anggotas = Anggota::all();
@@ -76,6 +87,14 @@ class TransaksiController extends Controller
         $bukus = Buku::all();
         $anggotas = Anggota::all();
         return view('transaksi.pengembalian', compact('peminjaman','bukus', 'anggotas'));
+    }
+
+    public function deletePengembalian($id)
+    {
+        $data = Transaksi::find($id);
+        $data->delete();
+        return redirect()->route('pengembalian')->with('deletesuccess', 'Data Berhasil Dihapus');
+
     }
 
     
