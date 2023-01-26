@@ -17,4 +17,12 @@ class PengaturanController extends Controller
         $profil = User::all();
         return view('pengaturan', compact('profil'));
     }
+
+    public function updateAdmin(Request $request, $id)
+    {
+        $data = User::find( $id);
+        $data->update($request->all());
+        return redirect()->route('pengaturan')->with('updatesuccess', 'Data Berhasil Diperbarui');
+
+    }
 }

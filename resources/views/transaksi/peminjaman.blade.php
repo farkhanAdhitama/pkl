@@ -38,6 +38,8 @@
               <div class="float">
               <a href="/showTambahPeminjaman" type="button" class="btn btn-sm btn-primary mb-3"  ><i class="mdi mdi-library-plus mdi-icon"></i> Tambah Transaksi Peminjaman</a>
               <div class="float-end mb-3">
+                <a href="/exportpdf_peminjaman"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i> Cetak PDF  </button></a>
+                <a href=""> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i> Cetak Excel  </button></a>
               </div>
 
               <div class="card">
@@ -49,6 +51,7 @@
                         <tr>
                           <th> No </th>
                           <th> Nama </th>
+                          <th> Kelas</th>
                           <th> Judul </th>
                           <th> Tanggal Pinjam</th>
                           <th> Batas Kembali</th>
@@ -63,6 +66,7 @@
                         <tr>
                           <td scope="pinjam">{{$index + $peminjaman->firstItem()}}</td>
                           <td>{{$pinjam->anggota->nama ?? 'N/A'}}</td>
+                          <td>{{$pinjam->anggota->kelas ?? 'N/A'}}</td>
                           <td>{{$pinjam->buku->judul_buku ?? 'N/A'}}</td>
                           <td>{{$pinjam->getCreatedAttribute()}}</td>
                           <td>{{$pinjam->getTenggatWaktu($pinjam->lama)}}</td>

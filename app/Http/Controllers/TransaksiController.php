@@ -6,6 +6,7 @@ use App\Models\Anggota;
 use App\Models\Buku;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TransaksiController extends Controller
 {
@@ -47,6 +48,24 @@ class TransaksiController extends Controller
         $data = Transaksi::where('id', $id)->increment('lama',7);
         return redirect()->route('peminjaman')->with('succeskembalikan', 'Buku Berhasil Dikembalikan');
 
+    }
+
+    public function exportpdf_peminjaman(){
+        $data = Transaksi::all()->where('status', 'Dipinjam');
+        $anggotas = Anggota::all();
+        $bukus = Buku::all();
+        view()->share('data', $data, $anggotas, $bukus);
+        $pdf = PDF::loadview('transaksi.data-peminjaman-pdf');
+        return $pdf->download('data-peminjaman.pdf');
+    }
+
+    public function exportpdf_pengembalian(){
+        $data = Transaksi::all()->where('status', 'Dikembalikan');
+        $anggotas = Anggota::all();
+        $bukus = Buku::all();
+        view()->share('data', $data, $anggotas, $bukus);
+        $pdf = PDF::loadview('transaksi.data-pengembalian-pdf');
+        return $pdf->download('data-pengembalian.pdf');
     }
 
 

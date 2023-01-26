@@ -24,7 +24,7 @@
 <body>
 
 <div class="judul">
-    <h3>Data Buku Perpustakaan</h3>
+    <h3>Data Peminjaman Buku Perpustakaan</h3>
     <p>SMA Negeri 1 Kajen</p>
     <?php
     echo "Dicetak Tanggal : " . date("d-m-Y") . "<br>";
@@ -35,30 +35,28 @@
 <table id="book">
   <tr>
     <th> No </th>
+    <th> Nama </th>
     <th> Judul </th>
-    {{-- <th> ISBN </th> --}}
-    <th> Kategori </th>
-    <th> Jenis Buku</th>
-    <th> Penulis </th>
-    <th> Penerbit </th>
-    <th> Terbitan </th>
-    <th> Jumlah </th>
+    <th> Tanggal Pinjam</th>
+    <th> Tenggat Waktu </th>
+    <th> Lama </th>
+    <th> Denda </th>
+    <th> Status </th>
   </tr>
 
   @php
       $no = 1;
   @endphp
-  @foreach ($data as $buku)
+  @foreach ($data as $row)
     <tr>
         <td>{{ $no++ }}</td>
-        <td>{{$buku->judul_buku}}</td>
-        {{-- <td>{{$buku->isbn}}</td> --}}
-        <td>{{$buku->kategori}}</td>
-        <td>{{$buku->jenis->nama ?? 'N/A'}}</td>
-        <td>{{$buku->penulis}}</td>
-        <td>{{$buku->penerbit}}</td>
-        <td>{{$buku->tahun_terbit}} </td>
-        <td>{{$buku->jumlah}} </td>
+        <td>{{$row->anggota->nama ?? ''}} ({{ $row->anggota->kelas ?? ''}})</td>
+        <td>{{$row->buku->judul_buku ?? ''}}</td>
+        <td>{{$row-> getCreatedAttribute()}}</td>
+        <td>{{$row->getTenggatWaktu($row->lama)}}</td>
+        <td>{{$row->lama}}Hari</td>
+        <td>{{$row->getDenda($row->lama)}} </td>
+        <td>{{$row->status}} </td>
     </tr>
     @endforeach
 </table>

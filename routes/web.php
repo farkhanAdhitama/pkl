@@ -61,16 +61,18 @@ Route::get('/exportpdf_jenisbuku', [App\Http\Controllers\JenisbukuController::cl
 
 Route::get('/kategori', [App\Http\Controllers\KategoriController::class, 'index'])->name('kategori');
 
-//peminjaman
+//transaksi
 Route::get('/peminjaman', [App\Http\Controllers\TransaksiController::class, 'showPeminjaman'])->name('peminjaman');
 Route::get('/showTambahPeminjaman', [App\Http\Controllers\TransaksiController::class, 'showTambahPeminjaman'])->name('showTambahPeminjaman');
 Route::post('/tambah_peminjaman', [App\Http\Controllers\TransaksiController::class, 'tambah_peminjaman'])->name('tambah_peminjaman');
 Route::get('/pengembalian', [App\Http\Controllers\TransaksiController::class, 'showPengembalian'])->name('pengembalian');
 Route::get('/kembalikan/{id}', [App\Http\Controllers\TransaksiController::class, 'kembalikan'])->name('kembalikan');
 Route::get('/perpanjang/{id}', [App\Http\Controllers\TransaksiController::class, 'perpanjang'])->name('perpanjang');
-
+Route::get('/exportpdf_peminjaman', [App\Http\Controllers\TransaksiController::class, 'exportpdf_peminjaman'])->name('exportpdf_peminjaman');
+Route::get('/exportpdf_pengembalian', [App\Http\Controllers\TransaksiController::class, 'exportpdf_pengembalian'])->name('exportpdf_pengembalian');
 
 Route::get('/pengaturan', [App\Http\Controllers\PengaturanController::class, 'showPengaturan'])->name('pengaturan');
+Route::post('/updateAdmin/{id}', [App\Http\Controllers\PengaturanController::class, 'updateAdmin'])->name('updateAdmin');
 
 //update foto profil
 Route::post('/updateFotoProfil/', [App\Http\Controllers\PengaturanController::class, 'updateFotoProfil'])->name('updateFotoProfil');

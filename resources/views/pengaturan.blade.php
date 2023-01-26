@@ -70,7 +70,7 @@
                 <!-- Modal body -->
                 <div class="modal-body px-4">
                   
-                  <form action="" method="POST" enctype="multipart/form-data" class="forms-sample">
+                  <form action="/updateAdmin/{{$row->id}}" method="POST" enctype="multipart/form-data" class="forms-sample">
                     @csrf
                     <div class="form-group">
                       <label for="name">Nama</label>

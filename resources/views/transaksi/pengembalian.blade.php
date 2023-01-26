@@ -24,6 +24,10 @@
           <div class="row">
             <div class="col-12 grid-margin">
               <div class="float">
+                <div class="mb-3 d-flex justify-content-end">
+                <a href="/exportpdf_pengembalian"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i> Cetak PDF  </button></a>
+                <a href=""> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i> Cetak Excel  </button></a>
+              </div>
               <div class="float-end mb-3">
               </div>
 
@@ -36,6 +40,7 @@
                         <tr>
                           <th> No </th>
                           <th> Nama </th>
+                          <th> Kelas </th>
                           <th> Judul </th>
                           <th> Tanggal Pinjam</th>
                           <th> Tanggal Kembali</th>
@@ -50,11 +55,12 @@
                         <tr>
                           <td scope="pinjam">{{$index + $peminjaman->firstItem()}}</td>
                           <td>{{$pinjam->anggota->nama ?? 'N/A'}}</td>
+                          <td>{{$pinjam->anggota->kelas ?? 'N/A'}}</td>
                           <td>{{$pinjam->buku->judul_buku ?? 'N/A'}}</td>
                           <td>{{$pinjam->getCreatedAttribute()}}</td>
                           <td>{{$pinjam->getTanggalKembali()}}</td>
                           <td>{{$pinjam->lama_peminjaman()}} Hari</td>
-                          <td>{{$pinjam->denda}}</td>
+                          <td>Rp {{$pinjam->getDenda($pinjam->lama)}}</td>
                           <td><label class="badge badge-gradient-info">{{$pinjam->status}}</label></td>
                           <td>
                             <button class="btn btn-inverse-danger btn-icon delete "> 
