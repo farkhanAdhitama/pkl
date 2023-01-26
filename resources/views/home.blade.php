@@ -21,7 +21,7 @@
             </h3>
           </div>
           <div class="row">
-            <div class="col-md-4 stretch-card grid-margin">
+            <div class="col-md-3 stretch-card grid-margin">
               <div class="card bg-gradient-info card-img-holder text-white">
                 <a style="text-decoration: none; color:white;" href="/databuku">
                 <div class="card-body">
@@ -33,7 +33,7 @@
                 </a>
               </div>
             </div>
-            <div class="col-md-4 stretch-card grid-margin">
+            <div class="col-md-3 stretch-card grid-margin">
               <div class="card bg-gradient-danger card-img-holder text-white">
                 <a style="text-decoration: none; color:white;" href="/dataanggota">
                   <div class="card-body">
@@ -45,7 +45,7 @@
                 </a> 
               </div>
             </div>
-            <div class="col-md-4 stretch-card grid-margin">
+            {{-- <div class="col-md-3 stretch-card grid-margin">
               <div class="card bg-gradient-success card-img-holder text-white">
                 <a style="text-decoration: none; color:white;" href="/datajenisbuku">
                 <div class="card-body">
@@ -53,6 +53,30 @@
                   <h4 class="font-weight-normal mb-3">Jenis Buku<i class="mdi mdi-arrow-up-bold-circle mdi-24px float-right"></i>
                   </h4>
                   <h1 class="">{{$jumlah_jenis}}</h1>
+                </div>
+                </a>
+              </div>
+            </div> --}}
+            <div class="col-md-3 stretch-card grid-margin">
+              <div class="card bg-gradient-primary card-img-holder text-white">
+                <a style="text-decoration: none; color:white;" href="/peminjaman">
+                <div class="card-body">
+                  <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                  <h4 class="font-weight-normal mb-3">Peminjaman Aktif<i class="mdi mdi-arrow-up-bold-circle mdi-24px float-right"></i>
+                  </h4>
+                  <h1 class="">{{$jumlah_pinjam}}</h1>
+                </div>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3 stretch-card grid-margin">
+              <div class="card bg-gradient-info card-img-holder text-white">
+                <a style="text-decoration: none; color:white;" href="/pengembalian">
+                <div class="card-body">
+                  <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                  <h4 class="font-weight-normal mb-3">Riwayat Pengembalian<i class="mdi mdi-arrow-down-bold-circle mdi-24px float-right"></i>
+                  </h4>
+                  <h1 class="">{{$jumlah_kembali}}</h1>
                 </div>
                 </a>
               </div>

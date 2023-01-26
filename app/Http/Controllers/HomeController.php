@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Anggota;
 use App\Models\Buku;
 use App\Models\Jenisbuku;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -29,7 +30,9 @@ class HomeController extends Controller
         $jumlah_buku = Buku::count();
         $jumlah_anggota = Anggota::count();
         $jumlah_jenis = Jenisbuku::count();
-        return view('home', compact('jumlah_buku', 'jumlah_anggota', 'jumlah_jenis'));
+        $jumlah_pinjam = Transaksi::where('status', 'Dipinjam')->count();
+        $jumlah_kembali = Transaksi::where('status', 'Dikembalikan')->count();
+        return view('home', compact('jumlah_buku', 'jumlah_anggota', 'jumlah_jenis', 'jumlah_pinjam', 'jumlah_kembali'));
     }
     
 }

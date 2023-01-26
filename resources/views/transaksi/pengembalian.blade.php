@@ -39,7 +39,7 @@
                           <th> Judul </th>
                           <th> Tanggal Pinjam</th>
                           <th> Tanggal Kembali</th>
-                          <th> Lama </th>
+                          <th> Total </th>
                           <th> Denda </th>
                           <th> Status </th>
                           <th> Aksi </th>
@@ -53,7 +53,7 @@
                           <td>{{$pinjam->buku->judul_buku ?? 'N/A'}}</td>
                           <td>{{$pinjam->getCreatedAttribute()}}</td>
                           <td>{{$pinjam->getTanggalKembali()}}</td>
-                          <td>{{$pinjam->lama}} Hari</td>
+                          <td>{{$pinjam->lama_peminjaman()}} Hari</td>
                           <td>{{$pinjam->denda}}</td>
                           <td><label class="badge badge-gradient-info">{{$pinjam->status}}</label></td>
                           <td>

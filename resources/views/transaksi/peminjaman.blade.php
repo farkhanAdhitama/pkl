@@ -67,14 +67,14 @@
                           <td>{{$pinjam->getCreatedAttribute()}}</td>
                           <td>{{$pinjam->getTenggatWaktu($pinjam->lama)}}</td>
                           <td>{{$pinjam->lama}} Hari</td>
-                          <td>{{$pinjam->denda}}</td>
+                          <td>Rp {{$pinjam->getDenda($pinjam->lama)}}</td>
                           <td><label class="badge badge-gradient-warning">{{$pinjam->status}}</label></td>
                           <td>
-                            <button type="button" class="btn btn-inverse-danger btn-sm" data-bs-toggle="modal ">
+                            <button type="button" class="btn btn-inverse-danger btn-sm perpanjang " data-bs-toggle="modal " data-id = "{{$pinjam->id}}"data-buku = "{{$pinjam->buku->judul_buku}}" data-anggota = "{{$pinjam->anggota->nama}}">
                               Perpanjang
                             </button>
                             <a href="#">
-                              <button class="btn btn-sm btn-inverse-primary perpanjang" data-id = "{{$pinjam->id}}"data-buku = "{{$pinjam->buku->judul_buku}}" data-anggota = "{{$pinjam->anggota->nama}}"> 
+                              <button class="btn btn-sm btn-inverse-primary kembalikan" data-id = "{{$pinjam->id}}"data-buku = "{{$pinjam->buku->judul_buku}}" data-anggota = "{{$pinjam->anggota->nama}}"> 
                                 Kembalikan
                               </button>
                             </a>
@@ -102,8 +102,36 @@
 
 
 {{-- perpanjang swal --}}
+<script>
+  $('.perpanjang').click(function(){
+    var idpinjam = $(this).attr('data-id');
+    var databuku = $(this).attr('data-buku');
+    var dataanggota = $(this).attr('data-anggota');
+    Swal.fire({
+    title: 'Perpanjang Peminjaman?',
+    text: "Buku "+databuku + " Selama 1 Minggu",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Ya',
+    cancelButtonText: 'Batal'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location = "/perpanjang/"+idpinjam+""
+      Swal.fire(
+        'Berhasil!',
+        'Peminjaman Diperpanjang 1 Minggu',
+        'success'
+      )
+    }
+  })
+  })
+</script>
+
+{{-- kembalkan swal --}}
   <script>
-    $('.perpanjang').click(function(){
+    $('.kembalikan').click(function(){
       var idpinjam = $(this).attr('data-id');
       var databuku = $(this).attr('data-buku');
       var dataanggota = $(this).attr('data-anggota');
