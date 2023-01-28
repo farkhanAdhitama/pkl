@@ -67,8 +67,8 @@
               <div class="float">
               <a href="/tambahbuku" type="button" class="btn btn-sm btn-primary mb-3"  ><i class="mdi mdi-library-plus mdi-icon"></i> Tambah Buku</a>
                 <div class="float-end mb-3">
-                <a href="/exportpdf_buku"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  PDF  </button></a>
-                <a href="/exportexcel"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button></a>
+                <a href="/exportpdf_buku"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Cetak PDF  </button></a>
+                <a href="/exportexcel"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i> Cetak Excel  </button></a>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#importbuku" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button>
                 
                   <!-- The Import Excel Modal -->
@@ -173,8 +173,8 @@
                           </td>
                         </tr>
                         <!-- The Detail Modal -->
-                        <div class="modal fade" id="view{{$buku->id}}">
-                          <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal fade " id="view{{$buku->id}}">
+                          <div class="modal-dialog modal-xl  modal-dialog-centered">
                             <div class="modal-content">
 
                               <!-- Modal Header -->
@@ -186,7 +186,8 @@
                               <div class="modal-body px-4">
                                 
                                 <div class="row">
-                                  <div class="col-sm-6 ">
+                                  <div class="col-sm-4 ">
+                                    <div class="text-center">
                                     <h2>{{$buku->judul_buku}}</h2>
                                     <?php
                                       if (empty($buku->sampul)){?>
@@ -196,26 +197,61 @@
                                     ?>
                                         <img width="200px" src="assets/images/sampul/{{$buku->sampul}}" class="me-2" alt="image">
                                     <?php }?> 
+
+                                    
+                                    <h6 class="mt-3" >Diinput Pada</h6>
+                                    <p>{{$buku->getCreatedAttribute()}}</p>
+                                    <h6>Diperbarui Pada</h6>
+                                    <p>{{$buku->getUpdatedAttribute()}}</p>
+                                    <h6>Harga</h6>
+                                    <p>Rp {{$buku->harga}}</p>
                                   </div>
-                                  <div class="col-sm-6">
-                                    <h6>ISBN</h6>
-                                    <p>{{$buku->isbn}}</p>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <h6>Peruntukan</h6>
+                                    <p>{{$buku->peruntukan}}</p>
                                     <h6>Kategori</h6>
                                     <p>{{$buku->kategori}}</p>
-                                    <h6>Jenis Buku</h6>
-                                    <p>{{$buku->jenis->nama ?? 'N/A'}}</p>
+                                    <h6>Bahasa</h6>
+                                    <p>{{$buku->bahasa}}</p>
+                                    <h6>Subyek</h6>
+                                    <p>{{$buku->subyek ?? 'N/A'}}</p>
                                     <h6>Penulis</h6>
                                     <p>{{$buku->penulis}}</p>
+                                    <h6>Jumlah Buku</h6>
+                                    <p>{{$buku->jumlah}}</p>
+                                    <h6>Edisi</h6>
+                                    <p>{{$buku->edisi ?? 'N/A'}}</p>
+                                    <h6>Jilid</h6>
+                                    <p>{{$buku->jilid ?? 'N/A'}}</p>
+                                    <h6>Jumlah Halaman</h6>
+                                    <p>{{$buku->jumlah}}</p>
+                                    <h6>Rak</h6>
+                                    <p>{{$buku->rak ?? 'N/A'}}</p>
+                                    
+                                  </div>
+
+                                  <div class="col-sm-4">
+                                    <h6>ISBN</h6>
+                                    <p>{{$buku->isbn}}</p>
+                                    <h6>Judul Asli</h6>
+                                    <p>{{$buku->judul_asli}}</p>
+                                    <h6>Jenis Buku</h6>
+                                    <p>{{$buku->jenis->nama ?? 'N/A'}}</p>
+                                    <h6>Penerjemah</h6>
+                                    <p>{{$buku->penerjemah ?? 'N/A'}}</p>
+                                    <h6>Perolehan</h6>
+                                    <p>{{$buku->perolehan}}</p>
                                     <h6>Penerbit</h6>
                                     <p>{{$buku->penerbit}}</p>
                                     <h6>Tahun Terbit</h6>
                                     <p>{{$buku->tahun_terbit}}</p>
-                                    <h6>Jumlah Buku</h6>
-                                    <p>{{$buku->jumlah}}</p>
-                                    <h6>Diinput Pada</h6>
-                                    <p>{{$buku->getCreatedAttribute()}}</p>
-                                    <h6>Diperbarui Pada</h6>
-                                    <p>{{$buku->getUpdatedAttribute()}}</p>
+                                    <h6>Tempat Terbit</h6>
+                                    <p>{{$buku->tempat_terbit ?? 'N/A'}}</p>
+                                    <h6>Cetakan ke-</h6>
+                                    <p>{{$buku->cetakan ?? 'N/A'}}</p>
+                                    <h6>Panjang x Lebar</h6>
+                                    <p>{{$buku->panjang}} cm x {{$buku->lebar}} cm</p>
                                   </div>
                                 </div>
                               </div>
@@ -232,7 +268,7 @@
 
                         <!-- The Edit Modal -->
                         <div class="modal fade" id="edit{{$buku->id}}">
-                          <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-dialog modal-xl modal-dialog-centered">
                             <div class="modal-content">
                               <!-- Modal Header -->
                               <div class="modal-header">
@@ -241,56 +277,293 @@
                               </div>
                               <!-- Modal body -->
                               <div class="modal-body px-4">
-                                
                                 <form action="/updatebuku/{{$buku->id}}" method="POST" enctype="multipart/form-data" class="forms-sample">
                                   @csrf
-                                  <div class="form-group">
-                                    <label for="judul_buku">Judul Buku</label>
-                                    <input required value="{{$buku->judul_buku}}" type="text" name="judul_buku" class="form-control" id="judul_buku" placeholder="Judul Buku" re>
+
+                                  {{-- PERUNTUKAN DAN ISBN --}}
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="peruntukan">Peruntukan<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
+                                          <input required value="{{$buku->peruntukan}}" type="text" name="peruntukan" class="form-control" id="peruntukan @error('peruntukan') is-invalid @enderror" placeholder="Peruntukan" required value="{{ old('peruntukan') }}" autocomplete="peruntukan">  
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="isbn">ISBN<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
+                                          <input required value="{{$buku->isbn}}" type="text" name="isbn" class="form-control" id="isbn" placeholder="ISBN Buku">
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div class="form-group">
-                                    <label for="isbn">ISBN</label>
-                                    <input required value="{{$buku->isbn}}" type="text" name="isbn" class="form-control" id="isbn" placeholder="ISBN Buku">
+
+                                  {{-- JUDUL BUKU DAN ISBN --}}
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="judul_buku">Judul Buku<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
+                                          <input required value="{{$buku->judul_buku}}" type="text" name="judul_buku" class="form-control" id="judul_buku" placeholder="Judul Buku">
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="judul_asli">Judul Asli</label>
+                                        <div class="col-sm-9">
+                                          <input  required value="{{$buku->judul_asli ?? 'N/A'}}" type="text" name="judul_asli" class="form-control" id="judul_asli" placeholder="Judul Asli" required value="{{ old('judul_asli') }}" autocomplete="judul_asli"> 
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div class="form-group">
-                                    <label for="kategori">Kategori</label>
-                                    <select  class="form-control" name="kategori" id="kategori">
-                                      <option class="" value="{{$buku->kategori}}"><div style="text-transform: capitalize;">{{ $buku->kategori}}</div></option>
-                                      <option value="fiksi">Fiksi</option>
-                                      <option value="nonfiksi">Non Fiksi</option>
-                                    </select>
+
+                                  {{-- KATEGORI DAN JENIS BUKU --}}
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="kategori">Kategori<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
+                                          <select  class="form-control" name="kategori" id="kategori">
+                                            <option class="" value="{{$buku->kategori}}"><div style="text-transform: capitalize;">{{ $buku->kategori}}</div></option>
+                                            <option value="Fiksi">Fiksi</option>
+                                            <option value="Nonfiksi">Non Fiksi</option>
+                                            <option value="Referensi">Referensi</option>
+                                          </select> 
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="jenis_id">Jenis Buku</label>
+                                        <div class="col-sm-9">
+                                          <select class="form-control" name="jenis_id" id="jenis_id">
+                                            <option class="disabled" value="{{$buku->jenis->id ??''}}">{{ $buku->jenis->nama ?? ''}}</option>
+                                            @foreach ($jen as $jenisbuku)
+                                              <option value="{{$jenisbuku->id}}">{{$jenisbuku->nama}}</option>
+                                            @endforeach
+                                          </select>                                        
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div class="form-group">
-                                    <label for="jenis_id">Jenis Buku</label>
-                                    <select class="form-control" name="jenis_id" id="jenis_id">
-                                      <option class="disabled" value="{{$buku->jenis->id ??''}}">{{ $buku->jenis->nama ?? ''}}</option>
-                                      @foreach ($jen as $jenisbuku)
-                                        <option value="{{$jenisbuku->id}}">{{$jenisbuku->nama}}</option>
-                                      @endforeach
-                                    </select>
+
+                                  {{-- BAHASA DAN PEROLEHAN--}}
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="bahasa">Bahasa<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
+                                          <select  class="form-control" name="bahasa" id="bahasa">
+                                            <option class="" value="{{$buku->bahasa}}"><div style="text-transform: capitalize;">{{ $buku->bahasa}}</div></option>
+                                            <option value="Indonesia">Indonesia</option>
+                                            <option value="Arab">Arab</option>
+                                            <option value="Inggris">Inggris</option>
+                                            <option value="Lainnya">Lainnya</option>
+                                          </select> 
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="perolehan">Perolehan<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
+                                          <select  class="form-control" name="perolehan" id="perolehan">
+                                            <option class="" value="{{$buku->perolehan}}"><div style="text-transform: capitalize;">{{ $buku->perolehan}}</div></option>
+                                            <option value="Pembelian">Pembelian</option>
+                                            <option value="Hadiah">Hadiah</option>
+                                            <option value="Hibah">Hibah</option>
+                                            <option value="Dropping">Dropping</option>
+                                          </select> 
+                                        </div>
+                                    </div>
+                                    </div>
                                   </div>
-                                  <div class="form-group">
-                                    <label for="penulis">Penulis</label>
-                                    <input required value="{{$buku->penulis}}" type="text" name="penulis" class="form-control" id="penulis" placeholder="Penulis">
+
+                                   {{-- SUBJEK DAN PENERJEMAH --}}
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="subyek">Subyek</label>
+                                        <div class="col-sm-9">
+                                          <input  value="{{$buku->subyek ?? 'N/A'}}" type="text" name="subyek" class="form-control" id="subyek" placeholder="Subyek" required value="{{ old('subyek') }}" autocomplete="subyek">
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="penerjemah">Penerjemah</label>
+                                        <div class="col-sm-9">
+                                          <input  value="{{$buku->penerjemah ?? 'N/A'}}" type="text" name="penerjemah" class="form-control" id="penerjemah" placeholder="Penerjemah" required value="{{ old('penerjemah') }}" autocomplete="penerjemah">
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div class="form-group">
-                                    <label for="penerbit">Penerbit</label>
-                                    <input required value="{{$buku->penerbit}}" type="text" name="penerbit" class="form-control" id="penerbit" placeholder="Penerbit">
+
+                                  {{-- PENULIS DAN PENERBIT --}}
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="penulis">Penulis<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
+                                          <input required value="{{$buku->penulis}}" type="text" name="penulis" class="form-control" id="penulis" placeholder="Penulis">
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="penerbit">Penerbit<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
+                                          <input required value="{{$buku->penerbit}}" type="text" name="penerbit" class="form-control" id="penerbit" placeholder="Penerbit">                                       
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div class="form-group">
-                                    <label for="tahun_terbit">Tahun Terbit</label>
-                                    <input required value="{{$buku->tahun_terbit}}" type="text" name="tahun_terbit" class="form-control" id="tahun_terbit" placeholder="Tahun Terbit">
+
+                                  {{-- TAHUN TERBIT DAN JUMLAH BUKU --}}
+                                  <div class="row">                       
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="jumlah">Jumlah<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
+                                          <input required value="{{$buku->jumlah}}" type="number" name="jumlah" class="form-control" id="jumlah" placeholder="Jumlah Buku">
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="tahun_terbit">Tahun Terbit<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
+                                          <input required value="{{$buku->tahun_terbit}}" type="text" name="tahun_terbit" class="form-control" id="tahun_terbit" placeholder="Tahun Terbit">                                        </div>
+                                    </div>
+                                    </div>
                                   </div>
-                                  
-                                  <div class="form-group">
-                                    <label for="jumlah">Jumlah Buku</label>
-                                    <input required value="{{$buku->jumlah}}" type="number" name="jumlah" class="form-control" id="jumlah" placeholder="kode">
+
+                                   {{-- EDISI DAN TEMPAT TERBIT --}}
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="edisi">Edisi</label>
+                                        <div class="col-sm-9">
+                                          <input  value="{{$buku->edisi}}" type="number" name="edisi" class="form-control" id="edisi @error('edisi') is-invalid @enderror" placeholder="Edisi"  value="{{ old('edisi') }}" autocomplete="edisi">  
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="tempat_terbit">Tempat Terbit<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
+                                          <input required value="{{$buku->tempat_terbit}}" type="text" name="tempat_terbit" class="form-control" id="tempat_terbit" placeholder="Tempat Terbit" required value="{{ old('tempat_terbit') }}" autocomplete="tempat_terbit">
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
+
+                                  {{-- JILID DAN CETAKAN --}}
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="jilid">Jilid</label>
+                                        <div class="col-sm-9">
+                                          <input  value="{{$buku->jilid}}" type="number" name="jilid" class="form-control" id="jilid" placeholder="Jilid"  value="{{ old('jilid') }}" autocomplete="jilid"
+                                          class="@error('jilid') is-invalid @enderror">
+                                          @error('jilid')
+                                              <sub class="fst-italic text-danger">{{ "$message"  }}</sub>
+                                          @enderror
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="cetakan">Cetakan<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
+                                          <input required value="{{$buku->cetakan}}" type="number" name="cetakan" class="form-control" id="cetakan" placeholder="Cetakan"  value="{{ old('cetakan') }}" autocomplete="cetakan"
+                                          class="@error('cetakan') is-invalid @enderror">
+                                          @error('cetakan')
+                                              <sub class="fst-italic text-danger">{{ "$message"  }}</sub>
+                                          @enderror
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  {{--HALAMAN DAN PANJANG LEBAR --}}
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="halaman">Halaman<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
+                                          <input required value="{{$buku->halaman}}" type="number" name="halaman" class="form-control" id="halaman" placeholder="Halaman" required value="{{ old('halaman') }}" autocomplete="halaman"
+                                          class="@error('halaman') is-invalid @enderror">
+                                          @error('halaman')
+                                              <sub class="fst-italic text-danger">{{ "$message"  }}</sub>
+                                          @enderror
+                                        </div>
+                                      </div>  
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="form-group row">
+                                        <label class="col-sm-6 col-form-label" for="panjang">Panjang<span class="text-danger">*</span></label>
+                                        <div class="col-sm-6">
+                                          <input required value="{{$buku->panjang}}" type="number" name="panjang" class="form-control" id="panjang" placeholder="Panjang (cm)"  value="{{ old('panjang') }}" autocomplete="panjang"
+                                          class="@error('panjang') is-invalid @enderror">
+                                          @error('panjang')
+                                              <sub class="fst-italic text-danger">{{ "$message"  }}</sub>
+                                          @enderror
+                                        </div>
+                                      </div>                        
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="form-group row">
+                                        <label class="col-sm-6 col-form-label" for="lebar">Lebar<span class="text-danger">*</span></label>
+                                        <div class="col-sm-6">
+                                          <input required value="{{$buku->lebar}}" type="number" name="lebar" class="form-control" id="lebar" placeholder="Lebar (cm)"  value="{{ old('lebar') }}" autocomplete="lebar"
+                                          class="@error('lebar') is-invalid @enderror">
+                                          @error('lebar')
+                                              <sub class="fst-italic text-danger">{{ "$message"  }}</sub>
+                                          @enderror
+                                        </div>
+                                      </div>                        
+                                    </div>
+                                  </div>
+
+                                   {{--RAK DAN HARGA--}}
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="rak">Rak</label>
+                                        <div class="col-sm-9">
+                                          <input  value="{{$buku->rak}}" type="number" name="rak" class="form-control" id="rak" placeholder="Rak"  value="{{ old('rak') }}" autocomplete="rak"
+                                          class="@error('rak') is-invalid @enderror">
+                                          @error('rak')
+                                              <sub class="fst-italic text-danger">{{ "$message"  }}</sub>
+                                          @enderror
+                                        </div>
+                                      </div>                        
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="harga">Harga</label>
+                                        <div class="col-sm-9">
+                                          <input value="{{$buku->harga}}" type="number" name="harga" class="form-control" id="harga" placeholder="Harga"  value="{{ old('harga') }}" autocomplete="harga"
+                                          class="@error('harga') is-invalid @enderror">
+                                          @error('harga')
+                                              <sub class="fst-italic text-danger">{{ "$message"  }}</sub>
+                                          @enderror
+                                        </div>
+                                      </div>   
+                                    </div>
+                                    
+                                  </div>
+
                                   <div class="form-group">
                                     <label>Sampul Buku</label><br>
-                                    <img height="100px" src="assets/images/sampul/{{$buku->sampul}}" alt="">
+                                    <img class="mb-2" height="100px" src="assets/images/sampul/{{$buku->sampul}}" alt="">
                                     <input type="file" name="sampul" class="form-control">
                                   </div>
+                                  <div class="mb-3"><span class="text-danger">*</span><span> = Wajib Diisi</span></div>
                                   <button type="submit" class="btn btn-primary me-2 ">Submit</button>
                                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                                 </form>

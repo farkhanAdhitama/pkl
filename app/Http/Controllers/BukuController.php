@@ -50,6 +50,9 @@ class BukuController extends Controller
             'kategori' => 'required',
             'penulis' => 'required', 
             'penerbit' => 'required',
+            'kategori' => 'required', 
+            'bahasa' => 'required', 
+            'perolehan' => 'required', 
             'tahun_terbit' => 'required|numeric|min:4',
             'jumlah' => 'required|numeric',
         ],[
@@ -59,6 +62,9 @@ class BukuController extends Controller
             'tahun_terbit.min' => 'Silahkan Isi dengan Format Tahun yang Tepat',
             'tahun_terbit.max' => 'Silahkan Isi dengan Format Tahun yang Tepat',
             'jumlah.numeric' => 'Jumlah Harus Berisi Angka',
+            'kategori.required' => 'Kategori Harus Diisi',
+            'bahasa.required' => 'Bahasa Harus Diisi',
+            'perolehan.required' => 'Perolehan Harus Diisi',
 
         ]);
        

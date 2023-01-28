@@ -74,7 +74,9 @@ Route::get('/exportexcel_peminjaman', [App\Http\Controllers\TransaksiController:
 Route::get('/exportexcel_pengembalian', [App\Http\Controllers\TransaksiController::class, 'exportexcel_pengembalian'])->name('exportexcel_pengembalian');
 Route::get('/deletePengembalian/{id}', [App\Http\Controllers\TransaksiController::class, 'deletePengembalian'])->name('deletePengembalian');
 
-
+//transaksi guru
+Route::get('/peminjaman_guru', [App\Http\Controllers\TransaksiController::class, 'showPeminjamanGuru'])->name('peminjaman_guru');
+Route::get('/pengembalian_guru', [App\Http\Controllers\TransaksiController::class, 'showPengembalianGuru'])->name('pengembalian_guru');
 
 Route::get('/pengaturan', [App\Http\Controllers\PengaturanController::class, 'showPengaturan'])->name('pengaturan');
 Route::post('/updateAdmin/{id}', [App\Http\Controllers\PengaturanController::class, 'updateAdmin'])->name('updateAdmin');

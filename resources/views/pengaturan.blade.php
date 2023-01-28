@@ -78,16 +78,16 @@
                     </div>
                     <div class="form-group">
                       <label for="username">Username</label>
-                      <input required value="{{$row->username}}" type="text" username="username" class="form-control" id="username" placeholder="Username">
+                      <input required value="{{$row->username}}" type="text" name="username" class="form-control" id="username" placeholder="Username">
                     </div>
                     <div class="form-group">
                       <label for="email">Email</label>
-                      <input required value="{{$row->email}}" type="email" email="email" class="form-control" id="email" placeholder="Email">
+                      <input required value="{{$row->email}}" type="email" name="email" class="form-control" id="email" placeholder="Email">
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                       <label for="password">Password</label>
                       <input required value="{{$row->password}}" type="text" password="password" class="form-control" id="password" placeholder="Password">
-                    </div>
+                    </div> --}}
                     <button type="submit" class="btn btn-primary me-2 ">Submit</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                   </form>

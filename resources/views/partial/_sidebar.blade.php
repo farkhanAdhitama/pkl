@@ -15,7 +15,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/home">
+      <a class="nav-link " href="/home">
         <span class="menu-title">Dashboard</span>
         <i class="mdi mdi-home menu-icon"></i>
       </a>
@@ -28,15 +28,15 @@
       </a>
     </li> --}}
 
-    <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+    <li class="nav-item {{ (request()->is('tambahbuku')) ? 'active' : '' }}">
+      <a class="nav-link " data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
         <span class="menu-title">Data</span>
         <i class="menu-arrow"></i>
         <i class="mdi mdi-chart-bar menu-icon"></i>
       </a>
-      <div class="collapse" id="ui-basic">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="{{ route('databuku') }}">Data Buku</a></li>
+      <div class="collapse " id="ui-basic">
+        <ul class="nav flex-column sub-menu ">
+          <li class="nav-item "> <a class="nav-link {{ (request()->is('tambahbuku')) ? 'active' : '' }}" href="{{ route('databuku') }}">Data Buku</a></li>
           {{-- <li class="nav-item"> <a class="nav-link" href="{{ route('kategori') }}">Kategori Buku</a></li> --}}
           <li class="nav-item"> <a class="nav-link" href="{{ route('datajenisbuku') }}">Jenis Buku</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('dataanggota') }}">Data Anggota</a></li>
@@ -45,18 +45,32 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
-        <span class="menu-title">Transaksi</span>
+      <a class="nav-link" data-bs-toggle="collapse" href="#general" aria-expanded="false" aria-controls="general">
+        <span class="menu-title">Transaksi Siswa</span>
         <i class="menu-arrow"></i>
         <i class="mdi mdi mdi-dns menu-icon"></i>
       </a>
-      <div class="collapse" id="general-pages">
+      <div class="collapse" id="general">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="{{ route('peminjaman') }}">Peminjaman</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('pengembalian') }}">Pengembalian</a></li>
         </ul>
       </div>
     </li>
+
+    {{-- <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#pages" aria-expanded="false" aria-controls="pages">
+        <span class="menu-title">Transaksi Guru</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi mdi-dns menu-icon"></i>
+      </a>
+      <div class="collapse" id="pages">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="{{ route('peminjaman_guru') }}">Peminjaman</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('pengembalian_guru') }}">Pengembalian</a></li>
+        </ul>
+      </div>
+    </li> --}}
     
     {{-- <li class="nav-item">
       <a class="nav-link" href="{{ route('peminjaman') }}">

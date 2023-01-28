@@ -97,5 +97,25 @@ class TransaksiController extends Controller
 
     }
 
+
+    // Guru
+    public function showPeminjamanGuru()
+    {
+        $peminjaman = Transaksi::with('buku','anggota')->where('status', 'Dipinjam')->paginate(99999);
+        $bukus = Buku::all();
+        $anggotas = Anggota::all();
+        
+        return view('transaksi-guru.peminjaman', compact('peminjaman','bukus', 'anggotas'));
+    }
+
+
+    public function showPengembalianGuru()
+    {
+        $peminjaman = Transaksi::with('buku','anggota')->where('status', 'Dikembalikan')->paginate(99999);
+        $bukus = Buku::all();
+        $anggotas = Anggota::all();
+        return view('transaksi-guru.pengembalian', compact('peminjaman','bukus', 'anggotas'));
+    }
+
     
 }
