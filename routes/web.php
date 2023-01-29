@@ -45,11 +45,20 @@ Route::post('/importexcel_penerbit', [App\Http\Controllers\PenerbitController::c
 Route::get('/exportexcel_penerbit', [App\Http\Controllers\PenerbitController::class, 'exportexcel_penerbit'])->name('exportexcel_penerbit');
 Route::get('/exportpdf_penerbit/', [App\Http\Controllers\PenerbitController::class, 'exportpdf_penerbit'])->name('exportpdf_penerbit');
 
+// TEMPAT TERBIT ROUTE
+Route::get('/dataTempatTerbit', [App\Http\Controllers\TempatTerbitController::class, 'index'])->name('dataTempatTerbit');
+Route::post('/insertTempatTerbit', [App\Http\Controllers\TempatTerbitController::class, 'insertTempatTerbit'])->name('insertTempatTerbit');
+Route::post('/updateTempatTerbit/{id}', [App\Http\Controllers\TempatTerbitController::class, 'updateTempatTerbit'])->name('updateTempatTerbit');
+Route::get('/deleteTempatTerbit/{id}', [App\Http\Controllers\TempatTerbitController::class, 'deleteTempatTerbit'])->name('deleteTempatTerbit');
+// upload/import
+Route::post('/importexcel_tempatterbit', [App\Http\Controllers\TempatTerbitController::class, 'importexcel_tempatterbit'])->name('importexcel_tempatterbit');
+
 // MAJALAH ROUTE
-Route::get('/data_majalah', [App\Http\Controllers\MajalahController::class, 'index'])->name('data_majalah');
+Route::get('/dataMajalah', [App\Http\Controllers\MajalahController::class, 'index'])->name('dataMajalah');
 Route::post('/insertMajalah', [App\Http\Controllers\MajalahController::class, 'insertMajalah'])->name('insertMajalah');
 Route::get('/tambahMajalah', [App\Http\Controllers\MajalahController::class, 'showTambahMajalah'])->name('tambahMajalah');
-
+Route::post('/updateMajalah/{id}', [App\Http\Controllers\MajalahController::class, 'updateMajalah'])->name('updateMajalah');
+Route::get('/deleteMajalah/{id}', [App\Http\Controllers\MajalahController::class, 'deleteMajalah'])->name('deleteTempatTerbit');
 
 
 // ANGGOTA ROUTE

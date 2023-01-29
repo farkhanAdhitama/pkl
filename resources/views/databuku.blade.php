@@ -247,7 +247,7 @@
                                     <h6>Tahun Terbit</h6>
                                     <p>{{$buku->tahun_terbit}}</p>
                                     <h6>Tempat Terbit</h6>
-                                    <p>{{$buku->tempat_terbit ?? 'N/A'}}</p>
+                                    <p>{{$buku->tempat_terbit->kota ?? 'N/A'}}</p>
                                     <h6>Cetakan ke-</h6>
                                     <p>{{$buku->cetakan ?? 'N/A'}}</p>
                                     <h6>Panjang x Lebar</h6>
@@ -458,9 +458,14 @@
                                     </div>
                                     <div class="col-md-6">
                                       <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="tempat_terbit">Tempat Terbit<span class="text-danger">*</span></label>
+                                        <label class="col-sm-3 col-form-label" for="tempat_terbit_id">Penerbit<span class="text-danger">*</span></label>
                                         <div class="col-sm-9">
-                                          <input required value="{{$buku->tempat_terbit}}" type="text" name="tempat_terbit" class="form-control" id="tempat_terbit" placeholder="Tempat Terbit" required value="{{ old('tempat_terbit') }}" autocomplete="tempat_terbit">
+                                          <select class="form-control" name="tempat_terbit_id" id="tempat_terbit_id">
+                                            <option value="">--Piih Tempat Terbit--</option>
+                                            @foreach ($tempat_terbit as $row)
+                                              <option value="{{$row->id}}">{{$row->kota}}</option>
+                                            @endforeach 
+                                          </select>
                                         </div>
                                       </div>
                                     </div>

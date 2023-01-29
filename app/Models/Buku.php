@@ -37,4 +37,9 @@ class Buku extends Model
     {
         return $this->belongsTo(Penerbit::class);
     }
+
+    public function tempat_terbit()
+    {
+        return $this->belongsTo(TempatTerbit::class);
+    }
 }

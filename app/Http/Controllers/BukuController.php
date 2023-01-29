@@ -12,6 +12,7 @@ use App\Http\Requests\StoreBukuRequest;
 use App\Http\Requests\UpdateBukuRequest;
 use App\Imports\BukuImport;
 use App\Models\Penerbit;
+use App\Models\TempatTerbit;
 Use Barryvdh\DomPDF\Facade\Pdf;
 
 class BukuController extends Controller
@@ -23,10 +24,11 @@ class BukuController extends Controller
      */
     public function index()
     {   
-        $bukus = Buku::with('jenis','penerbit')->paginate(99999);
+        $bukus = Buku::with('jenis','penerbit', 'tempat_terbit')->paginate(99999);
         $jen = Jenisbuku::all();
         $penerbit = Penerbit::all();
-        return view('databuku', compact('bukus'), compact('jen','penerbit'));
+        $tempat_terbit = TempatTerbit::all();
+        return view('databuku', compact('bukus'), compact('jen','penerbit', 'tempat_terbit'));
     }
 
     /**
@@ -36,7 +38,8 @@ class BukuController extends Controller
     {  
         $jen = Jenisbuku::all();
         $penerbit = Penerbit::all();
-        return view('tambahbuku', compact('jen','penerbit'));;
+        $tempat_terbit = TempatTerbit::all();
+        return view('tambahbuku', compact('jen','penerbit', 'tempat_terbit'));;
     }
     
 

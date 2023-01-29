@@ -17,7 +17,7 @@
             <h3 class="page-title">
               <span class="page-title-icon bg-gradient-primary text-white me-2">
                 <i class="mdi mdi-book-open "></i>
-              </span> Data Jenis Buku
+              </span> Koleksi Majalah
             </h3>
             
           </div>
@@ -27,7 +27,7 @@
             <script>
               Swal.fire(
               'Berhasil!',
-              'Data Jenis Buku Berhasil Ditambahkan!',
+              'Data Majalah Berhasil Ditambahkan!',
               'success'
               )
             </script>
@@ -39,7 +39,7 @@
             <script>
               Swal.fire(
               'Berhasil!',
-              'Data Buku Berhasil Ditambahkan!',
+              'Data Majalah Berhasil Ditambahkan!',
               'success'
               )
             </script>
@@ -56,7 +56,7 @@
             <script>
               Swal.fire(
               'Berhasil!',
-              'Data Jenis Buku Berhasil Diperbarui!',
+              'Data Majalah Berhasil Diperbarui!',
               'success'
               )
             </script>
@@ -123,43 +123,47 @@
                     <table class="table " id="myTable">
                       <thead>              
                         <tr>
+                          <th>No.</th>
                           <th> Nama </th>
                           <th> Tanggal Terbit </th>
                           <th> Nomor/Volume/Tahun </th>
                           <th> ISSN </th>
-                          <th> Topik Utama </th>
                           <th> Jumlah </th>
+                          <th> Aksi </th>
                         </tr>
                       </thead>
-                      {{-- <tbody>
-                      @foreach ($jenisbukus as $jenisbuku)
+                      <tbody>
+                      @foreach ($majalahs as $index => $majalah)
                         <tr>
-                          <td>{{$jenisbuku->nama}}</td>
-                          <td>{{$jenisbuku->id}}</td>
-                          <td>{{$jenisbuku->rak}}</td>
+                          <td scope="buku">{{$index + $majalahs->firstItem()}}</td>
+                          <td>{{$majalah->nama}}</td>
+                          <td>{{$majalah->tanggal_terbit}}</td>
+                          <td>{{$majalah->nomor}}/{{$majalah->volume}}/{{$majalah->tahun}} </td>
+                          <td>{{$majalah->issn}}</td>
+                          <td>{{$majalah->jumlah}}</td>
                           <td>
-                            <button type="button" class="btn btn-inverse-info btn-icon" data-bs-toggle="modal" data-bs-target="#view{{$jenisbuku->id}}">
+                            <button type="button" class="btn btn-inverse-info btn-icon" data-bs-toggle="modal" data-bs-target="#view{{$majalah->id}}">
                               <i class="mdi mdi-information-outline"></i>
                             </button>
                             
-                            <button type="button" class="btn btn-inverse-primary btn-icon" data-bs-toggle="modal" data-bs-target="#edit{{$jenisbuku->id}}">
+                            <button type="button" class="btn btn-inverse-primary btn-icon" data-bs-toggle="modal" data-bs-target="#edit{{$majalah->id}}">
                               <i class="mdi mdi-pencil"></i>
                             </button>
                             
                             <a href="#">
-                            <button class="btn btn-inverse-danger btn-icon delete " data-id = "{{$jenisbuku->id}}" data-jenisbuku = "{{$jenisbuku->nama}}"> 
+                            <button class="btn btn-inverse-danger btn-icon delete " data-id = "{{$majalah->id}}" data-majalah = "{{$majalah->nama}}"> 
                               <i class="mdi mdi-delete "></i>
                             </button></a>
                           </td>
                         </tr>
                         <!-- The Detail Modal -->
-                        <div class="modal fade" id="view{{$jenisbuku->id}}">
+                        <div class="modal fade" id="view{{$majalah->id}}">
                           <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
 
                               <!-- Modal Header -->
                               <div class="modal-header">
-                                <h4 class="modal-title ">Detail Jenis Buku</h4>
+                                <h4 class="modal-title ">Detail Majalah</h4>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                               </div>
                               <!-- Modal body -->
@@ -167,14 +171,20 @@
                                 
                                 <div class="row">
                                   <div class="col-sm-6">
-                                    <h6>Jenis Buku</h6>
-                                    <p>{{$jenisbuku->nama}}</p>
-                                    <h6>Rak</h6>
-                                    <p>{{$jenisbuku->rak}}</p>
+                                    <h6>Nama Majalah</h6>
+                                    <p>{{$majalah->nama}}</p>
+                                    <h6>Tanggal Terbit</h6>
+                                    <p>{{$majalah->tanggal_terbit}}</p>
+                                    <h6>Nomor/Volume/Tahun</h6>
+                                    <p>{{$majalah->nomor}}/{{$majalah->volume}}/{{$majalah->tahun}}</p>
+                                    <h6>ISSN</h6>
+                                    <p>{{$majalah->issn}}</p>
+                                    <h6>Topik</h6>
+                                    <p>{{$majalah->topik}}</p>
+                                    <h6>Jumlah</h6>
+                                    <p>{{$majalah->jumlah}}</p>
                                     <h6>Diinput Pada</h6>
-                                    <p>{{$jenisbuku->getCreatedAttribute()}}</p>
-                                    <h6>Diperbarui Pada</h6>
-                                    <p>{{$jenisbuku->getUpdatedAttribute()}}</p>
+                                    <p>{{$majalah->getCreatedAttribute()}}</p>
                                     
                                   </div>
                                 </div>
@@ -191,26 +201,65 @@
 
 
                         <!-- The Edit Modal -->
-                        <div class="modal fade" id="edit{{$jenisbuku->id}}">
+                        <div class="modal fade" id="edit{{$majalah->id}}">
                           <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                               <!-- Modal Header -->
                               <div class="modal-header">
-                                <h4 class="modal-title ">Edit Data Jenis Buku</h4>
+                                <h4 class="modal-title ">Edit Data Majalah</h4>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                               </div>
                               <!-- Modal body -->
                               <div class="modal-body px-4">
                                 
-                                <form action="/updateJenisBuku/{{$jenisbuku->id}}" method="POST" enctype="multipart/form-data" class="forms-sample">
+                                <form action="/updateMajalah/{{$majalah->id}}" method="POST" enctype="multipart/form-data" class="forms-sample">
                                   @csrf
                                   <div class="form-group">
-                                    <label for="nama">Jenis Buku</label>
-                                    <input value="{{$jenisbuku->nama}}" type="text" name="nama" class="form-control" id="nama" placeholder="Jenis Buku" required>
+                                    <label for="nama">Nama Majalah</label>
+                                    <input value="{{$majalah->nama}}" type="text" name="nama" class="form-control" id="nama" placeholder="Nama Majalah" required>
                                   </div>
                                   <div class="form-group">
-                                    <label for="rak">Rak</label>
-                                    <input value="{{$jenisbuku->rak}}" type="number" name="rak" class="form-control" id="rak" placeholder="Rak" required>
+                                    <label for="tanggal_terbit">Tanggal Terbit</label>
+                                    <input value="{{$majalah->tanggal_terbit}}" type="text" name="tanggal_terbit" class="form-control" id="tanggal_terbit" placeholder="Tanggal Terbit" required>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <div class="form-group row">
+                                        <div class="col-sm-12">
+                                          <label for="nomor">Nomor</label>
+                                          <input value="{{$majalah->nomor}}" type="text" name="nomor" class="form-control" id="nomor" placeholder="Nomor" required>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <div class="form-group row">
+                                        <div class="col-sm-12">
+                                          <label for="volume">Volume</label>
+                                          <input value="{{$majalah->volume}}" type="text" name="volume" class="form-control" id="volume" placeholder="Volume" required>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <div class="form-group row">
+                                        <div class="col-sm-12">
+                                          <label for="tahun">Tahun</label>
+                                          <input value="{{$majalah->tahun}}" type="text" name="tahun" class="form-control" id="tahun" placeholder="Tahun" required>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="issn">ISSN</label>
+                                    <input value="{{$majalah->issn}}" type="text" name="issn" class="form-control" id="issn" placeholder="ISSN" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="topik">Topik</label>
+                                    <input value="{{$majalah->topik}}" type="text" name="topik" class="form-control" id="topik" placeholder="Topik" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="jumlah">Jumlah Eksemplar</label>
+                                    <input value="{{$majalah->jumlah}}" type="text" name="jumlah" class="form-control" id="jumlah" placeholder="Jumlah Eksemplar" required>
                                   </div>
                                   <button type="submit" class="btn btn-primary me-2 ">Submit</button>
                                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
@@ -226,7 +275,7 @@
                           </div>
                         </div>
                       @endforeach 
-                      </tbody> --}}
+                      </tbody>
                     </table>
                   </div>
                 </div>
@@ -246,8 +295,8 @@
     <!-- page-body-wrapper ends -->
     <script>
       $('.delete').click(function(){
-        var idjenisbuku = $(this).attr('data-id');
-        var nama = $(this).attr('data-jenisbuku');
+        var id_majalah = $(this).attr('data-id');
+        var nama = $(this).attr('data-majalah');
         Swal.fire({
         title: 'Apakah Yakin?',
         text: "Hapus Jenis Buku  "+nama+" ",
@@ -259,7 +308,7 @@
         cancelButtonText: 'Batal'
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location = "/deleteJenisbuku/"+idjenisbuku+""
+          window.location = "/deleteMajalah/"+id_majalah+""
           Swal.fire(
             'Dihapus!',
             'Data Berhasil Dihapus',

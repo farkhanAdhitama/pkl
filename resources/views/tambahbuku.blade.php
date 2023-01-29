@@ -276,14 +276,20 @@
                         </div>
                         <div class="col-md-6">
                           <div class="form-group row">
-                            <label class="col-sm-3 col-form-label" for="tempat_terbit">Tempat Terbit<span class="text-danger">*</span></label>
-                            <div class="col-sm-9">
-                              <input type="text" name="tempat_terbit" class="form-control" id="tempat_terbit" placeholder="Tempat Terbit" required value="{{ old('tempat_terbit') }}" autocomplete="tempat_terbit"
-                              class="@error('tempat_terbit') is-invalid @enderror">
-                              @error('tempat_terbit')
-                                  <sub class="fst-italic text-danger">{{ "$message"  }}</sub>
-                              @enderror
+                            <label class="col-sm-3 col-form-label" for="tempat_terbit_id">Tempat Terbit <span class="text-danger">*</span></label>
+                            <div class="col-sm-7">
+                              <select class="form-control" name="tempat_terbit_id" id="tempat_terbit_id"
+                              class="@error('tempat_terbit_id') is-invalid @enderror">
+                                <option value="">--Piih Tempat Terbit--</option>
+                                @foreach ($tempat_terbit as $row)
+                                  <option value="{{$row->id}}">{{$row->kota}}</option>
+                                @endforeach 
+                              </select>
+                              @error('tempat_terbit_id')
+                              <sub class="fst-italic text-danger">{{ "$message"  }}</p>
+                          @enderror
                             </div>
+                              <button onclick="location.href='/dataTempatTerbit';" class="btn btn-sm btn-inverse-primary btn-icon "> <i class= "mdi mdi-file-document-box"></i></button>
                           </div>
                         </div>
                       </div>

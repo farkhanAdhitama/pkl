@@ -95,7 +95,7 @@
                       </div>
                     
                       <button type="submit" class="btn btn-primary me-2">Submit</button>
-                      <a href="/data_majalah" class="btn btn-danger">Kembali</a>
+                      <a href="/dataMajalah" class="btn btn-danger">Kembali</a>
                     </form>
                   </div>
                 </div>

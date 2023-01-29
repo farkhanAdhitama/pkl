@@ -38,7 +38,7 @@
         <ul class="nav flex-column sub-menu ">
           <li class="nav-item "> <a class="nav-link {{ (request()->is('tambahbuku', 'datajenisbuku','dataPenerbit')) ? 'active' : '' }}" href="{{ route('databuku') }}">Koleksi Buku</a></li>
           {{-- <li class="nav-item"> <a class="nav-link" href="{{ route('kategori') }}">Kategori Buku</a></li> --}}
-          <li class="nav-item"> <a class="nav-link {{ (request()->is('tambahMajalah')) ? 'active' : '' }}" href="{{ route('data_majalah') }}">Koleksi Majalah</a></li>
+          <li class="nav-item"> <a class="nav-link {{ (request()->is('tambahMajalah')) ? 'active' : '' }}" href="{{ route('dataMajalah') }}">Koleksi Majalah</a></li>
           <li class="nav-item"> <a class="nav-link" href="#">Koleksi CD</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('dataanggota') }}">Data Anggota</a></li>
         </ul>

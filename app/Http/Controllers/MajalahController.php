@@ -13,13 +13,13 @@ class MajalahController extends Controller
 {
     public function index()
     {   
-        $majalahs = Majalah::all();
+        $majalahs = Majalah::paginate(99999);
         
         return view('majalah.data_majalah', compact('majalahs'));
     }
 
     /**
-     * Display tambah jenis buku page
+     * Display tambah majalah
      */
     public function showTambahMajalah()
     {  
@@ -34,33 +34,27 @@ class MajalahController extends Controller
      */
     public function insertMajalah(Request $request)
     {   
-        $validated = $request->validate([
-            'nama' => 'required|max:255|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|unique:jenisbukus',
-        ],[
-            'nama.unique'=> 'Jenis Buku Sudah Ada',
-            'nama.regex' => 'Jenis Buku Harus Berisi Alphabet',
-        ]);
 
         $data = Majalah::create($request->all());
-        return redirect()->route('tambahMajalah')->with('insertsuccess', 'Jenis Buku Berhasil Ditambahkan');
+        return redirect()->route('dataMajalah')->with('insertsuccess', 'Majalah Berhasil Ditambahkan');
     }
 
-    // //Delete Anggota
-    // public function deleteJenisbuku($id)
-    // {
-    //     $data = Jenisbuku::find($id);
-    //     $data->delete();
-    //     return redirect()->route('datajenisbuku')->with('deletesuccess', 'Data Berhasil Dihapus');
+    //Delete Anggota
+    public function deleteMajalah($id)
+    {
+        $data = Majalah::find($id);
+        $data->delete();
+        return redirect()->route('dataMajalah')->with('deletesuccess', 'Data Berhasil Dihapus');
 
-    // }
+    }
 
-    // public function updateJenisBuku(Request $request, $id)
-    // {
-    //     $data = Jenisbuku::find( $id);
-    //     $data->update($request->all());
-    //     return redirect()->route('datajenisbuku')->with('updatesuccess', 'Data Berhasil Diperbarui');
+    public function updateMajalah(Request $request, $id)
+    {
+        $data = Majalah::find( $id);
+        $data->update($request->all());
+        return redirect()->route('dataMajalah')->with('updatesuccess', 'Data Berhasil Diperbarui');
 
-    // }
+    }
 
     // public function exportexcel_jenisbuku(){
     //     return Excel::download(new JenisbukuExport, 'Data_Jenisbuku.xlsx');
