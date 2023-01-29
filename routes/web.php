@@ -22,6 +22,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/index.html', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// DATA BUKU ROUTE
 Route::get('/databuku', [App\Http\Controllers\BukuController::class, 'index'])->name('databuku');
 Route::get('/tambahbuku', [App\Http\Controllers\BukuController::class, 'showTambahBuku'])->name('tambahbuku');
 Route::post('/insertdata', [App\Http\Controllers\BukuController::class, 'insertdata'])->name('insertdata');
@@ -33,8 +34,25 @@ Route::post('/importexcel', [App\Http\Controllers\BukuController::class, 'import
 Route::get('/exportexcel', [App\Http\Controllers\BukuController::class, 'exportexcel'])->name('exportexcel');
 Route::get('/exportpdf_buku/', [App\Http\Controllers\BukuController::class, 'exportpdf_buku'])->name('exportpdf_buku');
 
+// PENERBIT ROUTE
+Route::get('/dataPenerbit', [App\Http\Controllers\PenerbitController::class, 'index'])->name('dataPenerbit');
+Route::post('/insertPenerbit', [App\Http\Controllers\PenerbitController::class, 'insertPenerbit'])->name('insertPenerbit');
+Route::post('/updatePenerbit/{id}', [App\Http\Controllers\PenerbitController::class, 'updatePenerbit'])->name('updatePenerbit');
+Route::get('/deletePenerbit/{id}', [App\Http\Controllers\PenerbitController::class, 'deletePenerbit'])->name('deletePenerbit');
+// upload/import
+Route::post('/importexcel_penerbit', [App\Http\Controllers\PenerbitController::class, 'importexcel_penerbit'])->name('importexcel_penerbit');
+//export penerbit
+Route::get('/exportexcel_penerbit', [App\Http\Controllers\PenerbitController::class, 'exportexcel_penerbit'])->name('exportexcel_penerbit');
+Route::get('/exportpdf_penerbit/', [App\Http\Controllers\PenerbitController::class, 'exportpdf_penerbit'])->name('exportpdf_penerbit');
 
-// anggota route
+// MAJALAH ROUTE
+Route::get('/data_majalah', [App\Http\Controllers\MajalahController::class, 'index'])->name('data_majalah');
+Route::post('/insertMajalah', [App\Http\Controllers\MajalahController::class, 'insertMajalah'])->name('insertMajalah');
+Route::get('/tambahMajalah', [App\Http\Controllers\MajalahController::class, 'showTambahMajalah'])->name('tambahMajalah');
+
+
+
+// ANGGOTA ROUTE
 Route::get('/dataanggota', [App\Http\Controllers\AnggotaController::class, 'index'])->name('dataanggota');
 Route::get('/tambahanggota', [App\Http\Controllers\AnggotaController::class, 'showTambahAnggota'])->name('tambahanggota');
 Route::post('/insertAnggota', [App\Http\Controllers\AnggotaController::class, 'insertAnggota'])->name('insertAnggota');
@@ -47,7 +65,7 @@ Route::get('/exportexcel_anggota', [App\Http\Controllers\AnggotaController::clas
 Route::get('/exportpdf_anggota/', [App\Http\Controllers\AnggotaController::class, 'exportpdf_anggota'])->name('exportpdf_anggota');
 
 
-// jenis buku route
+// JENIS BUKU ROUTE
 Route::get('/datajenisbuku', [App\Http\Controllers\JenisbukuController::class, 'index'])->name('datajenisbuku');
 Route::get('/tambahjenisbuku', [App\Http\Controllers\JenisbukuController::class, 'showTambahjenisbuku'])->name('tambahjenisbuku');
 Route::post('/insertJenisbuku', [App\Http\Controllers\JenisbukuController::class, 'insertJenisbuku'])->name('insertJenisbuku');
@@ -61,7 +79,7 @@ Route::get('/exportpdf_jenisbuku', [App\Http\Controllers\JenisbukuController::cl
 
 Route::get('/kategori', [App\Http\Controllers\KategoriController::class, 'index'])->name('kategori');
 
-//transaksi
+//TRANSAKSI ROUTE
 Route::get('/peminjaman', [App\Http\Controllers\TransaksiController::class, 'showPeminjaman'])->name('peminjaman');
 Route::get('/showTambahPeminjaman', [App\Http\Controllers\TransaksiController::class, 'showTambahPeminjaman'])->name('showTambahPeminjaman');
 Route::post('/tambah_peminjaman', [App\Http\Controllers\TransaksiController::class, 'tambah_peminjaman'])->name('tambah_peminjaman');

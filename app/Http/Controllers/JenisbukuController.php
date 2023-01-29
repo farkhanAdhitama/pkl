@@ -17,19 +17,10 @@ class JenisbukuController extends Controller
 {
     public function index()
     {   
-        $jenisbukus = Jenisbuku::all();
+        $jenisbukus = Jenisbuku::paginate(9999);
         
         return view('datajenisbuku', compact('jenisbukus'));
     }
-
-    /**
-     * Display tambah jenis buku page
-     */
-    public function showTambahJenisBuku()
-    {  
-        return view('tambahjenisbuku');
-    }
-    
 
     /**
      * Insert Data

@@ -152,7 +152,7 @@
                           <td>{{$buku->jenis->nama ?? 'N/A'}}</td>
                           <td>{{$buku->penulis}}</td>
                           <td>
-                            {{$buku->penerbit}}
+                            {{$buku->penerbit->nama_penerbit ?? 'N/A'}}
                           </td>
                           <td> {{$buku->tahun_terbit}} </td>
                           <td> {{$buku->jumlah}} </td>
@@ -243,7 +243,7 @@
                                     <h6>Perolehan</h6>
                                     <p>{{$buku->perolehan}}</p>
                                     <h6>Penerbit</h6>
-                                    <p>{{$buku->penerbit}}</p>
+                                    <p>{{$buku->penerbit->nama_penerbit ?? 'N/A'}}</p>
                                     <h6>Tahun Terbit</h6>
                                     <p>{{$buku->tahun_terbit}}</p>
                                     <h6>Tempat Terbit</h6>
@@ -414,9 +414,14 @@
                                     </div>
                                     <div class="col-md-6">
                                       <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="penerbit">Penerbit<span class="text-danger">*</span></label>
+                                        <label class="col-sm-3 col-form-label" for="penerbit_id">Penerbit<span class="text-danger">*</span></label>
                                         <div class="col-sm-9">
-                                          <input required value="{{$buku->penerbit}}" type="text" name="penerbit" class="form-control" id="penerbit" placeholder="Penerbit">                                       
+                                          <select class="form-control" name="penerbit_id" id="penerbit_id">
+                                            <option value="">--Piih Penerbit--</option>
+                                            @foreach ($penerbit as $row)
+                                              <option value="{{$row->id}}">{{$row->nama_penerbit}}</option>
+                                            @endforeach 
+                                          </select>
                                         </div>
                                       </div>
                                     </div>

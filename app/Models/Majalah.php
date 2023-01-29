@@ -4,15 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Date;
-use illuminate\Support\Carbon;
+use Illuminate\Support\Carbon;
 
-class Buku extends Model
+class Majalah extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-    protected $dates = ['created_at'];
+    protected $fillable = [
+        'nama',
+        'tanggal_terbit',
+        'nomor',
+        'volume',
+        'tahun',
+        'issn',
+        'topik',
+        'jumlah',
+    ];
+
 
     public function getCreatedAttribute(){
         return Carbon::parse($this->attributes['created_at'])
@@ -22,19 +30,5 @@ class Buku extends Model
     public function getUpdatedAttribute(){
         return Carbon::parse($this->attributes['updated_at'])
             ->translatedFormat('l, d M Y');
-    }
-
-    public function jenis()
-    {
-        return $this->belongsTo(Jenisbuku::class);
-    }
-
-    public function transaksi(){
-        return $this->hasMany(Transaksi::class);
-    }
-
-    public function penerbit()
-    {
-        return $this->belongsTo(Penerbit::class);
     }
 }

@@ -65,105 +65,78 @@
           <div class="row">
             <div class="col-12 grid-margin">
               <div class="float">
-                <button onclick="location.href='/tambahbuku';" type="button" class="btn btn-sm btn-primary mb-3">
-                  <i class="mdi mdi-keyboard-backspace"></i>
-                </button>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#insertDataJenis" class="btn btn-sm btn-primary mb-3"><i class="mdi mdi-library-plus mdi-icon"></i>Tambah Jenis Buku</button>
-              <!-- The Insert Modal -->
-              <div class="modal fade" id="insertDataJenis">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                      <h4 class="modal-title ">Tambah Data Jenis Buku</h4>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <!-- Modal body -->
-                    <div class="modal-body px-4">
-                      <form action="/insertJenisbuku" method="POST" enctype="multipart/form-data" class="forms-sample">
-                        @csrf
-                        <div class="form-group">
-                          <label for="nama">Jenis Buku</label>
-                          <input type="text" name="nama" class="form-control" id="nama" placeholder="Jenis Buku" required value="{{ old('nama') }}" autocomplete="nama"
-                          class="@error('nama') is-invalid @enderror">
-                          @error('nama')
-                              <sub class="p fst-italic text-danger">{{"$message"}}</sub>
-                          @enderror
-                        </div>
-                        <button type="submit" class="btn btn-primary me-2">Submit</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
-                      </form>              
-                    </div>
-                    <!-- Modal footer -->
-                    <div class="modal-footer"> 
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
+              <a href="/tambahMajalah" type="button" class="btn btn-sm btn-primary mb-3"  ><i class="mdi mdi-library-plus mdi-icon"></i> Tambah Data Majalah</a>
               
               <div class="float-end mb-3">
                 
-                <a href="/exportpdf_jenisbuku"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  PDF  </button></a>
-                <a href="/exportexcel_jenisbuku"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button></a>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#import_jenisbuku" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button>               
-                <!-- The Import Excel Modal -->
-                <div class="modal fade" id="import_jenisbuku">
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <!-- Modal Header -->
-                      <div class="modal-header">
-                        <h4 class="modal-title ">Import Jenis Buku</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                      </div>
-                      <!-- Modal body -->                     
-                      <div class="card m-3 text-center" >
-                        <div class="card-body m-3">
-                          <h5 class="card-title text-center">Download Template Excel</h5>
-                          <h6 class="card-subtitle mb-2 text-muted text-center">Untuk Import Data</h6>
-                          <a href="assets/template_import/Data_Jenisbuku_template.xlsx"><button type="button" class="btn btn-primary text-center">Download</button></a>
-                        </div>
-                      </div>
-                      <form action="/importexcel_jenisbuku" method="POST" enctype="multipart/form-data">
-                        @csrf
+                <a href="#"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Cetak PDF  </button></a>
+                <a href="#"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Cetak Excel  </button></a>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#import_jenisbuku" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button>
+                
+                  <!-- The Import Excel Modal -->
+                  <div class="modal fade" id="import_jenisbuku">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
 
-                        <div class="modal-body px-4">
-                          <h5>Pilih File yang Akan Diimport</h5>
-                          <div class="form-group">
-                            <input class="" type="file" name="file" id="" required> 
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h4 class="modal-title ">Import Majalah</h4>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <!-- Modal body -->
+                      
+                        <div class="card m-3 text-center" >
+                          <div class="card-body m-3">
+                            <h5 class="card-title text-center">Download Template Excel</h5>
+                            <h6 class="card-subtitle mb-2 text-muted text-center">Untuk Import Data</h6>
+                            <a href="assets/template_import/Data_Jenisbuku_template.xlsx"><button type="button" class="btn btn-primary text-center">Download</button></a>
                           </div>
                         </div>
+                        <form action="/importexcel_jenisbuku" method="POST" enctype="multipart/form-data">
+                          @csrf
+                          
+                          <div class="modal-body px-4">
+                            <h5>Pilih File yang Akan Diimport</h5>
+                            <div class="form-group">
+                              <input class="" type="file" name="file" id="" required> 
+                            </div>
+                          </div>
 
-                      <!-- Modal footer -->
-                        <div class="modal-footer">
-                          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Import</button>
-                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
-                        </div>
-                      </form>
+                        <!-- Modal footer -->
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Import</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                          </div>
+                        </form>
+                      </div>
                     </div>
                   </div>
-                </div>
+
              </div>
-            </div>
+              </div>
               
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Data Jenis Buku</h4>
+                  <h4 class="card-title">Data Majalah</h4>
                   <div class="table-responsive">
                     <table class="table " id="myTable">
                       <thead>              
                         <tr>
-                          <th> No </th>
-                          <th> Jenis Buku </th>
-                          <th> Kode </th>
-                          <th> Aksi </th>
+                          <th> Nama </th>
+                          <th> Tanggal Terbit </th>
+                          <th> Nomor/Volume/Tahun </th>
+                          <th> ISSN </th>
+                          <th> Topik Utama </th>
+                          <th> Jumlah </th>
                         </tr>
                       </thead>
-                      <tbody>
-                      @foreach ($jenisbukus as $index => $jenisbuku)
+                      {{-- <tbody>
+                      @foreach ($jenisbukus as $jenisbuku)
                         <tr>
-                          <td scope="jenisbuku">{{$index + $jenisbukus->firstItem()}}</td>
                           <td>{{$jenisbuku->nama}}</td>
                           <td>{{$jenisbuku->id}}</td>
+                          <td>{{$jenisbuku->rak}}</td>
                           <td>
                             <button type="button" class="btn btn-inverse-info btn-icon" data-bs-toggle="modal" data-bs-target="#view{{$jenisbuku->id}}">
                               <i class="mdi mdi-information-outline"></i>
@@ -253,7 +226,7 @@
                           </div>
                         </div>
                       @endforeach 
-                      </tbody>
+                      </tbody> --}}
                     </table>
                   </div>
                 </div>

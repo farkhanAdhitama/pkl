@@ -3,12 +3,12 @@
 <head>
     
 <style>
-#jenis {
+#penerbit {
   border-collapse: collapse;
   width: 100%;
 }
 
-#jenis td, #jenis th {
+#penerbit td, #penerbit th {
   border: 1px solid rgb(0, 0, 0);
   padding: 8px;
 }
@@ -22,25 +22,25 @@
 <body>
 
 <div class="judul">
-    <h3>Data Jenis Buku Perpustakaan</h3>
+    <h3>Data Penerbit Buku Perpustakaan</h3>
     <p>SMA Negeri 1 Kajen</p>
 </div>
 
-<table id="jenis">
+<table id="penerbit">
   <tr>
     <th> No </th>
     <th> Kode </th>
-    <th> Jenis Buku </th>
+    <th> Nama Penerbit </th>
   </tr>
 
   @php
       $no = 1;
   @endphp
-  @foreach ($data as $jenisbuku)
+  @foreach ($data as $penerbit)
     <tr>
         <td>{{ $no++ }}</td>
-        <td>{{$jenisbuku->id}}</td>
-        <td>{{$jenisbuku->nama}}</td>
+        <td>{{$penerbit->id}}</td>
+        <td>{{$penerbit->nama_penerbit}}</td>
     </tr>
     @endforeach
 </table>

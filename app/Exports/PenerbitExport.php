@@ -2,18 +2,16 @@
 
 namespace App\Exports;
 
-use App\Models\Jenisbuku;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use App\Models\Penerbit;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-
-class JenisbukuExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
+class PenerbitExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
 {
-    /**
+   /**
     * @return \Illuminate\Support\Collection
     */
 
@@ -21,21 +19,21 @@ class JenisbukuExport implements FromQuery, WithMapping, ShouldAutoSize, WithHea
 
     public function query()
     {
-        return Jenisbuku::query();
+        return Penerbit::query();
     }
-    public function map($jenisbuku): array
+    public function map($penerbit): array
     {
         return [
-            $jenisbuku->id,
-            $jenisbuku->nama,
+            $penerbit->id,
+            $penerbit->nama_penerbit,
         ];
     }
 
     public function headings(): array
     {
         return [
-            'KODE JENIS BUKU',
-            'JENIS BUKU',
+            'KODE PENERBIT',
+            'PENERBIT',
         ];
     }
 }

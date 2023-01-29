@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreBukuRequest;
 use App\Http\Requests\UpdateBukuRequest;
 use App\Imports\BukuImport;
+use App\Models\Penerbit;
 Use Barryvdh\DomPDF\Facade\Pdf;
 
 class BukuController extends Controller
@@ -22,9 +23,10 @@ class BukuController extends Controller
      */
     public function index()
     {   
-        $bukus = Buku::with('jenis')->paginate(99999);
+        $bukus = Buku::with('jenis','penerbit')->paginate(99999);
         $jen = Jenisbuku::all();
-        return view('databuku', compact('bukus'), compact('jen'));
+        $penerbit = Penerbit::all();
+        return view('databuku', compact('bukus'), compact('jen','penerbit'));
     }
 
     /**
@@ -33,7 +35,8 @@ class BukuController extends Controller
     public function showTambahBuku()
     {  
         $jen = Jenisbuku::all();
-        return view('tambahbuku', compact('jen'));;
+        $penerbit = Penerbit::all();
+        return view('tambahbuku', compact('jen','penerbit'));;
     }
     
 
@@ -49,7 +52,7 @@ class BukuController extends Controller
             'isbn' => 'required|unique:bukus|numeric',
             'kategori' => 'required',
             'penulis' => 'required', 
-            'penerbit' => 'required',
+            'penerbit_id' => 'required',
             'kategori' => 'required', 
             'bahasa' => 'required', 
             'perolehan' => 'required', 
@@ -65,6 +68,7 @@ class BukuController extends Controller
             'kategori.required' => 'Kategori Harus Diisi',
             'bahasa.required' => 'Bahasa Harus Diisi',
             'perolehan.required' => 'Perolehan Harus Diisi',
+            'penerbit_id.required' => 'Penerbit Harus Diisi',
 
         ]);
        

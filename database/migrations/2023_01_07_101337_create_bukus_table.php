@@ -26,7 +26,7 @@ return new class extends Migration
             $table->enum('kategori',['Fiksi','Nonfiksi', 'Referensi']);
             $table->enum('bahasa',['Indonesia','Arab','Inggris','Lainnya']);
             $table->enum('perolehan',['Pembelian','Hadiah','Hibah','Droping']);
-            $table->string('penerbit')->nullable();
+            $table->string('penerbit_id')->nullable();
             $table->string('tempat_terbit')->nullable();
             $table->string('jilid')->nullable();
             $table->integer('cetakan')->nullable();

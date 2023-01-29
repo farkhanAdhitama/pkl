@@ -50,7 +50,7 @@
         <td>{{ $no++ }}</td>
         <td>{{$buku->judul_buku}}</td>
         <td>{{$buku->penulis}}</td>
-        <td>{{$buku->penerbit}}</td>
+        <td>{{$buku->penerbit->nama_penerbit ?? 'N/A'}}</td>
         <td>{{$buku->tahun_terbit}} </td>
         <td>{{$buku->jumlah}} </td>
     </tr>

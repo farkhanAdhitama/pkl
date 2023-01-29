@@ -101,7 +101,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label" for="kategori">Kategori <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                              <select class="form-control"  name="kategori" id="kategori"  
+                              <select class="form-control w-50"  name="kategori" id="kategori"  value="{{ old('kategori') }}" autocomplete="kategori 
                               class="@error('kategori') is-invalid @enderror">
                                 <option value="">--Piih Kategori Buku--</option>
                                 <option value="Fiksi">Fiksi</option>
@@ -117,14 +117,16 @@
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label" for="jenis_id">Jenis</label>
-                            <div class="col-sm-9">
-                              <select class="form-control" name="jenis_id" id="jenis_id">
+                            <div class="col-sm-7">
+                              <select class="form-control" name="jenis_id" id="jenis_id" >
                                 <option value="">--Piih Jenis Buku--</option>
                                 @foreach ($jen as $jenisbuku)
                                   <option value="{{$jenisbuku->id}}">{{$jenisbuku->nama}}</option>
-                                @endforeach
+                                @endforeach 
                               </select>
                             </div>
+                              <button onclick="location.href='/datajenisbuku';" class="btn btn-sm btn-inverse-primary btn-icon delete "> <i class= "mdi mdi-file-document-box"></i></button>
+                             
                           </div>
                         </div>
                       </div>
@@ -213,14 +215,20 @@
                         </div>
                         <div class="col-md-6">
                           <div class="form-group row">
-                            <label class="col-sm-3 col-form-label" for="penerbit">Penerbit <span class="text-danger">*</span></label>
-                            <div class="col-sm-9">
-                              <input type="text" name="penerbit" class="form-control" id="penerbit" placeholder="Penerbit" required value="{{ old('penerbit') }}" autocomplete="penerbit"
-                              class="@error('penerbit') is-invalid @enderror">
-                              @error('penerbit')
-                                  <sub class="fst-italic text-danger">{{ "$message"  }}</sub>
-                              @enderror
+                            <label class="col-sm-3 col-form-label" for="penerbit_id">Penerbit <span class="text-danger">*</span></label>
+                            <div class="col-sm-7">
+                              <select class="form-control" name="penerbit_id" id="penerbit_id"
+                              class="@error('penerbit_id') is-invalid @enderror">
+                                <option value="">--Piih Penerbit--</option>
+                                @foreach ($penerbit as $row)
+                                  <option value="{{$row->id}}">{{$row->nama_penerbit}}</option>
+                                @endforeach 
+                              </select>
+                              @error('penerbit_id')
+                              <sub class="fst-italic text-danger">{{ "$message"  }}</p>
+                          @enderror
                             </div>
+                              <button onclick="location.href='/dataPenerbit';" class="btn btn-sm btn-inverse-primary btn-icon "> <i class= "mdi mdi-file-document-box"></i></button>
                           </div>
                         </div>
                       </div>

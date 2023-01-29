@@ -2,23 +2,17 @@
 
 namespace App\Imports;
 
-use App\Models\Jenisbuku;
+use App\Models\Penerbit;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
-
-class JenisbukuImport implements ToModel, WithStartRow
+class PenerbitImport implements ToModel, WithStartRow
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
     public function model(array $row)
     {
-        return new Jenisbuku([
+        return new Penerbit([
 
-            'nama' => $row[1],
+            'nama_penerbit' => $row[1],
         ]);
     }
 
