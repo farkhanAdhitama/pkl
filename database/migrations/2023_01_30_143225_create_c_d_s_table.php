@@ -13,16 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('majalahs', function (Blueprint $table) {
+        Schema::create('c_d_s', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('tanggal_terbit');
-            $table->integer('nomor');
-            $table->integer('volume');
-            $table->string('tahun');
-            $table->string('issn');
-            $table->string('topik')->nullable();
-            $table->string('jumlah')->nullable();
+            $table->string('kode_kelompok');
+            $table->string('judul_cd');
+            $table->enum('perolehan',['Pembelian','Hadiah','Hibah','Dropping']);
+            $table->integer('jumlah');
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('majalahs');
+        Schema::dropIfExists('c_d_s');
     }
 };

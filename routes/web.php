@@ -59,6 +59,20 @@ Route::post('/insertMajalah', [App\Http\Controllers\MajalahController::class, 'i
 Route::get('/tambahMajalah', [App\Http\Controllers\MajalahController::class, 'showTambahMajalah'])->name('tambahMajalah');
 Route::post('/updateMajalah/{id}', [App\Http\Controllers\MajalahController::class, 'updateMajalah'])->name('updateMajalah');
 Route::get('/deleteMajalah/{id}', [App\Http\Controllers\MajalahController::class, 'deleteMajalah'])->name('deleteTempatTerbit');
+Route::post('/importexcel_majalah', [App\Http\Controllers\MajalahController::class, 'importexcel_majalah'])->name('importexcel_majalah');
+Route::get('/exportexcel_majalah', [App\Http\Controllers\MajalahController::class, 'exportexcel_majalah'])->name('exportexcel_majalah');
+Route::get('/exportpdf_majalah/', [App\Http\Controllers\MajalahController::class, 'exportpdf_majalah'])->name('exportpdf_majalah');
+
+
+// MAJALAH ROUTE
+Route::get('/dataCD', [App\Http\Controllers\CDController::class, 'index'])->name('dataCD');
+Route::post('/insertCD', [App\Http\Controllers\CDController::class, 'insertCD'])->name('insertCD');
+Route::get('/tambahCD', [App\Http\Controllers\CDController::class, 'showTambahCD'])->name('tambahCD');
+Route::post('/updateCD/{id}', [App\Http\Controllers\CDController::class, 'updateCD'])->name('updateCD');
+Route::get('/deleteCD/{id}', [App\Http\Controllers\CDController::class, 'deleteCD'])->name('deleteTempatTerbit');
+Route::post('/importexcel_CD', [App\Http\Controllers\CDController::class, 'importexcel_CD'])->name('importexcel_CD');
+Route::get('/exportexcel_CD', [App\Http\Controllers\CDController::class, 'exportexcel_CD'])->name('exportexcel_CD');
+Route::get('/exportpdf_CD/', [App\Http\Controllers\CDController::class, 'exportpdf_CD'])->name('exportpdf_CD');
 
 
 // ANGGOTA ROUTE
