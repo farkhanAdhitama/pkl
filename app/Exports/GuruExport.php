@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Anggota;
+use App\Models\Guru;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class AnggotaExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
+class GuruExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -20,16 +20,15 @@ class AnggotaExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadi
 
     public function query()
     {
-        return Anggota::query();
+        return Guru::query();
     }
 
     public function map($anggota): array
     {
         return [
             $anggota->nama,
-            $anggota->nis,
-            $anggota->angkatan,
-            $anggota->kelas,
+            $anggota->nik,
+            $anggota->jabatan,
             $anggota->masa_berlaku,
             $anggota->status,
         ];
@@ -39,10 +38,9 @@ class AnggotaExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadi
     {
         return [
             'NAMA',
-            'NIS',
-            'ANGKATAN',
-            'KELAS',
-            'MASA BERLAKU',
+            'NIK',
+            'JABATAN',
+            'BERLAKU SAMPAI',
             'STATUS',
         ];
     }

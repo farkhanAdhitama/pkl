@@ -22,7 +22,7 @@
 <body>
 
 <div class="judul">
-    <h3>Data Anggota Perpustakaan</h3>
+    <h3>Data Guru Perpustakaan</h3>
     <p>SMA Negeri 1 Kajen</p>
 </div>
 
@@ -30,9 +30,8 @@
   <tr>
     <th> No </th>
     <th> Nama </th>
-    <th> NIS </th>
-    <th> Angkatan </th>
-    <th> Kelas </th>
+    <th> NIK </th>
+    <th> Jabatan </th>
     <th> Berlaku Sampai </th>
   </tr>
 
@@ -43,11 +42,9 @@
     <tr>
         <td>{{ $no++ }}</td>
         <td>{{$anggota->nama}}</td>
-        <td>{{$anggota->nis}}</td>
-        <td>{{$anggota->angkatan}}</td>
-        <td>{{$anggota->kelas}}</td>
-        <td>{{$anggota->getMasaBerlaku()}}</td>
-
+        <td>{{$anggota->nik}}</td>
+        <td>{{$anggota->jabatan}}</td>
+        <td>{{$anggota->getMasaBerlaku}}</td>
     </tr>
     @endforeach
 </table>

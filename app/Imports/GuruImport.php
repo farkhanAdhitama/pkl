@@ -2,12 +2,11 @@
 
 namespace App\Imports;
 
-use App\Models\Anggota;
+use App\Models\Guru;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
-
-class AnggotaImport implements ToModel, WithStartRow
+class GuruImport implements ToModel, WithStartRow
 {
     /**
     * @param array $row
@@ -16,13 +15,11 @@ class AnggotaImport implements ToModel, WithStartRow
     */
     public function model(array $row)
     {
-        return new Anggota([
+        return new Guru([
             'nama' => $row[1],
-            'nis' => $row[2],
-            'angkatan' => $row[3],
-            'kelas' => $row[4],
-            'masa_berlaku' => $row[5],
-
+            'nik' => $row[2],
+            'jabatan' => $row[3],
+            'masa_berlaku' => $row[4],
         ]);
     }
 

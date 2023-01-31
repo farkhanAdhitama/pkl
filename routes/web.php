@@ -64,7 +64,7 @@ Route::get('/exportexcel_majalah', [App\Http\Controllers\MajalahController::clas
 Route::get('/exportpdf_majalah/', [App\Http\Controllers\MajalahController::class, 'exportpdf_majalah'])->name('exportpdf_majalah');
 
 
-// MAJALAH ROUTE
+// CD ROUTE
 Route::get('/dataCD', [App\Http\Controllers\CDController::class, 'index'])->name('dataCD');
 Route::post('/insertCD', [App\Http\Controllers\CDController::class, 'insertCD'])->name('insertCD');
 Route::get('/tambahCD', [App\Http\Controllers\CDController::class, 'showTambahCD'])->name('tambahCD');
@@ -86,6 +86,23 @@ Route::post('/importexcel_anggota', [App\Http\Controllers\AnggotaController::cla
 //export anggota
 Route::get('/exportexcel_anggota', [App\Http\Controllers\AnggotaController::class, 'exportexcel_anggota'])->name('exportexcel_anggota');
 Route::get('/exportpdf_anggota/', [App\Http\Controllers\AnggotaController::class, 'exportpdf_anggota'])->name('exportpdf_anggota');
+Route::get('/ubahStatusAktif/{id}', [App\Http\Controllers\AnggotaController::class, 'ubahStatusAktif'])->name('ubahStatusAktif');
+Route::get('/ubahStatusNonAktif/{id}', [App\Http\Controllers\AnggotaController::class, 'ubahStatusNonAktif'])->name('ubahStatusNonAktif');
+
+// GURU ROUTE
+Route::get('/dataguru', [App\Http\Controllers\GuruController::class, 'index'])->name('dataguru');
+Route::get('/tambahguru', [App\Http\Controllers\GuruController::class, 'showTambahGuru'])->name('tambahguru');
+Route::post('/insertGuru', [App\Http\Controllers\GuruController::class, 'insertGuru'])->name('insertGuru');
+Route::post('/updateguru/{id}', [App\Http\Controllers\GuruController::class, 'updateguru'])->name('updateguru');
+Route::get('/deleteguru/{id}', [App\Http\Controllers\GuruController::class, 'deleteguru'])->name('deleteguru');
+// upload/import data guru
+Route::post('/importexcel_guru', [App\Http\Controllers\GuruController::class, 'importexcel_guru'])->name('importexcel_guru');
+//export guru
+Route::get('/exportexcel_guru', [App\Http\Controllers\GuruController::class, 'exportexcel_guru'])->name('exportexcel_guru');
+Route::get('/exportpdf_guru/', [App\Http\Controllers\GuruController::class, 'exportpdf_guru'])->name('exportpdf_guru');
+Route::get('/ubahStatusAktifGuru/{id}', [App\Http\Controllers\GuruController::class, 'ubahStatusAktif'])->name('ubahStatusAktif');
+Route::get('/ubahStatusNonAktifGuru/{id}', [App\Http\Controllers\GuruController::class, 'ubahStatusNonAktif'])->name('ubahStatusNonAktif');
+
 
 
 // JENIS BUKU ROUTE

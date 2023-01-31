@@ -39,7 +39,7 @@
                       </div>
 
                       <div class="form-group">
-                        <label for="nis">NIS/NIP Anggota</label>
+                        <label for="nis">NIS</label>
                         <input type="number" name="nis" class="form-control" id="nis" placeholder="NIS/NIP Anggota" required value="{{ old('nis') }}" autocomplete="nis"
                         class="@error('nis') is-invalid @enderror">
                         @error('nis')
@@ -48,30 +48,56 @@
                       </div>
 
                       <div class="form-group">
-                        <label for="kelas">Kelas/Jabatan</label>
-                        <select class="form-control" name="kelas" id="kelas">
-                          <option value="pengajar">Pengajar</option>
-                          <option value="10">10</option>
-                          <option value="11">11</option>
-                          <option value="11">12</option>
-                        </select>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="no_hp">Nomor HP</label>
-                        <input type="number" name="no_hp" class="form-control" id="no_hp" placeholder="Nomor HP" value="{{ old('no_hp') }}" autocomplete="no_hp"
-                        class="@error('no_hp') is-invalid @enderror">
-                        @error('no_hp')
+                        <label for="angkatan">Angkatan</label>
+                        <input type="number" name="angkatan" class="form-control" id="angkatan" placeholder="Angkatan" value="{{ old('angkatan') }}" autocomplete="angkatan"
+                        class="@error('angkatan') is-invalid @enderror">
+                        @error('angkatan')
                             <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
                         @enderror
                       </div>
 
                       <div class="form-group">
-                        <label for="alamat">Alamat</label>
-                        <textarea type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat" value="{{ old('alamat') }}" autocomplete="alamat"
-                       ></textarea>
+                        <label for="kelas">Kelas</label>
+                        <select class="form-control" name="kelas" id="kelas">
+                          <option value="10 MIPA 1">10 MIPA 1</option>
+                          <option value="10 MIPA 2">10 MIPA 2</option>
+                          <option value="10 MIPA 3">10 MIPA 3</option>
+                          <option value="10 MIPA 4">10 MIPA 4</option>
+                          <option value="10 IPS 1">10 IPS 1</option>
+                          <option value="10 IPS 2">10 IPS 2</option>
+                          <option value="10 IPS 3">10 IPS 3</option>
+                          <option value="10 IPS 4">10 IPS 4</option>
+                          <option value="10 BAHASA">10 BAHASA</option>
+                          <option value="11 MIPA 1">11 MIPA 1</option>
+                          <option value="11 MIPA 2">11 MIPA 2</option>
+                          <option value="11 MIPA 3">11 MIPA 3</option>
+                          <option value="11 MIPA 4">11 MIPA 4</option>
+                          <option value="11 IPS 1">11 IPS 1</option>
+                          <option value="11 IPS 2">11 IPS 2</option>
+                          <option value="11 IPS 3">11 IPS 3</option>
+                          <option value="11 IPS 4">11 IPS 4</option>
+                          <option value="11 BAHASA">11 BAHASA</option>
+                          <option value="12 MIPA 1">12 MIPA 1</option>
+                          <option value="12 MIPA 2">12 MIPA 2</option>
+                          <option value="12 MIPA 3">12 MIPA 3</option>
+                          <option value="12 MIPA 4">12 MIPA 4</option>
+                          <option value="12 IPS 1">12 IPS 1</option>
+                          <option value="12 IPS 2">12 IPS 2</option>
+                          <option value="12 IPS 3">12 IPS 3</option>
+                          <option value="12 IPS 4">12 IPS 4</option>
+                          <option value="12 BAHASA">12 BAHASA</option>
+                        </select>
                       </div>
 
+                      <div class="form-group">
+                        <label for="masa_berlaku">Berlaku Sampai</label>
+                        <input type="date" name="masa_berlaku" class="form-control" id="masa_berlaku" placeholder="Angkatan" value="{{ old('masa_berlaku') }}" autocomplete="masa_berlaku"
+                        class="@error('masa_berlaku') is-invalid @enderror">
+                        @error('masa_berlaku')
+                            <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
+                        @enderror
+                      </div>
+             
                       <div class="form-group">
                         <label>Foto</label>
                         <input type="file" name="foto_anggota" class="form-control">

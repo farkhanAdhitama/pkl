@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\TempatTerbit;
 use App\Http\Requests\StoreTempatTerbitRequest;
 use App\Http\Requests\UpdateTempatTerbitRequest;
+use App\Imports\TempatTerbitImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+Use Barryvdh\DomPDF\Facade\Pdf;
 
 class TempatTerbitController extends Controller
 {
@@ -45,14 +48,14 @@ class TempatTerbitController extends Controller
 
     }
 
-    // public function importexcel_jenisbuku(Request $request)
-    // {
-    //     $data = $request->file('file');
-    //     $namafile = $data->getClientOriginalName();
-    //     $data->move('assets/data_jenisbuku_excel/', $namafile);
+    public function importexcel_tempatterbit(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('assets/data_tempatterbit_excel/', $namafile);
 
-    //     Excel::import(new JenisbukuImport, \public_path('/assets/data_jenisbuku_excel/'.$namafile));
-    //     return \redirect()->back()->with('importsuccess', 'Data Berhasil Diimport');;
+        Excel::import(new TempatTerbitImport, \public_path('/assets/data_tempatterbit_excel/'.$namafile));
+        return \redirect()->back()->with('importsuccess', 'Data Berhasil Diimport');;
 
-    // }
+    }
 }

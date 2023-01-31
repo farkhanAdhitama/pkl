@@ -12,6 +12,8 @@ class Penerbit extends Model
 
     protected $fillable = [
         'nama_penerbit',
+        'alamat',
+        'kota',
     ];
 
     public function penerbit_ke_buku(){

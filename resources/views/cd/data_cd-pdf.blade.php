@@ -22,16 +22,15 @@
 <body>
 
 <div class="judul">
-    <h3>Data Majalah Perpustakaan</h3>
+    <h3>Data CD Perpustakaan</h3>
     <p>SMA Negeri 1 Kajen</p>
 </div>
 
 <table id="penerbit">
   <tr>
-    <th> Nama </th>
-    <th> Tanggal Terbit </th>
-    <th> Nomor/Volume/Tahun </th>
-    <th> ISSN </th>
+    <th> Kode Kelompok </th>
+    <th> Judul </th>
+    <th> Perolehan </th>
     <th> Jumlah </th>
 
   </tr>
@@ -39,13 +38,12 @@
   @php
       $no = 1;
   @endphp
-  @foreach ($data as $majalah)
+  @foreach ($data as $cd)
     <tr>
-        <td>{{$majalah->nama}}</td>
-        <td>{{$majalah->tanggal_terbit}}</td>
-        <td>{{$majalah->nomor}}/{{$majalah->volume}}/{{$majalah->tahun}}</td>
-        <td>{{$majalah->issn}}</td>
-        <td>{{$majalah->jumlah}}</td>
+        <td>{{$cd->kode_kelompok}}</td>
+        <td>{{$cd->judul_cd}}</td>
+        <td>{{$cd->perolehan}}</td>
+        <td>{{$cd->jumlah}}</td>
 
     </tr>
     @endforeach

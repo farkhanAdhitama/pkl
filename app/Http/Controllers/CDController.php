@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CDExport;
 use App\Models\CD;
 use App\Http\Requests\StoreCDRequest;
 use App\Http\Requests\UpdateCDRequest;
@@ -57,9 +58,9 @@ class CDController extends Controller
 
     }
 
-    // public function exportexcel_majalah(){
-    //     return Excel::download(new MajalahExport, 'Data_Majalah.xlsx');
-    // }
+    public function exportexcel_CD(){
+        return Excel::download(new CDExport, 'Data_CD.xlsx');
+    }
 
     public function importexcel_cd(Request $request)
     {
@@ -72,11 +73,11 @@ class CDController extends Controller
 
     }
 
-    // public function exportpdf_majalah(){
-    //     $data = Majalah::all();
-    //     view()->share('data', $data);
-    //     $pdf = PDF::loadview('majalah.data_majalah-pdf');
-    //     return $pdf->download('data_majalah.pdf');
-    // }
+    public function exportpdf_cd(){
+        $data = CD::all();
+        view()->share('data', $data);
+        $pdf = PDF::loadview('cd.data_cd-pdf');
+        return $pdf->download('data_cd.pdf');
+    }
 }
 

@@ -30,7 +30,7 @@
 
     <li class="nav-item {{ (request()->is('tambahbuku', 'tambahMajalah','datajenisbuku','dataPenerbit')) ? 'active' : '' }}">
       <a class="nav-link " data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-        <span class="menu-title">Data</span>
+        <span class="menu-title">Koleksi</span>
         <i class="menu-arrow"></i>
         <i class="mdi mdi-chart-bar menu-icon"></i>
       </a>
@@ -40,7 +40,20 @@
           {{-- <li class="nav-item"> <a class="nav-link" href="{{ route('kategori') }}">Kategori Buku</a></li> --}}
           <li class="nav-item"> <a class="nav-link {{ (request()->is('tambahMajalah')) ? 'active' : '' }}" href="{{ route('dataMajalah') }}">Koleksi Majalah</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('dataCD') }}">Koleksi CD</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{{ route('dataanggota') }}">Data Anggota</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="nav-item ">
+      <a class="nav-link " data-bs-toggle="collapse" href="#anggota" aria-expanded="false" aria-controls="anggota">
+        <span class="menu-title">Anggota</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-account-multiple menu-icon"></i>
+      </a>
+      <div class="collapse " id="anggota">
+        <ul class="nav flex-column sub-menu ">
+          <li class="nav-item"> <a class="nav-link" href="{{ route('dataanggota') }}">Siswa</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('dataguru')}}">Guru/Staff</a></li>
         </ul>
       </div>
     </li>
@@ -55,6 +68,20 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="{{ route('peminjaman') }}">Peminjaman</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('pengembalian') }}">Pengembalian</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#guru" aria-expanded="false" aria-controls="guru">
+        <span class="menu-title">Transaksi Guru</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi mdi-dns menu-icon"></i>
+      </a>
+      <div class="collapse" id="guru">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="#">Peminjaman</a></li>
+          <li class="nav-item"> <a class="nav-link" href="#">Pengembalian</a></li>
         </ul>
       </div>
     </li>

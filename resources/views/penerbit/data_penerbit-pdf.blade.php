@@ -31,6 +31,9 @@
     <th> No </th>
     <th> Kode </th>
     <th> Nama Penerbit </th>
+    <th> Alamat </th>
+    <th> Kota </th>
+
   </tr>
 
   @php
@@ -41,6 +44,8 @@
         <td>{{ $no++ }}</td>
         <td>{{$penerbit->id}}</td>
         <td>{{$penerbit->nama_penerbit}}</td>
+        <td>{{$penerbit->alamat}}</td>
+        <td>{{$penerbit->kota}}</td>
     </tr>
     @endforeach
 </table>

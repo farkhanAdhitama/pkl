@@ -42,13 +42,13 @@ class AnggotaController extends Controller
             'nama' => 'required|max:255|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/',
             'nis' => 'required|numeric|unique:anggotas',
             'kelas' => 'required', 
-            'no_hp' => 'required|numeric'
+            
             
         ],[
             'nama.regex' => 'Nama Harus Berisi Alphabet',
             'nis.numeric' => 'NIS/NIP Harus Berisi Angka',
             'nis.numeric' => 'NIS/NIP Sudah Ada',
-            'no_hp.numeric'=> 'Nomor HP Harus Berisi Angka',
+            'kelas.required' => 'Kelas Harus Diisi'
         ]);
 
         $data = Anggota::create($request->all());
@@ -104,4 +104,17 @@ class AnggotaController extends Controller
         return $pdf->download('data_anggota.pdf');
     }
 
+    public function ubahStatusNonAktif(Request $request,$id)
+    {   
+        $data = Anggota::where('id', $id)->update(['status' => "NonAktif"]);
+        return redirect()->route('dataanggota')->with('succesUbahStatus', 'Status Diubah');
+
+    }
+
+    public function ubahStatusAktif(Request $request,$id)
+    {   
+        $data = Anggota::where('id', $id)->update(['status' => "Aktif"]);
+        return redirect()->route('dataanggota')->with('succesUbahStatus', 'Status Diubah');
+
+    }
 }

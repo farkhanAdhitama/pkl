@@ -2,20 +2,16 @@
 
 namespace App\Imports;
 
-use App\Models\Penerbit;
+use App\Models\TempatTerbit;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class PenerbitImport implements ToModel, WithStartRow
+class TempatTerbitImport implements ToModel, WithStartRow
 {
     public function model(array $row)
     {
-        return new Penerbit([
-
-            'nama_penerbit' => $row[1],
-            'alamat' => $row[2],
-            'kota' => $row[3],
-
+        return new TempatTerbit([
+            'kota' => $row[1],
         ]);
     }
 

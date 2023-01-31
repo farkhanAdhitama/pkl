@@ -117,7 +117,7 @@
                         <div class="card-body m-3">
                           <h5 class="card-title text-center">Download Template Excel</h5>
                           <h6 class="card-subtitle mb-2 text-muted text-center">Untuk Import Data</h6>
-                          <a href="assets/template_import/importpenerbit_template.xlsx"><button type="button" class="btn btn-primary text-center">Download</button></a>
+                          <a href="assets/template_import/importtempatterbit_template.xlsx"><button type="button" class="btn btn-primary text-center">Download</button></a>
                         </div>
                       </div>
                       <form action="/importexcel_tempatterbit" method="POST" enctype="multipart/form-data">
@@ -190,7 +190,7 @@
                                 <div class="row">
                                   <div class="col-sm-6">
                                     <h6>Tempat Terbit</h6>
-                                    <p>{{$tempatterbit->tempatterbit}}</p>
+                                    <p>{{$tempatterbit->kota}}</p>
                                     <h6>Diinput Pada</h6>
                                     <p>{{$tempatterbit->getCreatedAttribute()}}</p>
                                     <h6>Diperbarui Pada</h6>

@@ -26,6 +26,8 @@ class PenerbitExport implements FromQuery, WithMapping, ShouldAutoSize, WithHead
         return [
             $penerbit->id,
             $penerbit->nama_penerbit,
+            $penerbit->alamat,
+            $penerbit->kota,
         ];
     }
 
@@ -34,6 +36,8 @@ class PenerbitExport implements FromQuery, WithMapping, ShouldAutoSize, WithHead
         return [
             'KODE PENERBIT',
             'PENERBIT',
+            'ALAMAT',
+            'KOTA',
         ];
     }
 }

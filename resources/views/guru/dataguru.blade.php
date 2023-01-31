@@ -17,7 +17,7 @@
             <h3 class="page-title">
               <span class="page-title-icon bg-gradient-primary text-white me-2">
                 <i class="mdi mdi-book-open "></i>
-              </span> Data Anggota Siswa
+              </span> Data Guru/Staff
             </h3>
             
           </div>
@@ -26,7 +26,7 @@
             <script>
               Swal.fire(
               'Berhasil!',
-              'Data Anggota Berhasil Ditambahkan!',
+              'Data Guru Berhasil Ditambahkan!',
               'success'
               )
             </script>
@@ -38,7 +38,7 @@
             <script>
               Swal.fire(
               'Berhasil!',
-              'Data Anggota Berhasil Ditambahkan!',
+              'Data Guru Berhasil Ditambahkan!',
               'success'
               )
             </script>
@@ -55,7 +55,7 @@
             <script>
               Swal.fire(
               'Berhasil!',
-              'Data Anggota Berhasil Diperbarui!',
+              'Data Guru Berhasil Diperbarui!',
               'success'
               )
             </script>
@@ -65,21 +65,21 @@
             <div class="col-12 grid-margin">
               <div class="float">
               
-              <a href="/tambahanggota" type="button" class="btn btn-sm btn-primary mb-3"  ><i class="mdi mdi-library-plus mdi-icon"></i> Tambah Anggota Siswa</a>
+              <a href="/tambahguru" type="button" class="btn btn-sm btn-primary mb-3"  ><i class="mdi mdi-library-plus mdi-icon"></i> Tambah Guru/Staff</a>
               
               <div class="float-end mb-3">
                 
-              <a href="/exportpdf_anggota"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  PDF  </button></a>
-              <a href="/exportexcel_anggota"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button></a>
-              <button type="button" data-bs-toggle="modal" data-bs-target="#importanggota" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button>
+              <a href="/exportpdf_guru"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  PDF  </button></a>
+              <a href="/exportexcel_guru"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i>  Excel  </button></a>
+              <button type="button" data-bs-toggle="modal" data-bs-target="#importguru" class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import Data</button>
                 
-               <!-- The Import Anggota Excel Modal -->
-               <div class="modal fade" id="importanggota">
+               <!-- The Import Guru Excel Modal -->
+               <div class="modal fade" id="importguru">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">
-                      <h4 class="modal-title ">Import Data Anggota Siswa</h4>
+                      <h4 class="modal-title ">Import Data Guru/Staff</h4>
                       <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <!-- Modal body -->
@@ -88,10 +88,10 @@
                       <div class="card-body m-3">
                         <h5 class="card-title text-center">Download Template Excel</h5>
                         <h6 class="card-subtitle mb-2 text-muted text-center">Untuk Import Data</h6>
-                        <a href="assets/template_import/importanggota_template.xlsx"><button type="button" class="btn btn-primary text-center">Download</button></a>
+                        <a href="assets/template_import/importguru_template.xlsx"><button type="button" class="btn btn-primary text-center">Download</button></a>
                       </div>
                     </div>
-                    <form action="/importexcel_anggota" method="POST" enctype="multipart/form-data">
+                    <form action="/importexcel_guru" method="POST" enctype="multipart/form-data">
                       @csrf
                       
                       <div class="modal-body px-4">
@@ -118,73 +118,71 @@
               
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Data Anggota Siswa</h4>
+                  <h4 class="card-title">Data Guru/Staff</h4>
                   <div class="table-responsive">
                     <table class="table " id="myTable">
                       <thead>              
                         <tr>
                           <th> No </th>
                           <th> Nama </th>
-                          <th> NIS </th>
-                          <th> Angkatan </th>
-                          <th> Kelas </th>
+                          <th> NIK </th>
+                          <th> Jabatan </th>
                           <th> Berlaku Sampai </th>
                           <th> Status </th>
                           <th> Aksi </th>
                         </tr>
                       </thead>
                       <tbody>
-                      @foreach ($anggotas as $index => $anggota)
+                      @foreach ($gurus as $index => $guru)
                         <tr>
-                          <td scope="anggota">{{ $index + $anggotas->firstItem()}}</td>
+                          <td scope="guru">{{ $index + $gurus->firstItem()}}</td>
                           <td>
                             <?php
-                              if (empty($anggota->foto_anggota)){?>
-                                <img src="assets/images/foto_anggota/person.png" class="me-2" alt="image">{{ $anggota->nama }}
+                              if (empty($guru->foto_guru)){?>
+                                <img src="assets/images/foto_guru/person.png" class="me-2" alt="image">{{ $guru->nama }}
                             <?php
                               }else{
                             ?>
-                              <img src="assets/images/foto_anggota/{{$anggota->foto_anggota}}" class="me-2" alt="image">{{ $anggota->nama }}
+                              <img src="assets/images/foto_guru/{{$guru->foto_guru}}" class="me-2" alt="image">{{ $guru->nama }}
                             <?php }?>  
                           </td>
-                          <td>{{$anggota->nis}}</td>
-                          <td>{{$anggota->angkatan}}</td>
-                          <td>{{$anggota->kelas}}</td>
-                          <td>{{$anggota->getMasaBerlaku()}}</td>
+                          <td>{{$guru->nik}}</td>
+                          <td>{{$guru->jabatan}}</td>
+                          <td>{{$guru->getMasaBerlaku()}}</td>
                           
-                          @if ($anggota->status == "Aktif")
+                          @if ($guru->status == "Aktif")
                             <td>
-                              <a href="ubahStatusNonAktif/{{$anggota->id}}"> <label  style="cursor: pointer;" class="badge badge-gradient-primary">{{$anggota->status}}</label></a>
+                              <a href="ubahStatusNonAktifGuru/{{$guru->id}}"> <label  style="cursor: pointer;" class="badge badge-gradient-primary">{{$guru->status}}</label></a>
                             </td>
                           @else
                             <td>
-                              <a href="ubahStatusAktif/{{$anggota->id}}"> <label  style="cursor: pointer;" class="badge badge-gradient-danger">{{$anggota->status}}</label></a>
+                              <a href="ubahStatusAktifGuru/{{$guru->id}}"> <label  style="cursor: pointer;" class="badge badge-gradient-danger">{{$guru->status}}</label></a>
                             </td>
                           @endif
 
                           <td>
-                            <button type="button" class="btn btn-inverse-info btn-icon" data-bs-toggle="modal" data-bs-target="#view{{$anggota->id}}" >
+                            <button type="button" class="btn btn-inverse-info btn-icon" data-bs-toggle="modal" data-bs-target="#view{{$guru->id}}" >
                               <i class="mdi mdi-information-outline"></i>
                             </button>
                             
-                            <button type="button" class="btn btn-inverse-primary btn-icon" data-bs-toggle="modal" data-bs-target="#edit{{$anggota->id}}">
+                            <button type="button" class="btn btn-inverse-primary btn-icon" data-bs-toggle="modal" data-bs-target="#edit{{$guru->id}}">
                               <i class="mdi mdi-pencil"></i>
                             </button>
                             
                             <a href="#">
-                            <button class="btn btn-inverse-danger btn-icon delete " data-id = "{{$anggota->id}}" data-anggota = "{{$anggota->nama}}"> 
+                            <button class="btn btn-inverse-danger btn-icon delete " data-id = "{{$guru->id}}" data-guru = "{{$guru->nama}}"> 
                               <i class="mdi mdi-delete "></i>
                             </button></a>
                           </td>
                         </tr>
                         <!-- The Detail Modal -->
-                        <div class="modal fade" id="view{{$anggota->id}}">
+                        <div class="modal fade" id="view{{$guru->id}}">
                           <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
 
                               <!-- Modal Header -->
                               <div class="modal-header">
-                                <h4 class="modal-title ">Detail Anggota</h4>
+                                <h4 class="modal-title ">Detail Guru</h4>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                               </div>
                               <!-- Modal body -->
@@ -192,32 +190,30 @@
                                 
                                 <div class="row">
                                   <div class="col-sm-6 ">
-                                    <h3>{{$anggota->nama}}</h3>
+                                    <h3>{{$guru->nama}}</h3>
                                     <?php
-                                      if (empty($anggota->foto_anggota)){?>
-                                        <img width="200px" src="assets/images/foto_anggota/person.png" class="me-2" alt="image">
+                                      if (empty($guru->foto_guru)){?>
+                                        <img width="200px" src="assets/images/foto_guru/person.png" class="me-2" alt="image">
                                     <?php
                                       }else{
                                     ?>
-                                        <img width="200px" src="assets/images/foto_anggota/{{$anggota->foto_anggota}}" class="me-2" alt="image">
+                                        <img width="200px" src="assets/images/foto_guru/{{$guru->foto_guru}}" class="me-2" alt="image">
                                     <?php 
                                   }?> 
                                   </div>
                                   <div class="col-sm-6">
-                                    <h6>NIS</h6>
-                                    <p>{{$anggota->nis}}</p>
-                                    <h6>Angkatan</h6>
-                                    <p>{{$anggota->angkatan}}</p>
-                                    <h6>Kelas</h6>
-                                    <p>{{$anggota->kelas}}</p>
-                                    <h6>Berlaku Sampai</h6>
-                                    <p>{{$anggota->getMasaBerlaku()}}</p>
+                                    <h6>NIK</h6>
+                                    <p>{{$guru->nik}}</p>
+                                    <h6>Jabatan</h6>
+                                    <p>{{$guru->jabatan}}</p>
                                     <h6>Status</h6>
-                                    <p>{{$anggota->status}}</p>
+                                    <p>{{$guru->status}}</p>
+                                    <h6>Berlaku Sampai</h6>
+                                    <p>{{$guru->getMasaBerlaku()}}</p>
                                     <h6>Diinput Pada</h6>
-                                    <p>{{$anggota->getCreatedAttribute()}}</p>
+                                    <p>{{$guru->getCreatedAttribute()}}</p>
                                     <h6>Diperbarui Pada</h6>
-                                    <p>{{$anggota->getUpdatedAttribute()}}</p>
+                                    <p>{{$guru->getUpdatedAttribute()}}</p>
                                     
                                   </div>
                                 </div>
@@ -234,79 +230,65 @@
 
 
                         <!-- The Edit Modal -->
-                        <div class="modal fade" id="edit{{$anggota->id}}">
+                        <div class="modal fade" id="edit{{$guru->id}}">
                           <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                               <!-- Modal Header -->
                               <div class="modal-header">
-                                <h4 class="modal-title ">Edit Data Anggota</h4>
+                                <h4 class="modal-title ">Edit Data Guru</h4>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                               </div>
                               <!-- Modal body -->
                               <div class="modal-body px-4">
                                 
-                                <form action="/updateanggota/{{$anggota->id}}" method="POST" enctype="multipart/form-data" class="forms-sample">
+                                <form action="/updateguru/{{$guru->id}}" method="POST" enctype="multipart/form-data" class="forms-sample">
                                   @csrf
-                                  
-            
+                                
                                   <div class="form-group">
-                                    <label for="nama">Nama</label>
-                                    <input value="{{$anggota->nama}}" type="text" name="nama" class="form-control" id="nama" placeholder="Nama" required>
+                                    <label for="nama">Nama Guru/Staff</label>
+                                    <input value="{{$guru->nama}}" type="text" name="nama" class="form-control" id="nama" placeholder="Nama Guru" required value="{{ old('nama') }}" autocomplete="nama"
+                                    class="@error('nama') is-invalid @enderror">
+                                    @error('nama')
+                                        <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
+                                    @enderror
                                   </div>
                                   <div class="form-group">
-                                    <label for="nis">NIS</label>
-                                    <input value="{{$anggota->nis}}" type="number" name="nis" class="form-control" id="nis" placeholder="NIS/NIP" required>
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="angkatan">Angkatan</label>
-                                    <input value="{{$anggota->angkatan}}" type="text" name="angkatan" class="form-control" id="angkatan" placeholder="Angkatan" required>
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="kelas">Kelas</label>
-                                    <select class="form-control" name="kelas" id="kelas">
-                                      <option value="10 MIPA 1">10 MIPA 1</option>
-                                      <option value="10 MIPA 2">10 MIPA 2</option>
-                                      <option value="10 MIPA 3">10 MIPA 3</option>
-                                      <option value="10 MIPA 4">10 MIPA 4</option>
-                                      <option value="10 IPS 1">10 IPS 1</option>
-                                      <option value="10 IPS 2">10 IPS 2</option>
-                                      <option value="10 IPS 3">10 IPS 3</option>
-                                      <option value="10 IPS 4">10 IPS 4</option>
-                                      <option value="10 BAHASA">10 BAHASA</option>
-                                      <option value="11 MIPA 1">11 MIPA 1</option>
-                                      <option value="11 MIPA 2">11 MIPA 2</option>
-                                      <option value="11 MIPA 3">11 MIPA 3</option>
-                                      <option value="11 MIPA 4">11 MIPA 4</option>
-                                      <option value="11 IPS 1">11 IPS 1</option>
-                                      <option value="11 IPS 2">11 IPS 2</option>
-                                      <option value="11 IPS 3">11 IPS 3</option>
-                                      <option value="11 IPS 4">11 IPS 4</option>
-                                      <option value="11 BAHASA">11 BAHASA</option>
-                                      <option value="12 MIPA 1">12 MIPA 1</option>
-                                      <option value="12 MIPA 2">12 MIPA 2</option>
-                                      <option value="12 MIPA 3">12 MIPA 3</option>
-                                      <option value="12 MIPA 4">12 MIPA 4</option>
-                                      <option value="12 IPS 1">12 IPS 1</option>
-                                      <option value="12 IPS 2">12 IPS 2</option>
-                                      <option value="12 IPS 3">12 IPS 3</option>
-                                      <option value="12 IPS 4">12 IPS 4</option>
-                                      <option value="12 BAHASA">12 BAHASA</option>
+                                    <label for="jabatan">Jabatan</label>
+                                    <select class="form-control" name="jabatan" id="jabatan"
+                                    class="@error('jabatan') is-invalid @enderror">
+                                      <option value="{{$guru->jabatan}}">{{$guru->jabatan}}</option>
+                                      <option value="Guru">Guru</option>
+                                      <option value="Karyawan">Karyawan</option>
                                     </select>
+                                    @error('jabatan')
+                                        <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
+                                    @enderror
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="nik">NIK</label>
+                                    <input value="{{$guru->nik}}" type="text" name="nik" class="form-control" id="nik" placeholder="NIK" required value="{{ old('nik') }}" autocomplete="nik"
+                                    class="@error('nik') is-invalid @enderror">
+                                    @error('nik')
+                                        <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
+                                    @enderror
                                   </div>
                                   <div class="form-group">
                                     <label for="masa_berlaku">Berlaku Sampai</label>
-                                    <input value="{{$anggota->masa_berlaku}}" type="date" name="masa_berlaku" class="form-control" id="masa_berlaku" placeholder="Berlaku Sampai" required>
+                                    <input value="{{$guru->masa_berlaku}}" type="date" name="masa_berlaku" class="form-control" id="masa_berlaku" placeholder="Angkatan" value="{{ old('masa_berlaku') }}" autocomplete="masa_berlaku"
+                                    class="@error('masa_berlaku') is-invalid @enderror">
+                                    @error('masa_berlaku')
+                                        <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
+                                    @enderror
                                   </div>
                                   <div class="form-group">
-                                    <label>Foto Anggota</label><br>
-                                    <img height="100px" src="assets/images/foto_anggota/{{$anggota->foto_anggota}}" alt="">
-                                    <input type="file" name="foto_anggota" class="form-control">
+                                    <label>Foto Guru</label><br>
+                                    <img height="100px" src="assets/images/foto_guru/{{$guru->foto_guru}}" alt="">
+                                    <input type="file" name="foto_guru" class="form-control">
                                   </div>
                                   <button type="submit" class="btn btn-primary me-2 ">Submit</button>
                                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                                 </form>
                               </div>
-
                               <!-- Modal footer -->
                               <div class="modal-footer">
                                 
@@ -336,11 +318,11 @@
     <!-- page-body-wrapper ends -->
     <script>
       $('.delete').click(function(){
-        var idanggota = $(this).attr('data-id');
-        var nama = $(this).attr('data-anggota');
+        var idguru = $(this).attr('data-id');
+        var nama = $(this).attr('data-guru');
         Swal.fire({
         title: 'Apakah Yakin?',
-        text: "Hapus Anggota dengan Nama "+nama+" ",
+        text: "Hapus Guru dengan Nama "+nama+" ",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -349,7 +331,7 @@
         cancelButtonText: 'Batal'
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location = "/deleteanggota/"+idanggota+""
+          window.location = "/deleteguru/"+idguru+""
           Swal.fire(
             'Dihapus!',
             'Data Berhasil Dihapus',

@@ -90,6 +90,22 @@
                               <sub class="p fst-italic text-danger">{{"$message"}}</sub>
                           @enderror
                         </div>
+                        <div class="form-group">
+                          <label for="alamat">Alamat</label>
+                          <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat" required value="{{ old('alamat') }}" autocomplete="alamat"
+                          class="@error('alamat') is-invalid @enderror">
+                          @error('alamat')
+                              <sub class="p fst-italic text-danger">{{"$message"}}</sub>
+                          @enderror
+                        </div>
+                        <div class="form-group">
+                          <label for="kota">Kota</label>
+                          <input type="text" name="kota" class="form-control" id="kota" placeholder="Nama Kota" required value="{{ old('kota') }}" autocomplete="kota"
+                          class="@error('kota') is-invalid @enderror">
+                          @error('kota')
+                              <sub class="p fst-italic text-danger">{{"$message"}}</sub>
+                          @enderror
+                        </div>
                         <button type="submit" class="btn btn-primary me-2">Submit</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                       </form>              
@@ -155,6 +171,8 @@
                           <th> No </th>
                           <th> Kode </th>
                           <th> Penerbit </th>
+                          <th> Alamat </th>
+                          <th> Kota </th>
                           <th> Aksi </th>
                         </tr>
                       </thead>
@@ -164,6 +182,8 @@
                           <td scope="penerbit"> {{$index + $penerbits->firstItem()}} </td>
                           <td>{{$penerbit->id}}</td>
                           <td>{{$penerbit->nama_penerbit}}</td>
+                          <td>{{$penerbit->alamat}}</td>
+                          <td>{{$penerbit->kota}}</td>
                           <td>
                             <button type="button" class="btn btn-inverse-info btn-icon" data-bs-toggle="modal" data-bs-target="#view{{$penerbit->id}}">
                               <i class="mdi mdi-information-outline"></i>
@@ -196,6 +216,10 @@
                                   <div class="col-sm-6">
                                     <h6>Penerbit</h6>
                                     <p>{{$penerbit->nama_penerbit}}</p>
+                                    <h6>Alamat</h6>
+                                    <p>{{$penerbit->alamat}}</p>
+                                    <h6>Kota</h6>
+                                    <p>{{$penerbit->kota}}</p>
                                     <h6>Diinput Pada</h6>
                                     <p>{{$penerbit->getCreatedAttribute()}}</p>
                                     <h6>Diperbarui Pada</h6>
@@ -228,9 +252,16 @@
                                   @csrf
                                   <div class="form-group">
                                     <label for="nama_penerbit">Penerbit</label>
-                                    <input value="{{$penerbit->nama_penerbit}}" type="text" name="nama_penerbit" class="form-control" id="nama_penerbit" placeholder="Jenis Buku" required>
+                                    <input value="{{$penerbit->nama_penerbit}}" type="text" name="nama_penerbit" class="form-control" id="nama_penerbit" placeholder="Nama Penerbit" required>
                                   </div>
-                                 
+                                  <div class="form-group">
+                                    <label for="alamat">Penerbit</label>
+                                    <input value="{{$penerbit->alamat}}" type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="kota">Penerbit</label>
+                                    <input value="{{$penerbit->kota}}" type="text" name="kota" class="form-control" id="kota" placeholder="Kota" required>
+                                  </div>
                                   <button type="submit" class="btn btn-primary me-2 ">Submit</button>
                                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                                 </form>

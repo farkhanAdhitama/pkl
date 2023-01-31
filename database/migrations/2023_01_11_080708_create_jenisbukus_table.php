@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('jenisbukus', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('rak')->nullable();
             $table->timestamps();
         });
     }
