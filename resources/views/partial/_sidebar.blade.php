@@ -86,36 +86,9 @@
       </div>
     </li>
 
-    {{-- <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#pages" aria-expanded="false" aria-controls="pages">
-        <span class="menu-title">Transaksi Guru</span>
-        <i class="menu-arrow"></i>
-        <i class="mdi mdi mdi-dns menu-icon"></i>
-      </a>
-      <div class="collapse" id="pages">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="{{ route('peminjaman_guru') }}">Peminjaman</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{{ route('pengembalian_guru') }}">Pengembalian</a></li>
-        </ul>
-      </div>
-    </li> --}}
-    
-    {{-- <li class="nav-item">
-      <a class="nav-link" href="{{ route('peminjaman') }}">
-        <span class="menu-title">Peminjaman</span>
-        <i class="mdi mdi-arrow-up-bold-circle menu-icon"></i>
-      </a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-link" href="{{ route('pengembalian') }}">
-        <span class="menu-title">Pengembalian</span>
-        <i class="mdi mdi-arrow-down-bold-circle menu-icon"></i>
-      </a>
-    </li> --}}
 
     <li class="nav-item">
-      <a class="nav-link" href="{{ route('pengaturan') }}">
+      <a class="nav-link" href="/pengaturan/{{ auth()->user()->id }}">
         <span class="menu-title">Pengaturan</span>
         <i class="mdi mdi-settings menu-icon"></i>
       </a>

@@ -100,8 +100,8 @@ Route::post('/importexcel_guru', [App\Http\Controllers\GuruController::class, 'i
 //export guru
 Route::get('/exportexcel_guru', [App\Http\Controllers\GuruController::class, 'exportexcel_guru'])->name('exportexcel_guru');
 Route::get('/exportpdf_guru/', [App\Http\Controllers\GuruController::class, 'exportpdf_guru'])->name('exportpdf_guru');
-Route::get('/ubahStatusAktifGuru/{id}', [App\Http\Controllers\GuruController::class, 'ubahStatusAktif'])->name('ubahStatusAktif');
-Route::get('/ubahStatusNonAktifGuru/{id}', [App\Http\Controllers\GuruController::class, 'ubahStatusNonAktif'])->name('ubahStatusNonAktif');
+Route::get('/ubahStatusAktifGuru/{id}', [App\Http\Controllers\GuruController::class, 'ubahStatusAktifGuru'])->name('ubahStatusAktifGuru');
+Route::get('/ubahStatusNonAktifGuru/{id}', [App\Http\Controllers\GuruController::class, 'ubahStatusNonAktifGuru'])->name('ubahStatusNonAktifGuru');
 
 
 
@@ -136,7 +136,7 @@ Route::get('/deletePengembalian/{id}', [App\Http\Controllers\TransaksiController
 Route::get('/peminjaman_guru', [App\Http\Controllers\TransaksiController::class, 'showPeminjamanGuru'])->name('peminjaman_guru');
 Route::get('/pengembalian_guru', [App\Http\Controllers\TransaksiController::class, 'showPengembalianGuru'])->name('pengembalian_guru');
 
-Route::get('/pengaturan', [App\Http\Controllers\PengaturanController::class, 'showPengaturan'])->name('pengaturan');
+Route::get('/pengaturan/{id}', [App\Http\Controllers\PengaturanController::class, 'showPengaturan'])->name('pengaturan');
 Route::post('/updateAdmin/{id}', [App\Http\Controllers\PengaturanController::class, 'updateAdmin'])->name('updateAdmin');
 
 //update foto profil

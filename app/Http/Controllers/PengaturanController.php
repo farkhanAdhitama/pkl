@@ -13,10 +13,10 @@ class PengaturanController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function showPengaturan()
+    public function showPengaturan(Request $request, $id)
     {
-        $profil = User::all();
-        return view('pengaturan', compact('profil'));
+        $profil = User::find($id);
+        return view('pengaturan.pengaturan', compact('profil'));
     }
 
     public function updateAdmin(Request $request, $id)

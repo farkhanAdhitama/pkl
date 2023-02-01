@@ -25,7 +25,7 @@
         </a>
       </li>
       
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
           <i class="mdi mdi-bell-outline"></i>
           <span class="count-symbol bg-danger"></span>
@@ -71,12 +71,12 @@
           <div class="dropdown-divider"></div>
           <h6 class="p-3 mb-0 text-center">See all notifications</h6>
         </div>
-      </li>
+      </li> --}}
 
       <li class="nav-item nav-profile dropdown">
         <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
           <div class="nav-profile-img">
-            <img src="assets/images/logo/smankaLogo.png" alt="image">
+            <img src="{{asset('assets/images/logo/smankaLogo.png')}}" alt="image">
             <span class="availability-status online"></span>
           </div>
           <div class="nav-profile-text">

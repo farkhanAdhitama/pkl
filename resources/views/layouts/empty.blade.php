@@ -6,38 +6,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Perpustakaan</title>
         <!-- plugins:css -->
-        <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
         <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
         {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"> --}}
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" href="sweetalert2.min.css">
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>      
+        <!-- Layout styles -->
+        <link rel="stylesheet" href="assets/css/style.css">
         <!-- End layout styles -->
         <link rel="shortcut icon" href="assets/images/smankaLogo.png" />
       </head>
 <body>
     <div id="app">
         <main class="">
-            <div class="container-scroller">
-                <!-- partial:partials/_navbar.html -->
-                @include('partial._navbar')
-                <!-- partial -->
-                <div class="container-fluid page-body-wrapper">
-                  <!-- partial:partials/_sidebar.html -->
-                  @include('partial._sidebar')
-                  <!-- partial -->
-                  <div class="main-panel">
-                    <div class="content-wrapper">
+            <div class="container-scroller">               
             @yield('content')
-                    </div>
-                    <!-- content-wrapper ends -->
-                    <!-- partial:partials/_footer.html -->
-                    @include('partial._footer')
-                    <!-- partial -->
-                    </div>
-                <!-- main-panel ends -->
                 </div>
             </div>
         </main>
