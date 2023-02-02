@@ -16,7 +16,7 @@ class PengaturanController extends Controller
     public function showPengaturan(Request $request, $id)
     {
         $profil = User::find($id);
-        return view('pengaturan.pengaturan', compact('profil'));
+        return view('.pengaturan', compact('profil'));
     }
 
     public function updateAdmin(Request $request, $id)
@@ -43,9 +43,15 @@ class PengaturanController extends Controller
         } else {
             
             $data = User::find($id);
+            
+            if($request->hasFile('foto_profil')){
+            $request->file('foto_profil')->move('assets/images/foto_profil/', $request->file('foto_profil')->getClientOriginalName());
+            $data->foto_profil = $request->file('foto_profil')->getClientOriginalName();
+            $data->save();
+            }
             $data->update($request->all());
             return redirect()
-                ->route('pengaturan')
+                ->back()
                 ->with('add_success', 'Data Berhasil Ditambahkan.');
         }
     }

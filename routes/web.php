@@ -124,7 +124,7 @@ Route::get('/peminjaman', [App\Http\Controllers\TransaksiController::class, 'sho
 Route::get('/showTambahPeminjaman', [App\Http\Controllers\TransaksiController::class, 'showTambahPeminjaman'])->name('showTambahPeminjaman');
 Route::post('/tambah_peminjaman', [App\Http\Controllers\TransaksiController::class, 'tambah_peminjaman'])->name('tambah_peminjaman');
 Route::get('/pengembalian', [App\Http\Controllers\TransaksiController::class, 'showPengembalian'])->name('pengembalian');
-Route::get('/kembalikan/{id}', [App\Http\Controllers\TransaksiController::class, 'kembalikan'])->name('kembalikan');
+Route::get('/kembalikan/{id}/{id_buku}', [App\Http\Controllers\TransaksiController::class, 'kembalikan'])->name('kembalikan');
 Route::get('/perpanjang/{id}', [App\Http\Controllers\TransaksiController::class, 'perpanjang'])->name('perpanjang');
 Route::get('/exportpdf_peminjaman', [App\Http\Controllers\TransaksiController::class, 'exportpdf_peminjaman'])->name('exportpdf_peminjaman');
 Route::get('/exportpdf_pengembalian', [App\Http\Controllers\TransaksiController::class, 'exportpdf_pengembalian'])->name('exportpdf_pengembalian');
@@ -133,8 +133,8 @@ Route::get('/exportexcel_pengembalian', [App\Http\Controllers\TransaksiControlle
 Route::get('/deletePengembalian/{id}', [App\Http\Controllers\TransaksiController::class, 'deletePengembalian'])->name('deletePengembalian');
 
 //transaksi guru
-Route::get('/peminjaman_guru', [App\Http\Controllers\TransaksiController::class, 'showPeminjamanGuru'])->name('peminjaman_guru');
-Route::get('/pengembalian_guru', [App\Http\Controllers\TransaksiController::class, 'showPengembalianGuru'])->name('pengembalian_guru');
+Route::get('/guru_pinjam', [App\Http\Controllers\TransaksiController::class, 'showPeminjamanGuru'])->name('guru_pinjam');
+Route::get('/guru_kembali', [App\Http\Controllers\TransaksiController::class, 'showPengembalianGuru'])->name('guru_kembali');
 
 Route::get('/pengaturan/{id}', [App\Http\Controllers\PengaturanController::class, 'showPengaturan'])->name('pengaturan');
 Route::post('/updateAdmin/{id}', [App\Http\Controllers\PengaturanController::class, 'updateAdmin'])->name('updateAdmin');

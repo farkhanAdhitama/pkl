@@ -33,14 +33,16 @@ class TransaksiController extends Controller
 
     public function tambah_peminjaman(Request $request)
     {   
-
+        
         $data = Transaksi::create($request->all());
+        Buku::where('id', $data->buku_id)->decrement('jumlah',1);
         return redirect()->route('peminjaman')->with('insertsuccess', 'Peminjaman Berhasil');
     }
 
-    public function kembalikan(Request $request,$id)
-    {
-        $data = Transaksi::where('id', $id)->update(['status' => "Dikembalikan"]);
+    public function kembalikan(Request $request,$id,$id_buku)
+    {   
+        Transaksi::where('id', $id)->update(['status' => "Dikembalikan"]);
+        Buku::where('id', $id_buku)->increment('jumlah',1);
         return redirect()->route('peminjaman')->with('succeskembalikan', 'Buku Berhasil Dikembalikan');
 
     }
@@ -48,7 +50,7 @@ class TransaksiController extends Controller
     public function perpanjang(Request $request,$id)
     {   
 
-        $data = Transaksi::where('id', $id)->increment('lama',7);
+        Transaksi::where('id', $id)->increment('lama',7);
         return redirect()->route('peminjaman')->with('succeskembalikan', 'Buku Berhasil Dikembalikan');
 
     }
@@ -79,8 +81,6 @@ class TransaksiController extends Controller
         return $pdf->download('data-pengembalian.pdf');
     }
 
-
-
     public function showPengembalian()
     {
         $peminjaman = Transaksi::with('buku','anggota')->where('status', 'Dikembalikan')->paginate(99999);
@@ -97,7 +97,6 @@ class TransaksiController extends Controller
 
     }
 
-
     // Guru
     public function showPeminjamanGuru()
     {
@@ -105,7 +104,7 @@ class TransaksiController extends Controller
         $bukus = Buku::all();
         $anggotas = Anggota::all();
         
-        return view('transaksi-guru.peminjaman', compact('peminjaman','bukus', 'anggotas'));
+        return view('transaksi-guru.peminjaman_guru', compact('peminjaman','bukus', 'anggotas'));
     }
 
 
