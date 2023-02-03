@@ -10,15 +10,24 @@ use App\Imports\AnggotaImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use Carbon\Carbon;
 
 class AnggotaController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {   
         $anggotas = Anggota::paginate(1000000);
-        
+        $members = Anggota::all();
+        foreach ($members as $anggota){
+            $id_anggota = $anggota->id;
+            $result = now()->diffInDays($anggota->masa_berlaku, false);
+            if($result < 0){
+                $anggota::where('id', $id_anggota)->update(['status' => "NonAktif"]);
+            }else{
+                $anggota::where('id', $id_anggota)->update(['status' => "Aktif"]);
+            }
+        }
         return view('dataanggota', compact('anggotas'));
     }
 
@@ -46,8 +55,8 @@ class AnggotaController extends Controller
             
         ],[
             'nama.regex' => 'Nama Harus Berisi Alphabet',
-            'nis.numeric' => 'NIS/NIP Harus Berisi Angka',
-            'nis.numeric' => 'NIS/NIP Sudah Ada',
+            'nis.numeric' => 'NIS Harus Berisi Angka',
+            'nis.required' => 'NIS Sudah Ada',
             'kelas.required' => 'Kelas Harus Diisi'
         ]);
 

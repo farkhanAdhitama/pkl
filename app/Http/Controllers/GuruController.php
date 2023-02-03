@@ -16,6 +16,16 @@ class GuruController extends Controller
     public function index()
     {   
         $gurus = Guru::paginate(1000000);
+        $members = Guru::all();
+        foreach ($members as $guru){
+            $id_guru = $guru->id;
+            $result = now()->diffInDays($guru->masa_berlaku, false);
+            if($result < 0){
+                $guru::where('id', $id_guru)->update(['status' => "NonAktif"]);
+            }else{
+                $guru::where('id', $id_guru)->update(['status' => "Aktif"]);
+            }
+        }
         
         return view('guru.dataguru', compact('gurus'));
     }
@@ -37,14 +47,14 @@ class GuruController extends Controller
     public function insertGuru(Request $request)
     {   
         $validated = $request->validate([
-            'nama' => 'required|max:255|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/',
+            'nama' => 'required|max:255|regex:/^([a-zA-Z]+)(\s[a-zA-Z.,_]+)*$/',
             'nik' => 'required|numeric|unique:gurus',
             'masa_berlaku' => 'required', 
             'jabatan' => 'required', 
             
             
         ],[
-            'nama.regex' => 'Nama Harus Berisi Alphabet',
+            'nama.regex' => 'Nama Harus Berisi Alphabet atau Karakter . ,',
             'nik.numeric' => 'NIS Harus Berisi Angka',
             'nik.unique' => 'NIS Sudah Ada',
             'jabatan.required' => 'Jabatan Harus Diisi',

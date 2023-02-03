@@ -13,6 +13,18 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{ asset('assets/images/smankaLogo.png') }}" />
 
+
+    {{-- swal berhasil import --}}
+    @if ($message = Session::get('update_sukses'))
+        {{-- Notif cd berhasil ditambah --}}
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Data Berhasil Diperbarui!',
+                'success'
+            )
+        </script>
+    @endif
     <div class="page-header">
         <h3 class="page-title">
             <span class="page-title-icon bg-gradient-primary text-white me-2">
@@ -77,7 +89,7 @@
                         @csrf
                         <div class="form-group ">
                             <div class="text-center">
-                                <img class="m-3 text-center" height="150px"
+                                <img class="m-3 text-center rounded mx-auto d-block rounded-circle" height="150px"
                                     src="../assets/images/foto_profil/{{ $profil->foto_profil }}" alt="">
                             </div>
                             <h5 class="mt-3">Pilih Foto Profil Baru</h5>

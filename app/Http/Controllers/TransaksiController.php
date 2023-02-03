@@ -17,8 +17,8 @@ class TransaksiController extends Controller
     public function showPeminjaman()
     {
         $peminjaman = Transaksi::with('buku','anggota')->where('status', 'Dipinjam')->paginate(99999);
-        $bukus = Buku::all();
-        $anggotas = Anggota::all();
+        $bukus = Buku::all()->where('jumlah','>', 0);
+        $anggotas = Anggota::all()->where('status', 'Aktif');
         
 
         return view('transaksi.peminjaman', compact('peminjaman','bukus', 'anggotas'));

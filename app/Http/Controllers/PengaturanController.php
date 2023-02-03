@@ -52,7 +52,7 @@ class PengaturanController extends Controller
             $data->update($request->all());
             return redirect()
                 ->back()
-                ->with('add_success', 'Data Berhasil Ditambahkan.');
+                ->with('update_sukses', 'Data Berhasil Ditambahkan.');
         }
     }
 }
