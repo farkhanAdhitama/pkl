@@ -35,4 +35,9 @@ class Guru extends Model
         return Carbon::parse($this->attributes['updated_at'])
             ->translatedFormat('l, d M Y');
     }
+
+     public function transaksi(){
+        return $this->hasMany(TransaksiGuru::class);
+    }
+
 }

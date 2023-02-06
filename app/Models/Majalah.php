@@ -31,4 +31,12 @@ class Majalah extends Model
         return Carbon::parse($this->attributes['updated_at'])
             ->translatedFormat('l, d M Y');
     }
+
+     public function transaksi(){
+        return $this->hasMany(Transaksi::class);
+    }
+
+    public function transaksi_guru(){
+        return $this->hasMany(TransaksiGuru::class, 'id');
+    }
 }

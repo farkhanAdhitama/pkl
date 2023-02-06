@@ -22,8 +22,6 @@ class GuruController extends Controller
             $result = now()->diffInDays($guru->masa_berlaku, false);
             if($result < 0){
                 $guru::where('id', $id_guru)->update(['status' => "NonAktif"]);
-            }else{
-                $guru::where('id', $id_guru)->update(['status' => "Aktif"]);
             }
         }
         

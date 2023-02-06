@@ -19,8 +19,6 @@ class TransaksiController extends Controller
         $peminjaman = Transaksi::with('buku','anggota')->where('status', 'Dipinjam')->paginate(99999);
         $bukus = Buku::all()->where('jumlah','>', 0);
         $anggotas = Anggota::all()->where('status', 'Aktif');
-        
-
         return view('transaksi.peminjaman', compact('peminjaman','bukus', 'anggotas'));
     }
 
@@ -96,25 +94,5 @@ class TransaksiController extends Controller
         return redirect()->route('pengembalian')->with('deletesuccess', 'Data Berhasil Dihapus');
 
     }
-
-    // Guru
-    public function showPeminjamanGuru()
-    {
-        $peminjaman = Transaksi::with('buku','anggota')->where('status', 'Dipinjam')->paginate(99999);
-        $bukus = Buku::all();
-        $anggotas = Anggota::all();
-        
-        return view('transaksi-guru.peminjaman_guru', compact('peminjaman','bukus', 'anggotas'));
-    }
-
-
-    public function showPengembalianGuru()
-    {
-        $peminjaman = Transaksi::with('buku','anggota')->where('status', 'Dikembalikan')->paginate(99999);
-        $bukus = Buku::all();
-        $anggotas = Anggota::all();
-        return view('transaksi-guru.pengembalian', compact('peminjaman','bukus', 'anggotas'));
-    }
-
     
 }

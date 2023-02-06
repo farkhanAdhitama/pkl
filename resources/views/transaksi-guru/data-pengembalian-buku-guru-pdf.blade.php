@@ -4,16 +4,18 @@
 <head>
 
     <style>
-        #member {
+        #book {
             border-collapse: collapse;
             width: 100%;
         }
 
-        #member td,
-        #member th {
+        #book td,
+        #book th {
             border: 1px solid rgb(0, 0, 0);
             padding: 8px;
         }
+
+
 
         .judul {
             text-align: center;
@@ -24,32 +26,35 @@
 <body>
 
     <div class="judul">
-        <h3>Data Guru</h3>
+        <h3>Data Pengembalian Buku Guru</h3>
         <p>Perpustakaan SMA Negeri 1 Kajen</p>
         <?php
         echo 'Dicetak Tanggal : ' . date('d-m-Y') . '<br>';
-        ?><br>
+        ?>
+        <br>
     </div>
 
-    <table id="member">
+    <table id="book">
         <tr>
             <th> No </th>
             <th> Nama </th>
-            <th> NIK </th>
-            <th> Jabatan </th>
-            <th> Berlaku Sampai </th>
+            <th> Judul </th>
+            <th> Tanggal Pinjam</th>
+            <th> Tanggal Kembali </th>
+            <th> Total </th>
         </tr>
 
         @php
             $no = 1;
         @endphp
-        @foreach ($data as $anggota)
+        @foreach ($data as $row)
             <tr>
                 <td>{{ $no++ }}</td>
-                <td>{{ $anggota->nama }}</td>
-                <td>{{ $anggota->nik }}</td>
-                <td>{{ $anggota->jabatan }}</td>
-                <td>{{ $anggota->getMasaBerlaku() }}</td>
+                <td>{{ $row->guru->nama ?? '' }}</td>
+                <td>{{ $row->buku->judul_buku ?? '' }}</td>
+                <td>{{ $row->getCreatedAttribute() }}</td>
+                <td>{{ $row->getTanggalKembali() }}</td>
+                <td>{{ $row->lama_peminjaman() }} Hari</td>
             </tr>
         @endforeach
     </table>

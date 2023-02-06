@@ -24,8 +24,6 @@ class AnggotaController extends Controller
             $result = now()->diffInDays($anggota->masa_berlaku, false);
             if($result < 0){
                 $anggota::where('id', $id_anggota)->update(['status' => "NonAktif"]);
-            }else{
-                $anggota::where('id', $id_anggota)->update(['status' => "Aktif"]);
             }
         }
         return view('dataanggota', compact('anggotas'));

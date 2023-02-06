@@ -5,13 +5,14 @@
         <h3 class="page-title">
             <span class="page-title-icon bg-gradient-primary text-white me-2">
                 <i class="mdi mdi-arrow-up-bold-circle"></i>
-            </span> Riwayat Pengembalian Buku
+            </span> Riwayat Pengembalian Buku Guru
         </h3>
         <div class="mb-3 d-flex justify-content-end">
-            <a href="/exportpdf_pengembalian"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1">
+            <a href="/exportpdf_pengembalian_buku_guru"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1">
                     <i class="mdi mdi-printer btn-icon-append"></i> Cetak PDF </button></a>
-            <a href="/exportexcel_pengembalian"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i
-                        class="mdi mdi-printer btn-icon-append"></i> Cetak Excel </button></a>
+            <a href="/exportexcel_pengembalian_buku_guru"> <button type="button"
+                    class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i> Cetak
+                    Excel </button></a>
         </div>
 
     </div>
@@ -35,12 +36,10 @@
                                     <tr>
                                         <th> No </th>
                                         <th> Nama </th>
-                                        <th> Kelas </th>
                                         <th> Judul </th>
                                         <th> Tanggal Pinjam</th>
                                         <th> Tanggal Kembali</th>
                                         <th> Total </th>
-                                        <th> Denda </th>
                                         <th> Status </th>
                                         <th> Aksi </th>
                                     </tr>
@@ -49,19 +48,17 @@
                                     @foreach ($peminjaman as $index => $pinjam)
                                         <tr>
                                             <td scope="pinjam">{{ $index + $peminjaman->firstItem() }}</td>
-                                            <td>{{ $pinjam->anggota->nama ?? 'N/A' }}</td>
-                                            <td>{{ $pinjam->anggota->kelas ?? 'N/A' }}</td>
+                                            <td>{{ $pinjam->guru->nama ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->buku->judul_buku ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->getCreatedAttribute() }}</td>
                                             <td>{{ $pinjam->getTanggalKembali() }}</td>
                                             <td>{{ $pinjam->lama_peminjaman() }} Hari</td>
-                                            <td>Rp {{ $pinjam->getDenda($pinjam->lama) }}</td>
                                             <td><label class="badge badge-gradient-info">{{ $pinjam->status }}</label></td>
                                             <td>
                                                 <button class="btn btn-inverse-danger btn-icon delete"
                                                     data-id="{{ $pinjam->id }}"
                                                     data-buku="{{ $pinjam->buku->judul_buku }}"
-                                                    data-anggota="{{ $pinjam->anggota->nama }}">
+                                                    data-guru="{{ $pinjam->guru->nama }}">
                                                     <i class="mdi mdi-delete "></i>
 
 
@@ -82,11 +79,11 @@
     <script>
         $('.delete').click(function() {
             var idtransaksi = $(this).attr('data-id');
-            var anggota = $(this).attr('data-anggota');
+            var guru = $(this).attr('data-guru');
             var buku = $(this).attr('data-buku');
             Swal.fire({
                 title: 'Apakah Yakin?',
-                text: "Hapus Pengembalian  " + buku + " Oleh " + anggota + "",
+                text: "Hapus Pengembalian  " + buku + " Oleh " + guru + "",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -95,7 +92,7 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location = "/deletePengembalian/" + idtransaksi + ""
+                    window.location = "/deletePengembalianBuku/" + idtransaksi + ""
                     Swal.fire(
                         'Dihapus!',
                         'Data Berhasil Dihapus',

@@ -33,6 +33,11 @@ class Buku extends Model
         return $this->hasMany(Transaksi::class);
     }
 
+    public function transaksi_guru(){
+        return $this->hasMany(TransaksiGuru::class);
+    }
+
+
     public function penerbit()
     {
         return $this->belongsTo(Penerbit::class);
