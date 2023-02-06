@@ -42,7 +42,7 @@ class PengembalianExport implements FromQuery, WithMapping, ShouldAutoSize, With
             'JUDUL',
             'TANGGAL PINJAM',
             'TANGGAL KEMBALI',
-            'TOTAL',
+            'TOTAL(HARI)',
             'DENDA',
         ];
     }

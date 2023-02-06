@@ -54,8 +54,10 @@ class TransaksiGuru extends Model
     {
         return $this->belongsTo(Majalah::class);
     }
-
-
+    public function cd()
+    {
+        return $this->belongsTo(CD::class);
+    }
     public function guru()
     {
         return $this->belongsTo(Guru::class);

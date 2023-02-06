@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CD;
 use App\Models\Buku;
 use App\Models\Guru;
 use App\Models\Anggota;
@@ -10,9 +11,12 @@ use Illuminate\Http\Request;
 use App\Models\TransaksiGuru;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PeminjamanCDGuruExport;
 use App\Exports\PeminjamanBukuGuruExport;
+use App\Exports\PengembalianCDGuruExport;
 use App\Exports\PengembalianBukuGuruExport;
 use App\Exports\PeminjamanMajalahGuruExport;
+use App\Exports\PengembalianMajalahGuruExport;
 use App\Http\Requests\StoreTransaksiGuruRequest;
 use App\Http\Requests\UpdateTransaksiGuruRequest;
 
@@ -102,6 +106,14 @@ class TransaksiGuruController extends Controller
         return view('transaksi-guru.peminjaman_majalah_guru', compact('peminjaman_majalah','majalahs', 'gurus'));
     }
 
+     public function showPengembalianMajalahGuru()
+    {
+        $peminjaman = TransaksiGuru::with('majalah','guru')->where('status', 'Dikembalikan')->where('jenis', 'majalah')->paginate(99999);
+        $majalahs = Majalah::all();
+        $gurus = Guru::all();
+        return view('transaksi-guru.pengembalian_majalah_guru', compact('peminjaman','majalahs', 'gurus'));
+    }
+
      public function tambah_peminjaman_majalah_guru(Request $request)
     {   
         $data = TransaksiGuru::create($request->all());
@@ -125,6 +137,9 @@ class TransaksiGuruController extends Controller
     public function exportexcel_peminjaman_majalah_guru(){
         return Excel::download(new PeminjamanMajalahGuruExport, 'Data Peminjaman Majalah Guru.xlsx');
     }
+    public function exportexcel_pengembalian_majalah_guru(){
+        return Excel::download(new PengembalianMajalahGuruExport, 'Data Pengembalian Majalah Guru.xlsx');
+    }
     public function exportpdf_peminjaman_majalah_guru(){
         $data = TransaksiGuru::all()->where('status', 'Dipinjam')->where('jenis', 'majalah');
         $gurus = Guru::all();
@@ -133,5 +148,91 @@ class TransaksiGuruController extends Controller
         $pdf = PDF::loadview('transaksi-guru.data-peminjaman-majalah-guru-pdf');
         return $pdf->download('Data Peminjaman Majalah Guru.pdf');
     }
+
+    public function exportpdf_pengembalian_majalah_guru(){
+        $data = TransaksiGuru::all()->where('status', 'Dikembalikan')->where('jenis', 'majalah');
+        $gurus = Guru::all();
+        $majalahs = Majalah::all();
+        view()->share('data', $data, $gurus, $majalahs);
+        $pdf = PDF::loadview('transaksi-guru.data-pengembalian-majalah-guru-pdf');
+        return $pdf->download('Data Pengembalian Majalah Guru.pdf');
+    }
+
+    public function deletePengembalianMajalah($id)
+    {
+        $data = TransaksiGuru::find($id);
+        $data->delete();
+        return redirect()->route('majalah_guru_kembali')->with('deletesuccess', 'Data Berhasil Dihapus');
+    }
+
+
+    // CD
+    public function showPeminjamanCDGuru()
+    {
+        $peminjaman_cd = TransaksiGuru::with('cd','guru')->where('status', 'Dipinjam')->where('jenis', 'cd')->paginate(99999);
+        $cds = CD::all()->where('jumlah','>', 0);
+        $gurus = Guru::all()->where('status', 'Aktif');
+        return view('transaksi-guru.peminjaman_cd_guru', compact('peminjaman_cd','cds', 'gurus'));
+    }
+
+     public function showPengembalianCDGuru()
+    {
+        $peminjaman = TransaksiGuru::with('cd','guru')->where('status', 'Dikembalikan')->where('jenis', 'cd')->paginate(99999);
+        $cds = CD::all();
+        $gurus = Guru::all();
+        return view('transaksi-guru.pengembalian_cd_guru', compact('peminjaman','cds', 'gurus'));
+    }
+
+     public function tambah_peminjaman_cd_guru(Request $request)
+    {   
+        $data = TransaksiGuru::create($request->all());
+        CD::where('id', $data->cd_id)->decrement('jumlah',1);
+        return redirect()->route('cd_guru_pinjam')->with('insertsuccess', 'Peminjaman Berhasil');
+    }
+
+    public function kembalikan_cd_guru(Request $request,$id,$id_cd)
+    {   
+        TransaksiGuru::where('id', $id)->where('jenis', 'cd')->update(['status' => "Dikembalikan"]);
+        CD::where('id', $id_cd)->increment('jumlah',1);
+        return redirect()->route('cd_guru_pinjam')->with('succeskembalikan', 'CD Berhasil Dikembalikan');
+    }
+
+    public function perpanjang_cd_guru(Request $request,$id)
+    {   
+        TransaksiGuru::where('id', $id)->where('jenis', 'cd')->increment('lama',7);
+        return redirect()->route('cd_guru_pinjam')->with('succeskembalikan', 'CD Berhasil Dikembalikan');
+    }
+
+    public function exportexcel_peminjaman_cd_guru(){
+        return Excel::download(new PeminjamanCDGuruExport, 'Data Peminjaman CD Guru.xlsx');
+    }
+    public function exportexcel_pengembalian_cd_guru(){
+        return Excel::download(new PengembalianCDGuruExport, 'Data Pengembalian CD Guru.xlsx');
+    }
+    public function exportpdf_peminjaman_cd_guru(){
+        $data = TransaksiGuru::all()->where('status', 'Dipinjam')->where('jenis', 'cd');
+        $gurus = Guru::all();
+        $cds = CD::all();
+        view()->share('data', $data, $gurus, $cds);
+        $pdf = PDF::loadview('transaksi-guru.data-peminjaman-cd-guru-pdf');
+        return $pdf->download('Data Peminjaman CD Guru.pdf');
+    }
+
+    public function exportpdf_pengembalian_cd_guru(){
+        $data = TransaksiGuru::all()->where('status', 'Dikembalikan')->where('jenis', 'cd');
+        $gurus = Guru::all();
+        $cds = CD::all();
+        view()->share('data', $data, $gurus, $cds);
+        $pdf = PDF::loadview('transaksi-guru.data-pengembalian-cd-guru-pdf');
+        return $pdf->download('Data Pengembalian CD Guru.pdf');
+    }
+
+    public function deletePengembalianCD($id)
+    {
+        $data = TransaksiGuru::find($id);
+        $data->delete();
+        return redirect()->route('cd_guru_kembali')->with('deletesuccess', 'Data Berhasil Dihapus');
+    }
+
 
 }

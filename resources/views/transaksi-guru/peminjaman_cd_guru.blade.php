@@ -5,7 +5,7 @@
         <h3 class="page-title">
             <span class="page-title-icon bg-gradient-primary text-white me-2">
                 <i class="mdi mdi-arrow-up-bold-circle"></i>
-            </span> Peminjaman Buku Guru
+            </span> Peminjaman CD Guru
         </h3>
         <div class="dropdown">
             <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -21,7 +21,7 @@
 
         {{-- swall berhasil insert --}}
         @if ($message = Session::get('insertsuccess'))
-            {{-- Notif buku berhasil ditambah --}}
+            {{-- Notif majalah berhasil ditambah --}}
             <script>
                 Swal.fire(
                     'Berhasil!',
@@ -34,23 +34,24 @@
     <div class="row">
         <div class="col-12 grid-margin">
             <div class="float">
-                <button type="button" data-bs-toggle="modal" data-bs-target="#insertPinjamBuku"
+                <button type="button" data-bs-toggle="modal" data-bs-target="#insertPinjamCD"
                     class="btn btn-sm btn-primary mb-3"><i class="mdi mdi-library-plus mdi-icon"></i>Tambah Peminjaman
-                    Buku</button>
+                    CD</button>
                 <!-- The Insert Modal -->
-                <div class="modal fade" id="insertPinjamBuku">
+                <div class="modal fade" id="insertPinjamCD">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <!-- Modal Header -->
                             <div class="modal-header">
-                                <h4 class="modal-title ">Tambah Peminjaman Buku</h4>
+                                <h4 class="modal-title ">Tambah Peminjaman CD</h4>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <!-- Modal body -->
                             <div class="modal-body px-4">
-                                <form action="tambah_peminjaman_buku_guru" method="POST" enctype="multipart/form-data"
+                                <form action="/tambah_peminjaman_cd_guru" method="POST" enctype="multipart/form-data"
                                     class="forms-sample">
                                     @csrf
+                                    <input type="hidden" value="cd" name="jenis" class="form-control" id="jenis">
 
                                     <div class="form-group">
                                         <label for="guru_id">Peminjam</label>
@@ -64,12 +65,12 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="buku_id">Judul Buku</label>
-                                        <select class="form-control selectpicker" data-live-search="true" name="buku_id"
-                                            id="buku_id">
-                                            <option value="">--Judul Buku--</option>
-                                            @foreach ($bukus as $buku)
-                                                <option value="{{ $buku->id }}">{{ $buku->judul_buku }}</option>
+                                        <label for="cd_id">Judul CD</label>
+                                        <select class="form-control selectpicker" data-live-search="true" name="cd_id"
+                                            id="cd_id">
+                                            <option value="">--Judul CD--</option>
+                                            @foreach ($cds as $cd)
+                                                <option value="{{ $cd->id }}">{{ $cd->judul_cd }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -87,8 +88,6 @@
                                             <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
                                         @enderror
                                     </div>
-                                    <input type="hidden" value="buku" name="jenis" class="form-control" id="jenis">
-
 
                                     <button type="submit"class="btn btn-primary me-2">Submit</button>
                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
@@ -102,25 +101,24 @@
                 </div>
 
                 <div class="float-end mb-3">
-                    <a href="/exportpdf_peminjaman_buku_guru"><button type="button"
+                    <a href="/exportpdf_peminjaman_cd_guru"><button type="button"
                             class="btn btn-sm btn-info btn-icon-text me-1">
                             <i class="mdi mdi-printer btn-icon-append"></i> Cetak PDF </button></a>
-                    <a href="/exportexcel_peminjaman_buku_guru"> <button type="button"
+                    <a href="/exportexcel_peminjaman_cd_guru"> <button type="button"
                             class="btn btn-sm btn-success btn-icon-text me-1"> <i
-                                class="mdi mdi-printer btn-icon-append"></i>
-                            Cetak Excel </button></a>
+                                class="mdi mdi-printer btn-icon-append"></i> Cetak Excel </button></a>
                 </div>
 
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Daftar Peminjaman Buku</h4>
+                        <h4 class="card-title">Daftar Peminjaman CD</h4>
                         <div class="table-responsive">
                             <table class="table " id="myTable">
                                 <thead>
                                     <tr>
                                         <th> No </th>
                                         <th> Nama </th>
-                                        <th> Judul </th>
+                                        <th> Judul CD </th>
                                         <th> Tanggal Pinjam</th>
                                         <th> Batas Kembali</th>
                                         <th> Lama </th>
@@ -129,11 +127,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($peminjaman as $index => $pinjam)
+                                    @foreach ($peminjaman_cd as $index => $pinjam)
                                         <tr>
-                                            <td scope="pinjam">{{ $index + $peminjaman->firstItem() }}</td>
+                                            <td scope="pinjam">{{ $index + $peminjaman_cd->firstItem() }}</td>
                                             <td>{{ $pinjam->guru->nama ?? 'N/A' }}</td>
-                                            <td>{{ $pinjam->buku->judul_buku ?? 'N/A' }}</td>
+                                            <td>{{ $pinjam->cd->judul_cd ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->getCreatedAttribute() }}</td>
                                             <td>{{ $pinjam->getTenggatWaktu($pinjam->lama) }}</td>
                                             <td>{{ $pinjam->lama }} Hari</td>
@@ -142,14 +140,14 @@
                                             <td>
                                                 <button type="button" class="btn btn-inverse-danger btn-sm perpanjang "
                                                     data-bs-toggle="modal " data-id="{{ $pinjam->id }}"
-                                                    data-buku="{{ $pinjam->buku->judul_buku }}"
+                                                    data-cd="{{ $pinjam->cd->nama }}"
                                                     data-guru="{{ $pinjam->guru->nama }}">
                                                     Perpanjang
                                                 </button>
                                                 <a href="#">
                                                     <button class="btn btn-sm btn-inverse-primary kembalikan"
-                                                        buku-id="{{ $pinjam->buku->id }}" data-id="{{ $pinjam->id }}"
-                                                        data-buku="{{ $pinjam->buku->judul_buku }}"
+                                                        cd-id="{{ $pinjam->cd->id }}" data-id="{{ $pinjam->id }}"
+                                                        data-cd="{{ $pinjam->cd->nama }}"
                                                         data-guru="{{ $pinjam->guru->nama }}">
                                                         Kembalikan
                                                     </button>
@@ -170,11 +168,11 @@
     <script>
         $('.perpanjang').click(function() {
             var idpinjam = $(this).attr('data-id');
-            var databuku = $(this).attr('data-buku');
+            var datacd = $(this).attr('data-cd');
             var dataanggota = $(this).attr('data-anggota');
             Swal.fire({
                 title: 'Perpanjang Peminjaman?',
-                text: "Buku " + databuku + " Selama 1 Minggu",
+                text: "Majalah " + datacd + " Selama 1 Minggu",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -183,7 +181,7 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location = "/perpanjang_buku/" + idpinjam + ""
+                    window.location = "/perpanjang_cd_guru/" + idpinjam + ""
                     Swal.fire(
                         'Berhasil!',
                         'Peminjaman Diperpanjang 1 Minggu',
@@ -198,12 +196,12 @@
     <script>
         $('.kembalikan').click(function() {
             var idpinjam = $(this).attr('data-id');
-            var idbuku = $(this).attr('buku-id');
-            var databuku = $(this).attr('data-buku');
+            var idcd = $(this).attr('cd-id');
+            var datacd = $(this).attr('data-cd');
             var dataguru = $(this).attr('data-guru');
             Swal.fire({
                 title: 'Apakah Yakin?',
-                text: "Kembalikan Buku " + databuku + " Atas Nama " + dataguru + "",
+                text: "Kembalikan Majalah " + datacd + " Atas Nama " + dataguru + "",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -212,10 +210,10 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location = "/kembalikan_buku_guru/" + idpinjam + "/" + idbuku + ""
+                    window.location = "/kembalikan_cd_guru/" + idpinjam + "/" + idcd + ""
                     Swal.fire(
                         'Berhasil!',
-                        'Buku Berhasil Dikembalikan',
+                        'Majalah Berhasil Dikembalikan',
                         'success'
                     )
                 }

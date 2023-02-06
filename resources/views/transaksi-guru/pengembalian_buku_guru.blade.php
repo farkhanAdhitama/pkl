@@ -7,12 +7,24 @@
                 <i class="mdi mdi-arrow-up-bold-circle"></i>
             </span> Riwayat Pengembalian Buku Guru
         </h3>
+
         <div class="mb-3 d-flex justify-content-end">
             <a href="/exportpdf_pengembalian_buku_guru"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1">
                     <i class="mdi mdi-printer btn-icon-append"></i> Cetak PDF </button></a>
             <a href="/exportexcel_pengembalian_buku_guru"> <button type="button"
                     class="btn btn-sm btn-success btn-icon-text me-1"> <i class="mdi mdi-printer btn-icon-append"></i> Cetak
                     Excel </button></a>
+            <div class="dropdown">
+                <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Peminjaman
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/guru_kembali">Buku</a></li>
+                    <li><a class="dropdown-item" href="/majalah_guru_kembali">Majalah</a></li>
+                    <li><a class="dropdown-item" href="/cd_guru_kembali">CD</a></li>
+                </ul>
+            </div>
         </div>
 
     </div>

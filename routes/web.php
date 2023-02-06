@@ -150,6 +150,21 @@ Route::get('/kembalikan_majalah_guru/{id}/{id_majalah}', [App\Http\Controllers\T
 Route::get('/perpanjang_majalah_guru/{id}', [App\Http\Controllers\TransaksiGuruController::class, 'perpanjang_majalah_guru'])->name('perpanjang_majalah_guru');
 Route::get('/exportexcel_peminjaman_majalah_guru', [App\Http\Controllers\TransaksiGuruController::class, 'exportexcel_peminjaman_majalah_guru'])->name('exportexcel_peminjaman_majalah_guru');
 Route::get('/exportpdf_peminjaman_majalah_guru', [App\Http\Controllers\TransaksiGuruController::class, 'exportpdf_peminjaman_majalah_guru'])->name('exportpdf_peminjaman_majalah_guru');
+Route::get('/majalah_guru_kembali', [App\Http\Controllers\TransaksiGuruController::class, 'showPengembalianMajalahGuru'])->name('majalah_guru_kembali');
+Route::get('/deletePengembalianMajalah/{id}', [App\Http\Controllers\TransaksiGuruController::class, 'deletePengembalianMajalah'])->name('deletePengembalianMajalah');
+Route::get('/exportexcel_pengembalian_majalah_guru', [App\Http\Controllers\TransaksiGuruController::class, 'exportexcel_pengembalian_majalah_guru'])->name('exportexcel_pengembalian_majalah_guru');
+Route::get('/exportpdf_pengembalian_majalah_guru', [App\Http\Controllers\TransaksiGuruController::class, 'exportpdf_pengembalian_majalah_guru'])->name('exportpdf_pengembalian_majalah_guru');
+//cd
+Route::get('/cd_guru_pinjam', [App\Http\Controllers\TransaksiGuruController::class, 'showPeminjamanCDGuru'])->name('cd_guru_pinjam');
+Route::post('/tambah_peminjaman_cd_guru', [App\Http\Controllers\TransaksiGuruController::class, 'tambah_peminjaman_cd_guru'])->name('tambah_peminjaman_cd_guru');
+Route::get('/kembalikan_cd_guru/{id}/{id_cd}', [App\Http\Controllers\TransaksiGuruController::class, 'kembalikan_cd_guru'])->name('kembalikan_cd_guru');
+Route::get('/perpanjang_cd_guru/{id}', [App\Http\Controllers\TransaksiGuruController::class, 'perpanjang_cd_guru'])->name('perpanjang_cd_guru');
+Route::get('/exportexcel_peminjaman_cd_guru', [App\Http\Controllers\TransaksiGuruController::class, 'exportexcel_peminjaman_cd_guru'])->name('exportexcel_peminjaman_cd_guru');
+Route::get('/exportpdf_peminjaman_cd_guru', [App\Http\Controllers\TransaksiGuruController::class, 'exportpdf_peminjaman_cd_guru'])->name('exportpdf_peminjaman_cd_guru');
+Route::get('/cd_guru_kembali', [App\Http\Controllers\TransaksiGuruController::class, 'showPengembalianCDGuru'])->name('cd_guru_kembali');
+Route::get('/deletePengembalianCD/{id}', [App\Http\Controllers\TransaksiGuruController::class, 'deletePengembalianCD'])->name('deletePengembalianCD');
+Route::get('/exportexcel_pengembalian_cd_guru', [App\Http\Controllers\TransaksiGuruController::class, 'exportexcel_pengembalian_cd_guru'])->name('exportexcel_pengembalian_cd_guru');
+Route::get('/exportpdf_pengembalian_cd_guru', [App\Http\Controllers\TransaksiGuruController::class, 'exportpdf_pengembalian_cd_guru'])->name('exportpdf_pengembalian_cd_guru');
 
 
 

@@ -9,25 +9,25 @@ use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
-class PeminjamanMajalahGuruExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
+class PengembalianCDGuruExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
 {
-    /**
+   /**
     * @return \Illuminate\Support\Collection
     */
     use Exportable;
 
     public function query()
     {
-        return TransaksiGuru::query()->where('status', 'Dipinjam')->where('jenis', 'majalah');
+        return TransaksiGuru::query()->where('status', 'Dikembalikan')->where('jenis', 'cd');
     }
     public function map($pinjam): array
     {
         return [
             $pinjam->guru->nama ?? 'N/A',
-            $pinjam->majalah->nama ?? 'N/A',
+            $pinjam->cd->judul_cd ?? 'N/A',
             $pinjam->getCreatedAttribute(),
-            $pinjam->getTenggatWaktu($pinjam->lama),
-            $pinjam->lama,
+            $pinjam->getTanggalKembali(),
+            $pinjam->lama_peminjaman(),
         ];
     }
            
@@ -36,10 +36,10 @@ class PeminjamanMajalahGuruExport implements FromQuery, WithMapping, ShouldAutoS
     {
         return [
             'NAMA',
-            'JUDUL MAJALAH',
+            'JUDUL',
             'TANGGAL PINJAM',
-            'BATAS KEMBALI',
-            'LAMA(HARI)',
+            'TANGGAL KEMBALI',
+            'TOTAL(HARI)',
         ];
     }
 }

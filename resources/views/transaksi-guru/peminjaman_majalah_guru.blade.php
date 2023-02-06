@@ -15,7 +15,7 @@
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="/guru_pinjam">Buku</a></li>
                 <li><a class="dropdown-item" href="/majalah_guru_pinjam">Majalah</a></li>
-                <li><a class="dropdown-item" href="#">CD</a></li>
+                <li><a class="dropdown-item" href="/cd_guru_pinjam">CD</a></li>
             </ul>
         </div>
 

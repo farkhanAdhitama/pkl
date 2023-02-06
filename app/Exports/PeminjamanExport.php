@@ -30,7 +30,6 @@ class PeminjamanExport implements FromQuery, WithMapping, ShouldAutoSize, WithHe
             $pinjam->getTenggatWaktu($pinjam->lama),
             $pinjam->lama,
             $pinjam-> getDenda($pinjam->lama),
-            $pinjam->status,
         ];
     }
            
@@ -45,7 +44,6 @@ class PeminjamanExport implements FromQuery, WithMapping, ShouldAutoSize, WithHe
             'BATAS KEMBALI',
             'LAMA',
             'DENDA',
-            'STATUS',
         ];
     }
 }

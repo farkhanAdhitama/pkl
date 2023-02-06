@@ -28,7 +28,6 @@ class PengembalianBukuGuruExport implements FromQuery, WithMapping, ShouldAutoSi
             $pinjam->getCreatedAttribute(),
             $pinjam->getTanggalKembali(),
             $pinjam->lama_peminjaman(),
-            $pinjam->status,
         ];
     }
            
@@ -40,8 +39,7 @@ class PengembalianBukuGuruExport implements FromQuery, WithMapping, ShouldAutoSi
             'JUDUL',
             'TANGGAL PINJAM',
             'TANGGAL KEMBALI',
-            'TOTAL',
-            'STATUS',
+            'TOTAL(HARI)',
         ];
     }
 }

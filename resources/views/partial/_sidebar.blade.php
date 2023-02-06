@@ -64,7 +64,7 @@
             </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item ">
             <a class="nav-link" data-bs-toggle="collapse" href="#siswa" aria-expanded="false" aria-controls="siswa">
                 <span class="menu-title">Transaksi Siswa</span>
                 <i class="menu-arrow"></i>
@@ -78,7 +78,8 @@
             </div>
         </li>
 
-        <li class="nav-item">
+        <li
+            class="nav-item {{ request()->is('majalah_guru_pinjam', 'majalah_guru_kembali', 'cd_guru_pinjam', 'cd_guru_kembali') ? 'active' : '' }}">
             <a class="nav-link" data-bs-toggle="collapse" href="#guru" aria-expanded="false" aria-controls="guru">
                 <span class="menu-title">Transaksi Guru</span>
                 <i class="menu-arrow"></i>
@@ -86,8 +87,13 @@
             </a>
             <div class="collapse" id="guru">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('guru_pinjam') }}">Peminjaman</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('guru_kembali') }}">Pengembalian</a>
+                    <li class="nav-item">
+                        <a class="nav-link  {{ request()->is('majalah_guru_pinjam', 'cd_guru_pinjam') ? 'active' : '' }}"
+                            href="{{ route('guru_pinjam') }}">Peminjaman</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link {{ request()->is('majalah_guru_kembali', 'cd_guru_kembali') ? 'active' : '' }}"
+                            href="{{ route('guru_kembali') }}">Pengembalian</a>
                     </li>
                 </ul>
             </div>
