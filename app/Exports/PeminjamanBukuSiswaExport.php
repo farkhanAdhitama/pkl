@@ -1,24 +1,24 @@
 <?php
 
 namespace App\Exports;
-
-use App\Models\Transaksi;
 use Maatwebsite\Excel\Concerns\Exportable;
+use App\Models\TransaksiSiswa;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
-class PengembalianExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
+
+class PeminjamanBukuSiswaExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
 {
-    /**
+      /**
     * @return \Illuminate\Support\Collection
     */
     use Exportable;
 
     public function query()
     {
-        return Transaksi::query()->where('status', 'Dikembalikan');
+        return TransaksiSiswa::query()->where('status', 'Dipinjam')->where('jenis', 'buku');
     }
     public function map($pinjam): array
     {
@@ -27,8 +27,8 @@ class PengembalianExport implements FromQuery, WithMapping, ShouldAutoSize, With
             $pinjam->anggota->kelas ?? 'N/A',
             $pinjam->buku->judul_buku ?? 'N/A',
             $pinjam->getCreatedAttribute(),
-            $pinjam->getTanggalKembali(),
-            $pinjam->lama_peminjaman(),
+            $pinjam->getTenggatWaktu($pinjam->lama),
+            $pinjam->lama,
         ];
     }
            
@@ -40,8 +40,8 @@ class PengembalianExport implements FromQuery, WithMapping, ShouldAutoSize, With
             'KELAS',
             'JUDUL',
             'TANGGAL PINJAM',
-            'TANGGAL KEMBALI',
-            'TOTAL(HARI)',
+            'BATAS KEMBALI',
+            'LAMA',
         ];
     }
 }

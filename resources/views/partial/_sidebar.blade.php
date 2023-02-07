@@ -64,7 +64,8 @@
             </div>
         </li>
 
-        <li class="nav-item ">
+        <li
+            class="nav-item {{ request()->is('peminjaman_majalah', 'pengembalian_majalah', 'peminjaman_cd', 'pengembalian_cd') ? 'active' : '' }}">
             <a class="nav-link" data-bs-toggle="collapse" href="#siswa" aria-expanded="false" aria-controls="siswa">
                 <span class="menu-title">Transaksi Siswa</span>
                 <i class="menu-arrow"></i>
@@ -72,8 +73,12 @@
             </a>
             <div class="collapse" id="siswa">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('peminjaman') }}">Peminjaman</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('pengembalian') }}">Pengembalian</a></li>
+                    <li class="nav-item"> <a
+                            class="nav-link {{ request()->is('peminjaman_majalah', 'peminjaman_cd') ? 'active' : '' }}"
+                            href="{{ route('peminjaman') }}">Peminjaman</a></li>
+                    <li class="nav-item"> <a
+                            class="nav-link {{ request()->is('pengembalian_majalah', 'pengembalian_cd') ? 'active' : '' }}"
+                            href="{{ route('pengembalian') }}">Pengembalian</a></li>
                 </ul>
             </div>
         </li>

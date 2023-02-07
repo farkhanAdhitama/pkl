@@ -2,14 +2,16 @@
 
 namespace App\Exports;
 
-use App\Models\Transaksi;
-use Maatwebsite\Excel\Concerns\Exportable;
+use App\Models\TransaksiSiswa;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
-class PengembalianExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
+use Maatwebsite\Excel\Concerns\Exportable;
+
+class PengembalianCDSiswaExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
+
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -18,14 +20,14 @@ class PengembalianExport implements FromQuery, WithMapping, ShouldAutoSize, With
 
     public function query()
     {
-        return Transaksi::query()->where('status', 'Dikembalikan');
+        return TransaksiSiswa::query()->where('status', 'Dikembalikan')->where('jenis', 'cd');
     }
     public function map($pinjam): array
     {
         return [
             $pinjam->anggota->nama ?? 'N/A',
             $pinjam->anggota->kelas ?? 'N/A',
-            $pinjam->buku->judul_buku ?? 'N/A',
+            $pinjam->cd->judul_cd ?? 'N/A',
             $pinjam->getCreatedAttribute(),
             $pinjam->getTanggalKembali(),
             $pinjam->lama_peminjaman(),
@@ -38,7 +40,7 @@ class PengembalianExport implements FromQuery, WithMapping, ShouldAutoSize, With
         return [
             'NAMA',
             'KELAS',
-            'JUDUL',
+            'JUDUL CD',
             'TANGGAL PINJAM',
             'TANGGAL KEMBALI',
             'TOTAL(HARI)',

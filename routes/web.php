@@ -119,18 +119,44 @@ Route::get('/exportpdf_jenisbuku', [App\Http\Controllers\JenisbukuController::cl
 
 Route::get('/kategori', [App\Http\Controllers\KategoriController::class, 'index'])->name('kategori');
 
-//TRANSAKSI ROUTE
-Route::get('/peminjaman', [App\Http\Controllers\TransaksiController::class, 'showPeminjaman'])->name('peminjaman');
-Route::get('/showTambahPeminjaman', [App\Http\Controllers\TransaksiController::class, 'showTambahPeminjaman'])->name('showTambahPeminjaman');
-Route::post('/tambah_peminjaman', [App\Http\Controllers\TransaksiController::class, 'tambah_peminjaman'])->name('tambah_peminjaman');
-Route::get('/pengembalian', [App\Http\Controllers\TransaksiController::class, 'showPengembalian'])->name('pengembalian');
-Route::get('/kembalikan/{id}/{id_buku}', [App\Http\Controllers\TransaksiController::class, 'kembalikan'])->name('kembalikan');
-Route::get('/perpanjang/{id}', [App\Http\Controllers\TransaksiController::class, 'perpanjang'])->name('perpanjang');
-Route::get('/exportpdf_peminjaman', [App\Http\Controllers\TransaksiController::class, 'exportpdf_peminjaman'])->name('exportpdf_peminjaman');
-Route::get('/exportpdf_pengembalian', [App\Http\Controllers\TransaksiController::class, 'exportpdf_pengembalian'])->name('exportpdf_pengembalian');
-Route::get('/exportexcel_peminjaman', [App\Http\Controllers\TransaksiController::class, 'exportexcel_peminjaman'])->name('exportexcel_peminjaman');
-Route::get('/exportexcel_pengembalian', [App\Http\Controllers\TransaksiController::class, 'exportexcel_pengembalian'])->name('exportexcel_pengembalian');
-Route::get('/deletePengembalian/{id}', [App\Http\Controllers\TransaksiController::class, 'deletePengembalian'])->name('deletePengembalian');
+//TRANSAKSI SISWA ROUTE
+//buku
+Route::get('/peminjaman', [App\Http\Controllers\TransaksiSiswaController::class, 'showPeminjaman'])->name('peminjaman');
+Route::get('/showTambahPeminjaman', [App\Http\Controllers\TransaksiSiswaController::class, 'showTambahPeminjaman'])->name('showTambahPeminjaman');
+Route::post('/tambah_peminjaman', [App\Http\Controllers\TransaksiSiswaController::class, 'tambah_peminjaman'])->name('tambah_peminjaman');
+Route::get('/pengembalian', [App\Http\Controllers\TransaksiSiswaController::class, 'showPengembalian'])->name('pengembalian');
+Route::get('/kembalikan/{id}/{id_buku}', [App\Http\Controllers\TransaksiSiswaController::class, 'kembalikan'])->name('kembalikan');
+Route::get('/perpanjang/{id}', [App\Http\Controllers\TransaksiSiswaController::class, 'perpanjang'])->name('perpanjang');
+Route::get('/exportpdf_peminjaman', [App\Http\Controllers\TransaksiSiswaController::class, 'exportpdf_peminjaman'])->name('exportpdf_peminjaman');
+Route::get('/exportpdf_pengembalian', [App\Http\Controllers\TransaksiSiswaController::class, 'exportpdf_pengembalian'])->name('exportpdf_pengembalian');
+Route::get('/exportexcel_peminjaman', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_peminjaman'])->name('exportexcel_peminjaman');
+Route::get('/exportexcel_pengembalian', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_pengembalian'])->name('exportexcel_pengembalian');
+Route::get('/deletePengembalian/{id}', [App\Http\Controllers\TransaksiSiswaController::class, 'deletePengembalian'])->name('deletePengembalian');
+//majalah
+Route::get('/peminjaman_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'showPeminjamanMajalah'])->name('peminjaman_majalah');
+Route::post('/tambah_peminjaman_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'tambah_peminjaman_majalah'])->name('tambah_peminjaman_majalah');
+Route::get('/pengembalian_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'showPengembalianMajalah'])->name('pengembalian_majalah');
+Route::get('/kembalikan_majalah/{id}/{id_buku}', [App\Http\Controllers\TransaksiSiswaController::class, 'kembalikan_majalah'])->name('kembalikan_majalah');
+Route::get('/perpanjang_majalah/{id}', [App\Http\Controllers\TransaksiSiswaController::class, 'perpanjang_majalah'])->name('perpanjang_majalah');
+Route::get('/exportpdf_peminjaman_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'exportpdf_peminjaman_majalah'])->name('exportpdf_peminjaman_majalah');
+Route::get('/exportpdf_pengembalian_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'exportpdf_pengembalian_majalah'])->name('exportpdf_pengembalian_majalah');
+Route::get('/exportexcel_peminjaman_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_peminjaman_majalah'])->name('exportexcel_peminjaman_majalah');
+Route::get('/exportexcel_pengembalian_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_pengembalian_majalah'])->name('exportexcel_pengembalian_majalah');
+Route::get('/deletePengembalianMajalah/{id}', [App\Http\Controllers\TransaksiSiswaController::class, 'deletePengembalianMajalah'])->name('deletePengembalianMajalah');
+//cd
+Route::get('/peminjaman_cd', [App\Http\Controllers\TransaksiSiswaController::class, 'showPeminjamanCD'])->name('peminjaman_cd');
+Route::get('/showTambahPeminjaman', [App\Http\Controllers\TransaksiSiswaController::class, 'showTambahPeminjaman'])->name('showTambahPeminjaman');
+Route::post('/tambah_peminjaman_cd', [App\Http\Controllers\TransaksiSiswaController::class, 'tambah_peminjaman_cd'])->name('tambah_peminjaman_cd');
+Route::get('/pengembalian_cd', [App\Http\Controllers\TransaksiSiswaController::class, 'showPengembalianCD'])->name('pengembalian_cd');
+Route::get('/kembalikan_cd/{id}/{id_buku}', [App\Http\Controllers\TransaksiSiswaController::class, 'kembalikan_cd'])->name('kembalikan_cd');
+Route::get('/perpanjang_cd/{id}', [App\Http\Controllers\TransaksiSiswaController::class, 'perpanjang_cd'])->name('perpanjang_cd');
+Route::get('/exportpdf_peminjaman_cd', [App\Http\Controllers\TransaksiSiswaController::class, 'exportpdf_peminjaman_cd'])->name('exportpdf_peminjaman_cd');
+Route::get('/exportpdf_pengembalian_cd', [App\Http\Controllers\TransaksiSiswaController::class, 'exportpdf_pengembalian_cd'])->name('exportpdf_pengembalian_cd');
+Route::get('/exportexcel_peminjaman_cd', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_peminjaman_cd'])->name('exportexcel_peminjaman_cd');
+Route::get('/exportexcel_pengembalian_cd', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_pengembalian_cd'])->name('exportexcel_pengembalian_cd');
+Route::get('/deletePengembalianCD/{id}', [App\Http\Controllers\TransaksiSiswaController::class, 'deletePengembalianCD'])->name('deletePengembalianCD');
+
+
 
 //TRANSAKSI GURU ROUTE
 Route::get('/guru_pinjam', [App\Http\Controllers\TransaksiGuruController::class, 'showPeminjamanGuru'])->name('guru_pinjam');
