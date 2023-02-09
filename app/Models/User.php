@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Crypt;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,8 @@ class User extends Authenticatable
         'name',
         'username',
         'email',
+        'level',
+        'foto_profil',
         'password',
     ];
 
@@ -43,5 +46,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getDekripsi($password){
+		$password123 = '$password';
+
+        $encryptedPassword = encrypt($password123);
+        $decryptedPassword = decrypt($encryptedPassword);
+
+        $password == $decryptedPassword ;
+        return $password;
+	}
 
 }

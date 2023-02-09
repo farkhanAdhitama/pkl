@@ -19,7 +19,7 @@
                     Pengembalian
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/pengembalian">Buku</a></li>
+                    <li><a class="dropdown-item" href="/pengembalian_buku">Buku</a></li>
                     <li><a class="dropdown-item" href="/pengembalian_majalah">Majalah</a></li>
                     <li><a class="dropdown-item" href="/pengembalian_cd">CD</a></li>
                 </ul>

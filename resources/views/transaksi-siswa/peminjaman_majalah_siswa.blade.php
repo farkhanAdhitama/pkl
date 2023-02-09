@@ -13,7 +13,7 @@
                 Peminjaman
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/peminjaman">Buku</a></li>
+                <li><a class="dropdown-item" href="/peminjaman_buku">Buku</a></li>
                 <li><a class="dropdown-item" href="/peminjaman_majalah">Majalah</a></li>
                 <li><a class="dropdown-item" href="/peminjaman_cd">CD</a></li>
             </ul>
@@ -56,7 +56,7 @@
 
                                     <div class="form-group">
                                         <label for="anggota_id">Peminjam</label>
-                                        <select class="form-control" class="selectpicker" data-live-search="true"
+                                        <select class="form-control" class="selectpicker" data-live-search="true " required
                                             name="anggota_id" id="anggota_id">
                                             <option value="">--Nama Peminjam--</option>
                                             @foreach ($anggotas as $anggota)
@@ -68,7 +68,7 @@
                                     <div class="form-group">
                                         <label for="majalah_id">Judul Majalah</label>
                                         <select class="form-control selectpicker" data-live-search="true" name="majalah_id"
-                                            id="majalah_id">
+                                            required id="majalah_id">
                                             <option value="">--Judul Majalah--</option>
                                             @foreach ($majalahs as $majalah)
                                                 <option value="{{ $majalah->id }}">{{ $majalah->nama }}</option>

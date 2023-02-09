@@ -55,7 +55,7 @@
 
                                     <div class="form-group">
                                         <label for="guru_id">Peminjam</label>
-                                        <select class="form-control" class="selectpicker" data-live-search="true"
+                                        <select class="form-control" class="selectpicker" data-live-search="true" required
                                             name="guru_id" id="guru_id">
                                             <option value="">--Nama Peminjam--</option>
                                             @foreach ($gurus as $guru)
@@ -67,7 +67,7 @@
                                     <div class="form-group">
                                         <label for="cd_id">Judul CD</label>
                                         <select class="form-control selectpicker" data-live-search="true" name="cd_id"
-                                            id="cd_id">
+                                            required id="cd_id">
                                             <option value="">--Judul CD--</option>
                                             @foreach ($cds as $cd)
                                                 <option value="{{ $cd->id }}">{{ $cd->judul_cd }}</option>

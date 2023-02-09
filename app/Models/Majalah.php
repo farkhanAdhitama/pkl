@@ -32,6 +32,11 @@ class Majalah extends Model
             ->translatedFormat('l, d M Y');
     }
 
+    public function getTanggalTerbit(){
+        return Carbon::parse($this->attributes['tanggal_terbit'])
+            ->translatedFormat('d/m/Y');
+    }
+
      public function transaksi(){
         return $this->hasMany(Transaksi::class);
     }

@@ -29,7 +29,7 @@
     </li> --}}
 
         <li
-            class="nav-item {{ request()->is('tambahbuku', 'tambahMajalah', 'datajenisbuku', 'dataPenerbit') ? 'active' : '' }}">
+            class="nav-item {{ request()->is('tambahbuku', 'tambahMajalah', 'datajenisbuku', 'dataPenerbit', 'dataTempatTerbit') ? 'active' : '' }}">
             <a class="nav-link " data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
                 aria-controls="ui-basic">
                 <span class="menu-title">Koleksi</span>
@@ -39,7 +39,7 @@
             <div class="collapse " id="ui-basic">
                 <ul class="nav flex-column sub-menu ">
                     <li class="nav-item "> <a
-                            class="nav-link {{ request()->is('tambahbuku', 'datajenisbuku', 'dataPenerbit') ? 'active' : '' }}"
+                            class="nav-link {{ request()->is('tambahbuku', 'datajenisbuku', 'dataPenerbit', 'dataTempatTerbit') ? 'active' : '' }}"
                             href="{{ route('databuku') }}">Koleksi Buku</a></li>
                     {{-- <li class="nav-item"> <a class="nav-link" href="{{ route('kategori') }}">Kategori Buku</a></li> --}}
                     <li class="nav-item"> <a class="nav-link {{ request()->is('tambahMajalah') ? 'active' : '' }}"
@@ -49,7 +49,7 @@
             </div>
         </li>
 
-        <li class="nav-item ">
+        <li class="nav-item {{ request()->is('tambahanggota', 'tambahguru') ? 'active' : '' }}">
             <a class="nav-link " data-bs-toggle="collapse" href="#anggota" aria-expanded="false"
                 aria-controls="anggota">
                 <span class="menu-title">Anggota</span>
@@ -58,8 +58,10 @@
             </a>
             <div class="collapse " id="anggota">
                 <ul class="nav flex-column sub-menu ">
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('dataanggota') }}">Siswa</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('dataguru') }}">Guru/Staff</a></li>
+                    <li class="nav-item"> <a class="nav-link {{ request()->is('tambahanggota') ? 'active' : '' }}"
+                            href="{{ route('dataanggota') }}">Siswa</a></li>
+                    <li class="nav-item"> <a class="nav-link {{ request()->is('tambahguru') ? 'active' : '' }}"
+                            href="{{ route('dataguru') }}">Guru/Staff</a></li>
                 </ul>
             </div>
         </li>
@@ -75,10 +77,10 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a
                             class="nav-link {{ request()->is('peminjaman_majalah', 'peminjaman_cd') ? 'active' : '' }}"
-                            href="{{ route('peminjaman') }}">Peminjaman</a></li>
+                            href="{{ route('peminjaman_buku') }}">Peminjaman</a></li>
                     <li class="nav-item"> <a
                             class="nav-link {{ request()->is('pengembalian_majalah', 'pengembalian_cd') ? 'active' : '' }}"
-                            href="{{ route('pengembalian') }}">Pengembalian</a></li>
+                            href="{{ route('pengembalian_buku') }}">Pengembalian</a></li>
                 </ul>
             </div>
         </li>
@@ -102,6 +104,13 @@
                     </li>
                 </ul>
             </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link " href="/data_pengguna">
+                <span class="menu-title">Data Pengguna</span>
+                <i class=" mdi mdi-account-settings menu-icon"></i>
+            </a>
         </li>
 
         <li class="nav-item {{ request()->is('pengaturan*') ? 'active' : '' }}">

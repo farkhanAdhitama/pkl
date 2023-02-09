@@ -42,15 +42,15 @@ class MajalahController extends Controller
             'issn' => 'required|unique:majalahs|numeric',
             'nomor' => 'required|numeric',
             'volume' => 'required|numeric', 
-            'tahun' => 'required|numeric|min:4',
+            'tahun' => 'required|numeric|digits:4',
            
         ],[
             'issn.unique' => 'Data Majalah Sudah Ada, Silahkan Dicek Kembali',
-            'isbn.numeric' => 'ISBN Harus Berisi Angka',
+            'issn.numeric' => 'ISBN Harus Berisi Angka',
             'nomor.numeric' => 'Nomor Harus Berisi Angka',
             'volume.numeric' => 'Volume Harus Berisi Angka',
             'tahun.numeric' => 'Tahun Harus Berisi Angka',
-            'tahun.min' => 'Format Tahun Salah',
+            'tahun.digits' => 'Format Tahun Salah',
         ]);
 
         $data = Majalah::create($request->all());
@@ -68,6 +68,7 @@ class MajalahController extends Controller
 
     public function updateMajalah(Request $request, $id)
     {
+        
         $data = Majalah::find( $id);
         $data->update($request->all());
         return redirect()->route('dataMajalah')->with('updatesuccess', 'Data Berhasil Diperbarui');

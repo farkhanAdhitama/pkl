@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('majalahs', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('tanggal_terbit');
+            $table->date('tanggal_terbit');
             $table->integer('nomor');
             $table->integer('volume');
             $table->string('tahun');

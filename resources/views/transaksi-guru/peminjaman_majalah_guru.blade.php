@@ -56,7 +56,7 @@
 
                                     <div class="form-group">
                                         <label for="guru_id">Peminjam</label>
-                                        <select class="form-control" class="selectpicker" data-live-search="true"
+                                        <select class="form-control" class="selectpicker" data-live-search="true" required
                                             name="guru_id" id="guru_id">
                                             <option value="">--Nama Peminjam--</option>
                                             @foreach ($gurus as $guru)
@@ -68,7 +68,7 @@
                                     <div class="form-group">
                                         <label for="majalah_id">Judul Majalah</label>
                                         <select class="form-control selectpicker" data-live-search="true" name="majalah_id"
-                                            id="majalah_id">
+                                            required id="majalah_id">
                                             <option value="">--Judul Majalah--</option>
                                             @foreach ($majalahs as $majalah)
                                                 <option value="{{ $majalah->id }}">{{ $majalah->nama }}</option>

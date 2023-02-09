@@ -42,6 +42,14 @@ class TransaksiGuruController extends Controller
 
     public function tambah_peminjaman_buku_guru(Request $request)
     {   
+        $validated = $request->validate([
+            'buku_id' => 'required',
+            'guru_id' => 'required',
+        ],[
+            'buku_id.required'=> 'Buku Harus Diisi',
+            'guru_id.required'=> 'Peminjam Harus Diisi',
+
+        ]);
         $data = TransaksiGuru::create($request->all());
         Buku::where('id', $data->buku_id)->decrement('jumlah',1);
         return redirect()->route('guru_pinjam')->with('insertsuccess', 'Peminjaman Berhasil');
@@ -116,6 +124,14 @@ class TransaksiGuruController extends Controller
 
      public function tambah_peminjaman_majalah_guru(Request $request)
     {   
+        $validated = $request->validate([
+            'majalah_id' => 'required',
+            'guru_id' => 'required',
+        ],[
+            'majalah_id.required'=> 'Majalah Harus Diisi',
+            'guru_id.required'=> 'Peminjam Harus Diisi',
+
+        ]);
         $data = TransaksiGuru::create($request->all());
         Majalah::where('id', $data->majalah_id)->decrement('jumlah',1);
         return redirect()->route('majalah_guru_pinjam')->with('insertsuccess', 'Peminjaman Berhasil');
@@ -185,6 +201,14 @@ class TransaksiGuruController extends Controller
 
      public function tambah_peminjaman_cd_guru(Request $request)
     {   
+        $validated = $request->validate([
+            'cd_id' => 'required', 
+            'guru_id' => 'required',
+        ],[
+            'cd_id.required'=> 'Cd  Harus Diisi',
+            'guru_id.required'=> 'Peminjam Harus Diisi',
+
+        ]);
         $data = TransaksiGuru::create($request->all());
         CD::where('id', $data->cd_id)->decrement('jumlah',1);
         return redirect()->route('cd_guru_pinjam')->with('insertsuccess', 'Peminjaman Berhasil');

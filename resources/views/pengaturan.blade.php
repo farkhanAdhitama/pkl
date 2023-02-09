@@ -15,7 +15,7 @@
 
 
     {{-- swal berhasil import --}}
-    @if ($message = Session::get('update_sukses'))
+    @if ($message = Session::get('updatesuccess'))
         {{-- Notif cd berhasil ditambah --}}
         <script>
             Swal.fire(
@@ -93,7 +93,7 @@
                                     src="../assets/images/foto_profil/{{ $profil->foto_profil }}" alt="">
                             </div>
                             <h5 class="mt-3">Pilih Foto Profil Baru</h5>
-                            <input type="file" name="foto_profil" class="form-control">
+                            <input type="file" name="foto_profil" id="foto_profil" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="name">Nama</label>

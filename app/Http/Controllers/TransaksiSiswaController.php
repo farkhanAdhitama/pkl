@@ -35,16 +35,24 @@ class TransaksiSiswaController extends Controller
 
     public function tambah_peminjaman(Request $request)
     {   
+         $validated = $request->validate([
+            'buku_id' => 'required',
+            'anggota_id' => 'required',
+        ],[
+            'buku_id.required'=> 'Buku Harus Diisi',
+            'anggota_id.required'=> 'Peminjam Harus Diisi',
+
+        ]);
         $data = TransaksiSiswa::create($request->all());
         Buku::where('id', $data->buku_id)->decrement('jumlah',1);
-        return redirect()->route('peminjaman')->with('insertsuccess', 'Peminjaman Berhasil');
+        return redirect()->route('peminjaman_buku')->with('insertsuccess', 'Peminjaman Berhasil');
     }
 
     public function kembalikan(Request $request,$id,$id_buku)
     {   
         TransaksiSiswa::where('id', $id)->update(['status' => "Dikembalikan"]);
         Buku::where('id', $id_buku)->increment('jumlah',1);
-        return redirect()->route('peminjaman')->with('succeskembalikan', 'Buku Berhasil Dikembalikan');
+        return redirect()->route('peminjaman_buku')->with('succeskembalikan', 'Buku Berhasil Dikembalikan');
 
     }
 
@@ -52,7 +60,7 @@ class TransaksiSiswaController extends Controller
     {   
 
         TransaksiSiswa::where('id', $id)->where('jenis', 'buku')->increment('lama',7);
-        return redirect()->route('peminjaman')->with('succeskembalikan', 'Buku Berhasil Dikembalikan');
+        return redirect()->route('peminjaman_buku')->with('succeskembalikan', 'Buku Berhasil Dikembalikan');
 
     }
 
@@ -94,7 +102,7 @@ class TransaksiSiswaController extends Controller
     {
         $data = TransaksiSiswa::find($id);
         $data->delete();
-        return redirect()->route('pengembalian')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('pengembalian_buku')->with('deletesuccess', 'Data Berhasil Dihapus');
 
     }
 
@@ -110,6 +118,13 @@ class TransaksiSiswaController extends Controller
 
     public function tambah_peminjaman_majalah(Request $request)
     {   
+         $validated = $request->validate([
+            'majalah_id' => 'required',
+            'anggota_id' => 'required',
+        ],[
+            'majalah_id.required'=> 'Majalah Harus Diisi',
+            'anggota_id.required'=> 'Peminjam Harus Diisi',
+        ]);
         $data = TransaksiSiswa::create($request->all());
         Majalah::where('id', $data->majalah_id)->decrement('jumlah',1);
         return redirect()->route('peminjaman_majalah')->with('insertsuccess', 'Peminjaman Berhasil');
@@ -125,10 +140,8 @@ class TransaksiSiswaController extends Controller
 
     public function perpanjang_majalah(Request $request,$id)
     {   
-
         TransaksiSiswa::where('id', $id)->where('jenis', 'majalah')->increment('lama',7);
         return redirect()->route('peminjaman_majalah')->with('succeskembalikan', 'Majalah Berhasil Dikembalikan');
-
     }
 
     public function exportexcel_peminjaman_majalah(){
@@ -186,15 +199,11 @@ class TransaksiSiswaController extends Controller
     public function tambah_peminjaman_cd(Request $request)
     {   
         $validated = $request->validate([
-            'buku_id' => 'required',
-            'majalah_id' => 'required',
             'cd_id' => 'required', 
             'anggota_id' => 'required',
         ],[
-            'buku_id.required'=> 'Buku Tidak Boleh Kosong',
-            'majalah_id.required'=> 'Majalah Tidak Boleh Kosong',
-            'cd_id.required'=> 'Cd  Tidak Boleh Kosong',
-            'anggota_id.required'=> 'Peminjam Tidak Boleh Kosong',
+            'cd_id.required'=> 'Cd  Harus Diisi',
+            'anggota_id.required'=> 'Peminjam Harus Diisi',
 
         ]);
         $data = TransaksiSiswa::create($request->all());

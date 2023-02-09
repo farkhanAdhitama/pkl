@@ -131,7 +131,7 @@
                                     <tr>
                                         <td scope="buku">{{ $index + $majalahs->firstItem() }}</td>
                                         <td>{{ $majalah->nama }}</td>
-                                        <td>{{ $majalah->tanggal_terbit }}</td>
+                                        <td>{{ $majalah->getTanggalTerbit() }}</td>
                                         <td>{{ $majalah->nomor }}/{{ $majalah->volume }}/{{ $majalah->tahun }} </td>
                                         <td>{{ $majalah->issn }}</td>
                                         <td>{{ $majalah->jumlah }}</td>
@@ -226,7 +226,7 @@
                                                         <div class="form-group">
                                                             <label for="tanggal_terbit">Tanggal Terbit<span
                                                                     class="text-danger">*</span></label>
-                                                            <input value="{{ $majalah->tanggal_terbit }}" type="text"
+                                                            <input value="{{ $majalah->tanggal_terbit }}" type="date"
                                                                 name="tanggal_terbit" class="form-control"
                                                                 id="tanggal_terbit" placeholder="DD/MM/YYYY" required>
                                                         </div>
@@ -272,7 +272,7 @@
                                                         <div class="form-group">
                                                             <label for="issn">ISSN<span
                                                                     class="text-danger">*</span></label>
-                                                            <input value="{{ $majalah->issn }}" type="text"
+                                                            <input value="{{ $majalah->issn }}" type="number"
                                                                 name="issn" class="form-control" id="issn"
                                                                 placeholder="ISSN" required>
                                                         </div>

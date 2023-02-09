@@ -41,18 +41,17 @@ class PengaturanController extends Controller
                 ->withInput($request->except('key'))
                 ->withErrors($validasi);
         } else {
-            
-            $data = User::find($id);
-            
-            if($request->hasFile('foto_profil')){
-            $request->file('foto_profil')->move('assets/images/foto_profil/', $request->file('foto_profil')->getClientOriginalName());
-            $data->foto_profil = $request->file('foto_profil')->getClientOriginalName();
-            $data->save();
-            }
+            $data = User::find( $id);
             $data->update($request->all());
+            if($request->hasFile('foto_profil')){
+                $request->file('foto_profil')->move('assets/images/foto_profil/', $request->file('foto_profil')->getClientOriginalName());
+                $data->foto_profil = $request->file('foto_profil')->getClientOriginalName();
+                $data->save();
+            }
             return redirect()
                 ->back()
-                ->with('update_sukses', 'Data Berhasil Ditambahkan.');
+                ->with('updatesuccess', 'Data Berhasil Ditambahkan.');
+
         }
     }
 }

@@ -13,7 +13,7 @@
                 Peminjaman
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/peminjaman">Buku</a></li>
+                <li><a class="dropdown-item" href="/peminjaman_buku">Buku</a></li>
                 <li><a class="dropdown-item" href="/peminjaman_majalah">Majalah</a></li>
                 <li><a class="dropdown-item" href="/peminjaman_cd">CD</a></li>
             </ul>
@@ -56,24 +56,26 @@
 
                                     <div class="form-group">
                                         <label for="anggota_id">Peminjam</label>
-                                        <select class="form-control" class="selectpicker" data-live-search="true"
+                                        <select class="form-control" class="selectpicker" data-live-search="true" required
                                             name="anggota_id" id="anggota_id">
                                             <option value="">--Nama Peminjam--</option>
                                             @foreach ($anggotas as $anggota)
                                                 <option value="{{ $anggota->id }}">{{ $anggota->nama }}</option>
                                             @endforeach
                                         </select>
+                                        <div class="text-danger" id="anggota_id_error"> </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="buku_id">Judul Buku</label>
                                         <select class="form-control selectpicker" data-live-search="true" name="buku_id"
-                                            id="buku_id">
+                                            required id="buku_id">
                                             <option value="">--Judul Buku--</option>
                                             @foreach ($bukus as $buku)
                                                 <option value="{{ $buku->id }}">{{ $buku->judul_buku }}</option>
                                             @endforeach
                                         </select>
+                                        <div class="text-danger" id="buku_id_error"> </div>
                                     </div>
 
                                     <div class="form-group">
@@ -123,7 +125,6 @@
                                         <th> Tanggal Pinjam</th>
                                         <th> Batas Kembali</th>
                                         <th> Lama </th>
-                                        <th> Denda </th>
                                         <th> Status </th>
                                         <th> Aksi </th>
                                     </tr>
@@ -138,7 +139,6 @@
                                             <td>{{ $pinjam->getCreatedAttribute() }}</td>
                                             <td>{{ $pinjam->getTenggatWaktu($pinjam->lama) }}</td>
                                             <td>{{ $pinjam->lama }} Hari</td>
-                                            <td>Rp {{ $pinjam->getDenda($pinjam->lama) }}</td>
                                             <td><label class="badge badge-gradient-warning">{{ $pinjam->status }}</label>
                                             </td>
                                             <td>
@@ -223,5 +223,31 @@
                 }
             })
         })
+    </script>
+
+    <script>
+        var anggota_id = $('#anggota_id').val();
+        var buku_id = $('#buku_id').val();
+        $('#anggota_id_error').addClass('d-none');
+        $('#buku_id_error').addClass('d-none');
+
+        $.ajax({
+                type: 'POST',
+                url: "{{ route('peminjaman_buku') }}",
+                data: anggota_id: anggota_id,
+                buku_id = buku_id,
+            },
+            error: function(data) {
+                var errors = data.responseJSON;
+                if ($.isEmptyObject(errors) == false) {
+                    $.each(errors.errors, function(key, value)) {
+                        var ErrorID = '#' + key + ' Error';
+                        $(ErrorID).removeClass("d-none");
+                        $(ErrorID).text(value);
+                    }
+                }
+            }
+
+        )
     </script>
 @endsection
