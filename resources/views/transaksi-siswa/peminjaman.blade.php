@@ -131,7 +131,16 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($peminjaman as $index => $pinjam)
-                                        <tr>
+                                        @if ($pinjam->getSelisih($pinjam->lama) < 0 && $pinjam->status_email == 0)
+                                            {{ $pinjam->sendEmail(
+                                                $pinjam->anggota->email,
+                                                $pinjam->id,
+                                                $pinjam->anggota->nama,
+                                                $pinjam->buku->judul_buku,
+                                                $pinjam->getTenggatWaktu($pinjam->lama),
+                                            ) }}
+                                        @endif
+                                        <tr @if ($pinjam->getSelisih($pinjam->lama) < 0) class="table-danger" @endif>
                                             <td scope="pinjam">{{ $index + $peminjaman->firstItem() }}</td>
                                             <td>{{ $pinjam->anggota->nama ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->anggota->kelas ?? 'N/A' }}</td>
@@ -143,6 +152,7 @@
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-inverse-danger btn-sm perpanjang "
+                                                    @if ($pinjam->getSelisih($pinjam->lama) < 0) disabled @endif
                                                     data-bs-toggle="modal " data-id="{{ $pinjam->id }}"
                                                     data-buku="{{ $pinjam->buku->judul_buku }}"
                                                     data-anggota="{{ $pinjam->anggota->nama }}">
@@ -161,6 +171,10 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div>
+                                Keterangan :
+                                <p><i class="mdi mdi-checkbox-blank text-danger"></i> Masa Pinjam Telah Melewati Batas</p>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -22,6 +22,7 @@ class TransaksiGuru extends Model
         'guru_id',
         'jenis',
         'status',
+        'status_email',
         'lama',
     ];
 
@@ -44,7 +45,11 @@ class TransaksiGuru extends Model
         $diff = now()->diffInDays(Carbon::parse($this->attributes['created_at']), false);
         return (-1*$diff)+1;
     }
-
+    public function getSelisih($lama){
+        $diff = now()->diffInDays(Carbon::parse($this->attributes['created_at'])->addDays($lama), false);
+        return $diff; 
+        
+    }
     public function buku()
     {
         return $this->belongsTo(Buku::class);    

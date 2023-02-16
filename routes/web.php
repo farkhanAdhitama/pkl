@@ -120,6 +120,7 @@ Route::get('/exportpdf_jenisbuku', [App\Http\Controllers\JenisbukuController::cl
 Route::get('/kategori', [App\Http\Controllers\KategoriController::class, 'index'])->name('kategori');
 
 //TRANSAKSI SISWA ROUTE
+Route::get('/sendEmail/{email}/{id_siswa}/{nama}/{berkas}/{tenggat}', [App\Http\Controllers\TransaksiSiswaController::class, 'sendEmail'])->name('sendEmail');
 //buku
 Route::get('/peminjaman_buku', [App\Http\Controllers\TransaksiSiswaController::class, 'showPeminjaman'])->name('peminjaman_buku');
 Route::get('/showTambahPeminjaman', [App\Http\Controllers\TransaksiSiswaController::class, 'showTambahPeminjaman'])->name('showTambahPeminjaman');
@@ -131,7 +132,7 @@ Route::get('/exportpdf_peminjaman', [App\Http\Controllers\TransaksiSiswaControll
 Route::get('/exportpdf_pengembalian', [App\Http\Controllers\TransaksiSiswaController::class, 'exportpdf_pengembalian'])->name('exportpdf_pengembalian');
 Route::get('/exportexcel_peminjaman', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_peminjaman'])->name('exportexcel_peminjaman');
 Route::get('/exportexcel_pengembalian', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_pengembalian'])->name('exportexcel_pengembalian');
-Route::get('/deletePengembalian/{id}', [App\Http\Controllers\TransaksiSiswaController::class, 'deletePengembalian'])->name('deletePengembalian');
+Route::get('/deletePengembalianBukuSiswa/{id}', [App\Http\Controllers\TransaksiSiswaController::class, 'deletePengembalianBukuSiswa'])->name('deletePengembalianBukuSiswa');
 //majalah
 Route::get('/peminjaman_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'showPeminjamanMajalah'])->name('peminjaman_majalah');
 Route::post('/tambah_peminjaman_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'tambah_peminjaman_majalah'])->name('tambah_peminjaman_majalah');
@@ -142,7 +143,7 @@ Route::get('/exportpdf_peminjaman_majalah', [App\Http\Controllers\TransaksiSiswa
 Route::get('/exportpdf_pengembalian_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'exportpdf_pengembalian_majalah'])->name('exportpdf_pengembalian_majalah');
 Route::get('/exportexcel_peminjaman_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_peminjaman_majalah'])->name('exportexcel_peminjaman_majalah');
 Route::get('/exportexcel_pengembalian_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_pengembalian_majalah'])->name('exportexcel_pengembalian_majalah');
-Route::get('/deletePengembalianMajalah/{id}', [App\Http\Controllers\TransaksiSiswaController::class, 'deletePengembalianMajalah'])->name('deletePengembalianMajalah');
+Route::get('/deletePengembalianMajalahSiswa/{id}', [App\Http\Controllers\TransaksiSiswaController::class, 'deletePengembalianMajalahSiswa'])->name('deletePengembalianMajalahSiswa');
 //cd
 Route::get('/peminjaman_cd', [App\Http\Controllers\TransaksiSiswaController::class, 'showPeminjamanCD'])->name('peminjaman_cd');
 Route::get('/showTambahPeminjaman', [App\Http\Controllers\TransaksiSiswaController::class, 'showTambahPeminjaman'])->name('showTambahPeminjaman');
@@ -154,7 +155,7 @@ Route::get('/exportpdf_peminjaman_cd', [App\Http\Controllers\TransaksiSiswaContr
 Route::get('/exportpdf_pengembalian_cd', [App\Http\Controllers\TransaksiSiswaController::class, 'exportpdf_pengembalian_cd'])->name('exportpdf_pengembalian_cd');
 Route::get('/exportexcel_peminjaman_cd', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_peminjaman_cd'])->name('exportexcel_peminjaman_cd');
 Route::get('/exportexcel_pengembalian_cd', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_pengembalian_cd'])->name('exportexcel_pengembalian_cd');
-Route::get('/deletePengembalianCD/{id}', [App\Http\Controllers\TransaksiSiswaController::class, 'deletePengembalianCD'])->name('deletePengembalianCD');
+Route::get('/deletePengembalianCDSiswa/{id}', [App\Http\Controllers\TransaksiSiswaController::class, 'deletePengembalianCDSiswa'])->name('deletePengembalianCDSiswa');
 
 
 
@@ -203,3 +204,8 @@ Route::post('/updateFotoProfil/', [App\Http\Controllers\PengaturanController::cl
 //DATA PENGGUNA
 Route::get('/data_pengguna', [App\Http\Controllers\DataPenggunaController::class, 'index'])->name('data_pengguna');
 Route::post('/insertPengguna', [App\Http\Controllers\DataPenggunaController::class, 'insertPengguna'])->name('insertPengguna');
+Route::get('/deleteUser/{id}', [App\Http\Controllers\DataPenggunaController::class, 'deleteUser'])->name('deleteUser');
+Route::post('/updateUser/{id}', [App\Http\Controllers\DataPenggunaController::class, 'updateUser'])->name('updateUser');
+
+//DATA PENGGUNA
+Route::get('/sendEmail', [App\Http\Controllers\EmailController::class, 'index'])->name('sendEmail');

@@ -13,15 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('gurus', function (Blueprint $table) {
+        Schema::create('siswas', function (Blueprint $table) {
             $table->id();
-            $table->enum('jabatan',['Guru','Karyawan']);
             $table->string('nama');
-            $table->string('nik');
+            $table->string('nis');
             $table->string('email');
+            $table->string('angkatan');
+            $table->string('kelas');
             $table->date('masa_berlaku');
-            $table->enum('status',['Aktif','NonAktif'])->default('Aktif');
-            $table->string('foto_guru')->nullable();
+            $table->enum('status',['Aktif','NonAktif'])->default('Aktif');           
+            $table->string('foto_siswa')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gurus');
+        Schema::dropIfExists('siswas');
     }
 };

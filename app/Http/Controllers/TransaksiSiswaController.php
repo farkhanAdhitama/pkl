@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CD;
+use App\Mail\SendEmail;
+use Carbon\Carbon;
 use App\Models\Buku;
 use App\Models\Anggota;
 use App\Models\Majalah;
@@ -11,6 +13,7 @@ use App\Models\TransaksiSiswa;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\PeminjamanExport;
 use App\Exports\PengembalianExport;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PeminjamanCDSiswaExport;
 use App\Exports\PeminjamanBukuSiswaExport;
@@ -20,6 +23,7 @@ use App\Exports\PeminjamanMajalahSiswaExport;
 use App\Exports\PengembalianMajalahSiswaExport;
 use App\Http\Requests\StoreTransaksiSiswaRequest;
 use App\Http\Requests\UpdateTransaksiSiswaRequest;
+
 
 class TransaksiSiswaController extends Controller
 {
@@ -98,7 +102,7 @@ class TransaksiSiswaController extends Controller
         return view('transaksi-siswa.pengembalian', compact('peminjaman','bukus', 'anggotas'));
     }
 
-    public function deletePengembalian($id)
+    public function deletePengembalianBukuSiswa($id)
     {
         $data = TransaksiSiswa::find($id);
         $data->delete();
@@ -178,9 +182,9 @@ class TransaksiSiswaController extends Controller
         return view('transaksi-siswa.pengembalian_majalah', compact('peminjaman','majalahs', 'anggotas'));
     }
 
-    public function deletePengembalianMajalah($id)
+    public function deletePengembalianMajalahSiswa($id_majalah)
     {
-        $data = TransaksiSiswa::find($id);
+        $data = TransaksiSiswa::find($id_majalah);
         $data->delete();
         return redirect()->route('pengembalian_majalah')->with('deletesuccess', 'Data Berhasil Dihapus');
 
@@ -259,11 +263,13 @@ class TransaksiSiswaController extends Controller
         return view('transaksi-siswa.pengembalian_cd', compact('peminjaman','cds', 'anggotas'));
     }
 
-    public function deletePengembalianCD($id)
+    public function deletePengembalianCDSiswa($id)
     {
         $data = TransaksiSiswa::find($id);
         $data->delete();
         return redirect()->route('pengembalian_cd')->with('deletesuccess', 'Data Berhasil Dihapus');
 
     }
+
+
 }

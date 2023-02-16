@@ -122,6 +122,7 @@
                                     <th> No </th>
                                     <th> Nama </th>
                                     <th> NIS </th>
+                                    {{-- <th> Email </th> --}}
                                     <th> Angkatan </th>
                                     <th> Kelas </th>
                                     <th> Berlaku Sampai </th>
@@ -146,6 +147,7 @@
                                             <?php }?>
                                         </td>
                                         <td>{{ $anggota->nis }}</td>
+                                        {{-- <td>{{ $anggota->email }}</td> --}}
                                         <td>{{ $anggota->angkatan }}</td>
                                         <td>{{ $anggota->kelas }}</td>
                                         <td>{{ $anggota->getMasaBerlaku() }}</td>
@@ -216,6 +218,8 @@
                                                         <div class="col-sm-6">
                                                             <h6>NIS</h6>
                                                             <p>{{ $anggota->nis }}</p>
+                                                            <h6>Email</h6>
+                                                            <p>{{ $anggota->email }}</p>
                                                             <h6>Angkatan</h6>
                                                             <p>{{ $anggota->angkatan }}</p>
                                                             <h6>Kelas</h6>
@@ -273,6 +277,12 @@
                                                             <input value="{{ $anggota->nis }}" type="number"
                                                                 name="nis" class="form-control" id="nis"
                                                                 placeholder="NIS/NIP" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="email">Email</label>
+                                                            <input value="{{ $anggota->email }}" type="email"
+                                                                name="email" class="form-control" id="email"
+                                                                placeholder="Email" required>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="angkatan">Angkatan</label>

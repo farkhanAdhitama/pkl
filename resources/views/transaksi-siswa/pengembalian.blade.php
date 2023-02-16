@@ -104,7 +104,7 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location = "/deletePengembalian/" + idtransaksi + ""
+                    window.location = "/deletePengembalianBukuSiswa/" + idtransaksi + ""
                     Swal.fire(
                         'Dihapus!',
                         'Data Berhasil Dihapus',

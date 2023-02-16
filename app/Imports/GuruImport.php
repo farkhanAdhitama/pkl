@@ -18,8 +18,9 @@ class GuruImport implements ToModel, WithStartRow
         return new Guru([
             'nama' => $row[1],
             'nik' => $row[2],
-            'jabatan' => $row[3],
-            'masa_berlaku' => $row[4],
+            'email' => $row[3],
+            'jabatan' => $row[4],
+            'masa_berlaku' => $row[5],
         ]);
     }
 

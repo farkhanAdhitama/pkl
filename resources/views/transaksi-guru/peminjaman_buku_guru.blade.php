@@ -130,7 +130,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($peminjaman as $index => $pinjam)
-                                        <tr>
+                                        <tr @if ($pinjam->getSelisih($pinjam->lama) < 0) class="table-danger" @endif>
                                             <td scope="pinjam">{{ $index + $peminjaman->firstItem() }}</td>
                                             <td>{{ $pinjam->guru->nama ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->buku->judul_buku ?? 'N/A' }}</td>
@@ -142,6 +142,7 @@
                                             <td>
                                                 <button type="button" class="btn btn-inverse-danger btn-sm perpanjang "
                                                     data-bs-toggle="modal " data-id="{{ $pinjam->id }}"
+                                                    @if ($pinjam->getSelisih($pinjam->lama) < 0) disabled @endif
                                                     data-buku="{{ $pinjam->buku->judul_buku }}"
                                                     data-guru="{{ $pinjam->guru->nama }}">
                                                     Perpanjang
@@ -159,6 +160,10 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div>
+                                Keterangan :
+                                <p><i class="mdi mdi-checkbox-blank text-danger"></i> Masa Pinjam Telah Melewati Batas</p>
+                            </div>
                         </div>
                     </div>
                 </div>

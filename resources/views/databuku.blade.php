@@ -120,7 +120,7 @@
                                     <th> Judul </th>
                                     <th> ISBN </th>
                                     <th> Kategori </th>
-                                    <th> Jenis Buku</th>
+                                    {{-- <th> Jenis Buku</th> --}}
                                     <th> Penulis </th>
                                     <th> Penerbit </th>
                                     <th> Terbitan </th>
@@ -146,7 +146,7 @@
                                         </td>
                                         <td>{{ $buku->isbn }}</td>
                                         <td>{{ $buku->kategori }}</td>
-                                        <td>{{ $buku->jenis->nama ?? 'N/A' }}</td>
+                                        {{-- <td>{{ $buku->jenis->nama ?? 'N/A' }}</td> --}}
                                         <td>{{ $buku->penulis }}</td>
                                         <td>
                                             {{ $buku->penerbit->nama_penerbit ?? 'N/A' }}

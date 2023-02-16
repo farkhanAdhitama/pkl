@@ -29,10 +29,19 @@
 
                     <div class="form-group">
                         <label for="nis">NIS</label>
-                        <input type="number" name="nis" class="form-control" id="nis"
-                            placeholder="NIS/NIP Anggota" required value="{{ old('nis') }}" autocomplete="nis"
-                            class="@error('nis') is-invalid @enderror">
+                        <input type="number" name="nis" class="form-control" id="nis" placeholder="NIS" required
+                            value="{{ old('nis') }}" autocomplete="nis" class="@error('nis') is-invalid @enderror">
                         @error('nis')
+                            <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Email"
+                            required value="{{ old('email') }}" autocomplete="email"
+                            class="@error('email') is-invalid @enderror">
+                        @error('email')
                             <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
                         @enderror
                     </div>

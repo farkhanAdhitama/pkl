@@ -46,6 +46,7 @@
                                 <thead>
                                     <tr>
                                         <th> No </th>
+                                        <th> ID </th>
                                         <th> Nama </th>
                                         <th> Kelas </th>
                                         <th> Nama Majalah </th>
@@ -60,6 +61,7 @@
                                     @foreach ($peminjaman as $index => $pinjam)
                                         <tr>
                                             <td scope="pinjam">{{ $index + $peminjaman->firstItem() }}</td>
+                                            <td>{{ $pinjam->id }}</td>
                                             <td>{{ $pinjam->anggota->nama ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->anggota->kelas ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->majalah->nama ?? 'N/A' }}</td>
@@ -105,7 +107,7 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location = "/deletePengembalianMajalah/" + idtransaksi + ""
+                    window.location = "/deletePengembalianMajalahSiswa/" + idtransaksi + ""
                     Swal.fire(
                         'Dihapus!',
                         'Data Berhasil Dihapus',

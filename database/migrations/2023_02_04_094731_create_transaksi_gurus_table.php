@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('jenis')->nullable();
             $table->enum('status',['Dipinjam','Dikembalikan'])->default('Dipinjam');
             $table->integer('lama');
+            $table->integer('status_email')->default(0);
             $table->timestamp('tgl_kembali');
             $table->timestamps();
         });

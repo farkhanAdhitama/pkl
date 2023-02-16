@@ -4,31 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
+use illuminate\Support\Carbon;
 
-class Guru extends Model
+class Siswa extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'jabatan',
-        'nama',
-        'email',
-        'nik',
-        'masa_berlaku',
-        'status',
-        'foto_guru',
-
-    ];
-
+    protected $guarded = [];
+    protected $dates = ['created_at'];
 
     public function getCreatedAttribute(){
         return Carbon::parse($this->attributes['created_at'])
-            ->translatedFormat('l, d M Y');
-    }
-
-    public function getMasaBerlaku(){
-        return Carbon::parse($this->attributes['masa_berlaku'])
             ->translatedFormat('l, d M Y');
     }
 
@@ -37,8 +22,17 @@ class Guru extends Model
             ->translatedFormat('l, d M Y');
     }
 
-     public function transaksi(){
-        return $this->hasMany(TransaksiGuru::class);
+    public function getMasaBerlaku(){
+        return Carbon::parse($this->attributes['masa_berlaku'])
+            ->translatedFormat('l, d M Y');
+    }
+    
+    public function transaksi(){
+        return $this->hasMany(Transaksi::class);
     }
 
+    
 }
+
+
+

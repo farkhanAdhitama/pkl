@@ -28,6 +28,7 @@ class GuruExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
         return [
             $anggota->nama,
             $anggota->nik,
+            $anggota->email,
             $anggota->jabatan,
             $anggota->masa_berlaku,
             $anggota->status,
@@ -39,6 +40,7 @@ class GuruExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
         return [
             'NAMA',
             'NIK',
+            'EMAIL',
             'JABATAN',
             'BERLAKU SAMPAI',
             'STATUS',

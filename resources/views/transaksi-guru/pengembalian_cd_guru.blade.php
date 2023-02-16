@@ -20,7 +20,7 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="/guru_kembali">Buku</a></li>
-                    <li><a class="dropdown-item" href="/cd_majalah_kembali">Majalah</a></li>
+                    <li><a class="dropdown-item" href="/majalah_guru_kembali">Majalah</a></li>
                     <li><a class="dropdown-item" href="/cd_guru_kembali">CD</a></li>
                 </ul>
             </div>

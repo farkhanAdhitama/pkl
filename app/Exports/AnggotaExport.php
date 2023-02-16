@@ -28,6 +28,7 @@ class AnggotaExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadi
         return [
             $anggota->nama,
             $anggota->nis,
+            $anggota->email,
             $anggota->angkatan,
             $anggota->kelas,
             $anggota->masa_berlaku,
@@ -40,6 +41,7 @@ class AnggotaExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadi
         return [
             'NAMA',
             'NIS',
+            'EMAIL',
             'ANGKATAN',
             'KELAS',
             'MASA BERLAKU',

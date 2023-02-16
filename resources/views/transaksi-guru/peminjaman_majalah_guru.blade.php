@@ -109,7 +109,6 @@
                             class="btn btn-sm btn-success btn-icon-text me-1"> <i
                                 class="mdi mdi-printer btn-icon-append"></i> Cetak Excel </button></a>
                 </div>
-
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Daftar Peminjaman Majalah</h4>
@@ -129,7 +128,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($peminjaman_majalah as $index => $pinjam)
-                                        <tr>
+                                        <tr @if ($pinjam->getSelisih($pinjam->lama) < 0) class="table-danger" @endif>
                                             <td scope="pinjam">{{ $index + $peminjaman_majalah->firstItem() }}</td>
                                             <td>{{ $pinjam->guru->nama ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->majalah->nama ?? 'N/A' }}</td>
@@ -140,6 +139,7 @@
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-inverse-danger btn-sm perpanjang "
+                                                    @if ($pinjam->getSelisih($pinjam->lama) < 0) disabled @endif
                                                     data-bs-toggle="modal " data-id="{{ $pinjam->id }}"
                                                     data-majalah="{{ $pinjam->majalah->nama }}"
                                                     data-guru="{{ $pinjam->guru->nama }}">
@@ -159,9 +159,14 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div>
+                                Keterangan :
+                                <p><i class="mdi mdi-checkbox-blank text-danger"></i> Masa Pinjam Telah Melewati Batas</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

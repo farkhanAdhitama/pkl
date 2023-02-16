@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transaksi_siswas', function (Blueprint $table) {
+    Schema::create('transaksi_siswas', function (Blueprint $table) {
             $table->id();
             $table->string('anggota_id')->nullable();
             $table->string('buku_id')->nullable();
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('jenis')->nullable();
             $table->enum('status',['Dipinjam','Dikembalikan'])->default('Dipinjam');
             $table->integer('lama');
+            $table->integer('status_email')->default(0);
             $table->integer('denda')->nullable();
             $table->timestamp('tgl_kembali');
             $table->timestamps();
