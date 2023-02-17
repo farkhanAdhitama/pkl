@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Models\Buku;
+use App\Mail\SendEmail;
 use App\Models\Majalah;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -66,5 +68,17 @@ class TransaksiGuru extends Model
     public function guru()
     {
         return $this->belongsTo(Guru::class);
+    }
+
+    public function sendEmail($email_tujuan, $id, $nama, $berkas, $tenggat){
+
+        TransaksiGuru::where('id', $id)->update(['status_email' => 1]);
+        $tujuan = $email_tujuan;
+        $data_email = [
+            'nama' => $nama,
+            'berkas' => $berkas,
+            'tenggat' => $tenggat,
+        ];
+        Mail::to($tujuan)->send(new SendEmail($data_email));
     }
 }

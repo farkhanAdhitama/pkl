@@ -128,6 +128,15 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($peminjaman_cd as $index => $pinjam)
+                                        @if ($pinjam->getSelisih($pinjam->lama) < 0 && $pinjam->status_email == 0)
+                                            {{ $pinjam->sendEmail(
+                                                $pinjam->guru->email,
+                                                $pinjam->id,
+                                                $pinjam->guru->nama,
+                                                $pinjam->cd->judul_cd,
+                                                $pinjam->getTenggatWaktu($pinjam->lama),
+                                            ) }}
+                                        @endif
                                         <tr @if ($pinjam->getSelisih($pinjam->lama) < 0) class="table-danger" @endif>
                                             <td scope="pinjam">{{ $index + $peminjaman_cd->firstItem() }}</td>
                                             <td>{{ $pinjam->guru->nama ?? 'N/A' }}</td>
