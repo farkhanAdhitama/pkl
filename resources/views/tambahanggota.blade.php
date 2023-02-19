@@ -55,41 +55,32 @@
                             <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
                         @enderror
                     </div>
-
-                    <div class="form-group">
-                        <label for="kelas">Kelas</label>
-                        <select class="form-control" name="kelas" id="kelas">
-                            <option value="10 MIPA 1">10 MIPA 1</option>
-                            <option value="10 MIPA 2">10 MIPA 2</option>
-                            <option value="10 MIPA 3">10 MIPA 3</option>
-                            <option value="10 MIPA 4">10 MIPA 4</option>
-                            <option value="10 IPS 1">10 IPS 1</option>
-                            <option value="10 IPS 2">10 IPS 2</option>
-                            <option value="10 IPS 3">10 IPS 3</option>
-                            <option value="10 IPS 4">10 IPS 4</option>
-                            <option value="10 BAHASA">10 BAHASA</option>
-                            <option value="11 MIPA 1">11 MIPA 1</option>
-                            <option value="11 MIPA 2">11 MIPA 2</option>
-                            <option value="11 MIPA 3">11 MIPA 3</option>
-                            <option value="11 MIPA 4">11 MIPA 4</option>
-                            <option value="11 IPS 1">11 IPS 1</option>
-                            <option value="11 IPS 2">11 IPS 2</option>
-                            <option value="11 IPS 3">11 IPS 3</option>
-                            <option value="11 IPS 4">11 IPS 4</option>
-                            <option value="11 BAHASA">11 BAHASA</option>
-                            <option value="12 MIPA 1">12 MIPA 1</option>
-                            <option value="12 MIPA 2">12 MIPA 2</option>
-                            <option value="12 MIPA 3">12 MIPA 3</option>
-                            <option value="12 MIPA 4">12 MIPA 4</option>
-                            <option value="12 IPS 1">12 IPS 1</option>
-                            <option value="12 IPS 2">12 IPS 2</option>
-                            <option value="12 IPS 3">12 IPS 3</option>
-                            <option value="12 IPS 4">12 IPS 4</option>
-                            <option value="12 BAHASA">12 BAHASA</option>
-                        </select>
+                    <div class="row">
+                        <div class="form-group col-md-1">
+                            <label for="kelas">Kelas</label>
+                            <select class="form-control" name="kelas" id="kelas" required>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="jurusan">Jurusan</label>
+                            <select class="form-control" name="jurusan" id="jurusan" required>
+                                <option value="MIPA 1">MIPA 1</option>
+                                <option value="MIPA 2">MIPA 2</option>
+                                <option value="MIPA 3">MIPA 3</option>
+                                <option value="MIPA 4">MIPA 4</option>
+                                <option value="MIPA 5">MIPA 5</option>
+                                <option value="IPS 1">IPS 1</option>
+                                <option value="IPS 2">IPS 2</option>
+                                <option value="IPS 3">IPS 3</option>
+                                <option value="IPS 4">IPS 4</option>
+                                <option value="BAHASA">BAHASA</option>
+                            </select>
+                        </div>
                     </div>
-
-                    <div class="form-group">
+                    <div class="form-group ">
                         <label for="masa_berlaku">Berlaku Sampai</label>
                         <input type="date" name="masa_berlaku" class="form-control" id="masa_berlaku"
                             placeholder="Angkatan" value="{{ old('masa_berlaku') }}" autocomplete="masa_berlaku"

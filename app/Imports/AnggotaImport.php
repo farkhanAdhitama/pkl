@@ -22,7 +22,8 @@ class AnggotaImport implements ToModel, WithStartRow
             'email' => $row[3],
             'angkatan' => $row[4],
             'kelas' => $row[5],
-            'masa_berlaku' => $row[6],
+            'jurusan' => $row[6],
+            'masa_berlaku' => $row[7],
 
         ]);
     }

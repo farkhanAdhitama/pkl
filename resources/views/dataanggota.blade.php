@@ -59,10 +59,10 @@
                 <div class="float-end mb-3">
 
                     <a href="/exportpdf_anggota"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i
-                                class="mdi mdi-printer btn-icon-append"></i> PDF </button></a>
+                                class="mdi mdi-printer btn-icon-append"></i> Cetak PDF </button></a>
                     <a href="/exportexcel_anggota"> <button type="button"
                             class="btn btn-sm btn-success btn-icon-text me-1"> <i
-                                class="mdi mdi-printer btn-icon-append"></i> Excel </button></a>
+                                class="mdi mdi-printer btn-icon-append"></i> Cetak Excel </button></a>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#importanggota"
                         class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import
                         Data</button>
@@ -131,9 +131,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($anggotas as $index => $anggota)
+                                @php
+                                    $i = 1;
+                                @endphp
+                                @foreach ($anggotas as $anggota)
                                     <tr>
-                                        <td scope="anggota">{{ $index + $anggotas->firstItem() }}</td>
+                                        <td> {{ $i }}</td>
+                                        @php
+                                            $i++;
+                                        @endphp
                                         <td>
                                             <?php
                     if (empty($anggota->foto_anggota)){?>
@@ -149,7 +155,7 @@
                                         <td>{{ $anggota->nis }}</td>
                                         {{-- <td>{{ $anggota->email }}</td> --}}
                                         <td>{{ $anggota->angkatan }}</td>
-                                        <td>{{ $anggota->kelas }}</td>
+                                        <td>{{ $anggota->kelas }} {{ $anggota->jurusan }}</td>
                                         <td>{{ $anggota->getMasaBerlaku() }}</td>
 
                                         @if ($anggota->status == 'Aktif')
@@ -223,7 +229,7 @@
                                                             <h6>Angkatan</h6>
                                                             <p>{{ $anggota->angkatan }}</p>
                                                             <h6>Kelas</h6>
-                                                            <p>{{ $anggota->kelas }}</p>
+                                                            <p>{{ $anggota->kelas }} {{ $anggota->jurusan }}</p>
                                                             <h6>Berlaku Sampai</h6>
                                                             <p>{{ $anggota->getMasaBerlaku() }}</p>
                                                             <h6>Status</h6>
@@ -290,37 +296,32 @@
                                                                 name="angkatan" class="form-control" id="angkatan"
                                                                 placeholder="Angkatan" required>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="kelas">Kelas</label>
-                                                            <select class="form-control" name="kelas" id="kelas">
-                                                                <option value="10 MIPA 1">10 MIPA 1</option>
-                                                                <option value="10 MIPA 2">10 MIPA 2</option>
-                                                                <option value="10 MIPA 3">10 MIPA 3</option>
-                                                                <option value="10 MIPA 4">10 MIPA 4</option>
-                                                                <option value="10 IPS 1">10 IPS 1</option>
-                                                                <option value="10 IPS 2">10 IPS 2</option>
-                                                                <option value="10 IPS 3">10 IPS 3</option>
-                                                                <option value="10 IPS 4">10 IPS 4</option>
-                                                                <option value="10 BAHASA">10 BAHASA</option>
-                                                                <option value="11 MIPA 1">11 MIPA 1</option>
-                                                                <option value="11 MIPA 2">11 MIPA 2</option>
-                                                                <option value="11 MIPA 3">11 MIPA 3</option>
-                                                                <option value="11 MIPA 4">11 MIPA 4</option>
-                                                                <option value="11 IPS 1">11 IPS 1</option>
-                                                                <option value="11 IPS 2">11 IPS 2</option>
-                                                                <option value="11 IPS 3">11 IPS 3</option>
-                                                                <option value="11 IPS 4">11 IPS 4</option>
-                                                                <option value="11 BAHASA">11 BAHASA</option>
-                                                                <option value="12 MIPA 1">12 MIPA 1</option>
-                                                                <option value="12 MIPA 2">12 MIPA 2</option>
-                                                                <option value="12 MIPA 3">12 MIPA 3</option>
-                                                                <option value="12 MIPA 4">12 MIPA 4</option>
-                                                                <option value="12 IPS 1">12 IPS 1</option>
-                                                                <option value="12 IPS 2">12 IPS 2</option>
-                                                                <option value="12 IPS 3">12 IPS 3</option>
-                                                                <option value="12 IPS 4">12 IPS 4</option>
-                                                                <option value="12 BAHASA">12 BAHASA</option>
-                                                            </select>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-3">
+                                                                <label for="kelas">Kelas</label>
+                                                                <select class="form-control" name="kelas"
+                                                                    id="kelas" required>
+                                                                    <option value="10">10</option>
+                                                                    <option value="11">11</option>
+                                                                    <option value="12">12</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="jurusan">Jurusan</label>
+                                                                <select class="form-control" name="jurusan"
+                                                                    id="jurusan" required>
+                                                                    <option value="MIPA 1">MIPA 1</option>
+                                                                    <option value="MIPA 2">MIPA 2</option>
+                                                                    <option value="MIPA 3">MIPA 3</option>
+                                                                    <option value="MIPA 4">MIPA 4</option>
+                                                                    <option value="MIPA 5">MIPA 5</option>
+                                                                    <option value="IPS 1">IPS 1</option>
+                                                                    <option value="IPS 2">IPS 2</option>
+                                                                    <option value="IPS 3">IPS 3</option>
+                                                                    <option value="IPS 4">IPS 4</option>
+                                                                    <option value="BAHASA">BAHASA</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="masa_berlaku">Berlaku Sampai</label>

@@ -105,14 +105,14 @@
                 </ul>
             </div>
         </li>
-
-        <li class="nav-item">
-            <a class="nav-link " href="/data_pengguna">
-                <span class="menu-title">Data Pengguna</span>
-                <i class=" mdi mdi-account-settings menu-icon"></i>
-            </a>
-        </li>
-
+        @if (auth()->user()->level == 'Operator')
+            <li class="nav-item">
+                <a class="nav-link " href="/data_pengguna">
+                    <span class="menu-title">Data Pengguna</span>
+                    <i class=" mdi mdi-account-settings menu-icon"></i>
+                </a>
+            </li>
+        @endif
         <li class="nav-item {{ request()->is('pengaturan*') ? 'active' : '' }}">
             <a class="nav-link " href="/pengaturan/{{ auth()->user()->id }}">
                 <span class="menu-title">Pengaturan</span>

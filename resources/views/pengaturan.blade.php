@@ -12,7 +12,27 @@
         integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{ asset('assets/images/smankaLogo.png') }}" />
-
+    {{-- swal berhasil ubah password --}}
+    @if ($message = Session::get('update_success'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Password Berhasil Diperbarui!',
+                'success'
+            )
+        </script>
+    @endif
+    {{-- swal gagal update password --}}
+    @if ($message = Session::get('update_fails'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Password Gagal Diperbarui!',
+                footer: 'Pastikan Konfirmasi Password Sama'
+            })
+        </script>
+    @endif
 
     {{-- swal berhasil import --}}
     @if ($message = Session::get('updatesuccess'))
@@ -66,7 +86,32 @@
         <div class="col-md-5 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Pengaturan Lain</h4>
+                    <h4 class="card-title mb-4">Ubah Password</h4>
+                    <form action="/ubahPassword/{{ $profil->id }}" method="POST" enctype="multipart/form-data"
+                        class="forms-sample">
+                        @csrf
+
+                        <div class="form-group">
+                            <label for="password">Password Baru</label>
+                            <input type="password" name="password" class="form-control" id="password"
+                                placeholder="Password Baru (Minimal : 4 Karakter)" required value="{{ old('password') }}"
+                                autocomplete="new-password" class="@error('password') is-invalid @enderror">
+                            @error('password')
+                                <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-12 form-label"for="confirm_password">Konfirmasi Password</label>
+                            <input required id="password-confirm" type="password" class="form-control"
+                                placeholder="Konfirmasi Password Baru" name="password_confirmation" required
+                                autocomplete="new-password">
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-gradient-primary btn-rounded btn-fw text-center">Ubah
+                                Password</button>
+                        </div>
+                    </form>
 
                 </div>
             </div>
@@ -107,8 +152,8 @@
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input required value="{{ $profil->email }}" type="email" name="email" class="form-control"
-                                id="email" placeholder="Email">
+                            <input required value="{{ $profil->email }}" type="email" name="email"
+                                class="form-control" id="email" placeholder="Email">
                         </div>
 
                         <button type="submit" class="btn btn-primary me-2 ">Submit</button>

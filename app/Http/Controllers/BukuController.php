@@ -130,6 +130,19 @@ class BukuController extends Controller
         return $pdf->download('data_buku.pdf');
     }
 
+    public function exportpdf_buku_pertanggal($tgl_awal, $tgl_akhir){
+        // dd(["tanggal awal " .$tgl_awal, "tanggal akhir :" .$tgl_akhir]);
+        $data = Buku::all()->whereBetween('created_at', [$tgl_awal,$tgl_akhir]);
+        $jen = Jenisbuku::all();
+        $tgl_awal = $tgl_awal;
+        $tgl_akhir = $tgl_akhir;
+        view()->share('data', $data, $jen, $tgl_awal, $tgl_akhir);
+        $pdf = PDF::loadview('data_buku-pdf_pertanggal');
+        return $pdf->download('data_buku.pdf');
+        
+    }
+
+
 
 
 

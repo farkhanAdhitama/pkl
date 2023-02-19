@@ -129,9 +129,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($gurus as $index => $guru)
+                                @php
+                                    $i = 1;
+                                @endphp
+                                @foreach ($gurus as $guru)
                                     <tr>
-                                        <td scope="guru">{{ $index + $gurus->firstItem() }}</td>
+                                        <td> {{ $i }}</td>
+                                        @php
+                                            $i++;
+                                        @endphp
                                         <td>
                                             <?php
                     if (empty($guru->foto_guru)){?>

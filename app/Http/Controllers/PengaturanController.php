@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class PengaturanController extends Controller
@@ -52,6 +53,35 @@ class PengaturanController extends Controller
                 ->back()
                 ->with('updatesuccess', 'Data Berhasil Ditambahkan.');
 
+        }
+    }
+
+    public function ubahPassword(Request $request, $id)
+    {
+        $rules = [
+            'password' => ['required', 'string', 'min:4', 'confirmed'],
+        ];
+
+        $message = [
+            'password.required' => 'Password harus diisi.',
+            'password.min' => 'Password minimal terdiri dari 4 karakter.',
+            'password.confirmed' => 'Password tidak sesuai.',
+        ];
+        $validasi = Validator::make($request->all(), $rules, $message);
+
+        if ($validasi->fails()) {
+            return redirect()
+                ->back()
+                ->with('update_fails', 'Data Gagal Diubah.')
+                ->withErrors($validasi);
+        } else {
+            $request['password'] = Hash::make($request->password);
+            $data = User::find($id);
+            $data->update($request->all());
+
+            return redirect()
+                ->back()
+                ->with('update_success', 'Data Berhasil Diubah.');
         }
     }
 }

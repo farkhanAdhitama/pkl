@@ -15,7 +15,7 @@ class GuruController extends Controller
 {
     public function index()
     {   
-        $gurus = Guru::paginate(1000000);
+        $gurus = Guru::all();
         $members = Guru::all();
         foreach ($members as $guru){
             $id_guru = $guru->id;

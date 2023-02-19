@@ -17,7 +17,7 @@ class AnggotaController extends Controller
 
     public function index(Request $request)
     {   
-        $anggotas = Anggota::paginate(1000000);
+        $anggotas = Anggota::all();
         $members = Anggota::all();
         foreach ($members as $anggota){
             $id_anggota = $anggota->id;
@@ -54,7 +54,7 @@ class AnggotaController extends Controller
         ],[
             'nama.regex' => 'Nama Harus Berisi Alphabet',
             'nis.numeric' => 'NIS Harus Berisi Angka',
-            'nis.required' => 'NIS Sudah Ada',
+            'nis.unique' => 'NIS Sudah Ada',
             'kelas.required' => 'Kelas Harus Diisi'
         ]);
 

@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('nis');
             $table->string('email');
             $table->string('angkatan');
-            $table->string('kelas');
+            $table->integer('kelas');
+            $table->string('jurusan');
             $table->date('masa_berlaku');
             $table->enum('status',['Aktif','NonAktif'])->default('Aktif');           
             $table->string('foto_anggota')->nullable();
