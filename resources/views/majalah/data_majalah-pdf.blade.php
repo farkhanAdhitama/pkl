@@ -44,7 +44,7 @@
         @foreach ($data as $majalah)
             <tr>
                 <td>{{ $majalah->nama }}</td>
-                <td>{{ $majalah->getTanggalTerbit }}</td>
+                <td>{{ $majalah->getTanggalTerbit() }}</td>
                 <td>{{ $majalah->nomor }}/{{ $majalah->volume }}/{{ $majalah->tahun }}</td>
                 <td>{{ $majalah->issn }}</td>
                 <td>{{ $majalah->jumlah }}</td>

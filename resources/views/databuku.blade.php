@@ -34,6 +34,18 @@
             </script>
         @endif
 
+        {{-- swal gagal export pertanggal --}}
+        @if ($message = Session::get('export_gagal'))
+            <script>
+                Swal.fire(
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Gagal Cetak PDF Per Tanggal',
+                    footer: 'Pastikan Tanggal Awal dan Akhir Terisi'
+                )
+            </script>
+        @endif
+
         @if ($message = Session::get('deletesuccess'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ $message }}
@@ -56,26 +68,31 @@
                     <a href="tambahbuku" type="button" class="tambah_buku btn btn-sm btn-primary mb-3"><i
                             class="mdi mdi-library-plus mdi-icon"></i> Tambah Buku</a>
                     <div class="float-end mb-3">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#cetaktgl"
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#cetakPDF"
                             class="btn btn-sm btn-primary btn-icon-text me-1"><i
                                 class="mdi mdi-printer
                                 btn-icon-append"></i>Cetak
                             PDF</button>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#cetakExcel"
+                            class="btn btn-sm btn-success btn-icon-text me-1"><i
+                                class="mdi mdi-printer
+                                btn-icon-append"></i>Cetak
+                            Excel</button>
 
-                        <a href="/exportexcel"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i
-                                    class="mdi mdi-printer btn-icon-append"></i> Cetak Excel </button></a>
+                        {{-- <a href="/exportexcel"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i
+                                    class="mdi mdi-printer btn-icon-append"></i> Cetak Excel </button></a> --}}
                         <button type="button" data-bs-toggle="modal" data-bs-target="#importbuku"
                             class="btn btn-sm btn-danger btn-icon-text"><i
                                 class="mdi mdi-upload btn-icon-prepend"></i>Import
                             Data</button>
 
                         <!-- The Cetak PDF pertanggal Modal -->
-                        <div class="modal fade" id="cetaktgl">
+                        <div class="modal fade" id="cetakPDF">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <!-- Modal Header -->
                                     <div class="modal-header">
-                                        <h4 class="modal-title ">Edit Data Penerbit</h4>
+                                        <h4 class="modal-title ">Cetak PDF</h4>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                     </div>
                                     <!-- Modal body -->
@@ -90,20 +107,55 @@
                                             <input type="date" name="tgl_akhir" class="form-control" id="tgl_akhir"
                                                 placeholder="Tanggal Akhir" required>
                                         </div>
-                                        <a href=""
-                                            onclick="this.href='/exportpdf_buku_pertanggal/'+ document.getElementById('tgl_awal').value+
-                                        '/'+document.getElementById('tgl_akhir').value">
-                                            <button type="button" class="btn btn-primary w-100 mb-2">Cetak
-                                                Pertanggal</button></a>
-                                        <a href="/exportpdf_buku"><button type="button" class="btn btn-info w-100"> Cetak
-                                                Semua </button></a>
+                                        <button id="exportPDF" type="button"
+                                            class="exportPDF btn btn-primary w-100 mb-2">Cetak
+                                            PDF</button>
+                                        <h6 class="mt-2">Keterangan :</h6>
+                                        <ul>
+                                            <li class="small">Jangkauan Tanggal Menurut Tanggal Buku Masuk</li>
+                                            <li class="small">Kosongkan Tanggal Untuk Mencetak Semua</li>
+                                        </ul>
                                     </div>
-
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
-
                                     </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <!-- The Cetak Excel pertanggal Modal -->
+                        <div class="modal fade" id="cetakExcel">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title ">Cetak Excel</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="modal-body px-4">
+                                        <div class="form-group">
+                                            <label for="tgl_awal_excel">Tanggal Awal</label>
+                                            <input type="date" name="tgl_awal_excel" class="form-control"
+                                                id="tgl_awal_excel" placeholder="Tanggal Awal" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tgl_akhir_excel">Tanggal Akhir</label>
+                                            <input type="date" name="tgl_akhir_excel" class="form-control"
+                                                id="tgl_akhir_excel" placeholder="Tanggal Akhir" required>
+                                        </div>
+                                        <button id="exportExcel" type="button"
+                                            class="exportExcel btn btn-primary w-100 mb-2">Cetak
+                                            Excel</button>
+                                        <h6 class="mt-2">Keterangan :</h6>
+                                        <ul>
+                                            <li class="small">Jangkauan Tanggal Menurut Tanggal Buku Masuk</li>
+                                            <li class="small">Kosongkan Tanggal Untuk Mencetak Semua</li>
+                                        </ul>
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +186,8 @@
                                         <div class="modal-body px-4">
                                             <h5>Pilih File yang Akan Diimport</h5>
                                             <div class="form-group">
-                                                <input class="" type="file" name="file" id="" required>
+                                                <input class="" type="file" name="file" id=""
+                                                    required>
                                             </div>
                                         </div>
 
@@ -389,7 +442,7 @@
                                                                         <label class="col-sm-3 col-form-label"
                                                                             for="judul_asli">Judul Asli</label>
                                                                         <div class="col-sm-9">
-                                                                            <input required
+                                                                            <input
                                                                                 value="{{ $buku->judul_asli ?? 'N/A' }}"
                                                                                 type="text" name="judul_asli"
                                                                                 class="form-control" id="judul_asli"
@@ -428,11 +481,12 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group row">
                                                                         <label class="col-sm-3 col-form-label"
-                                                                            for="jenis_id">Jenis Buku</label>
-                                                                        <div class="col-sm-9">
+                                                                            for="jenis_id">Jenis Buku<span
+                                                                                class="text-danger">*</span></label>
+                                                                        <div class="col-sm-6">
                                                                             <select class="form-control" name="jenis_id"
                                                                                 id="jenis_id">
-                                                                                <option class="disabled"
+                                                                                <option
                                                                                     value="{{ $buku->jenis->id ?? '' }}">
                                                                                     {{ $buku->jenis->nama ?? '' }}</option>
                                                                                 @foreach ($jen as $jenisbuku)
@@ -441,6 +495,11 @@
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>
+                                                                        <button type="button" title="Tambah Jenis Buku"
+                                                                            onclick="location.href='/datajenisbuku';"
+                                                                            class="btn btn-sm btn-inverse-primary btn-icon delete ">
+                                                                            <i
+                                                                                class="mdi mdi-file-document-box"></i></button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -548,10 +607,12 @@
                                                                         <label class="col-sm-3 col-form-label"
                                                                             for="penerbit_id">Penerbit<span
                                                                                 class="text-danger">*</span></label>
-                                                                        <div class="col-sm-9">
+                                                                        <div class="col-sm-6">
                                                                             <select class="form-control"
                                                                                 name="penerbit_id" id="penerbit_id">
-                                                                                <option value="">--Piih Penerbit--
+                                                                                <option
+                                                                                    value="{{ $buku->penerbit->id ?? '' }}">
+                                                                                    {{ $buku->penerbit->nama_penerbit ?? '' }}
                                                                                 </option>
                                                                                 @foreach ($penerbit as $row)
                                                                                     <option value="{{ $row->id }}">
@@ -559,6 +620,11 @@
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>
+                                                                        <button type="button" title="Tambah Penerbit"
+                                                                            onclick="location.href='/dataPenerbit';"
+                                                                            class="btn btn-sm btn-inverse-primary btn-icon ">
+                                                                            <i
+                                                                                class="mdi mdi-file-document-box"></i></button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -614,14 +680,15 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group row">
                                                                         <label class="col-sm-3 col-form-label"
-                                                                            for="tempat_terbit_id">Penerbit<span
+                                                                            for="tempat_terbit_id">Tempat Terbit<span
                                                                                 class="text-danger">*</span></label>
-                                                                        <div class="col-sm-9">
+                                                                        <div class="col-sm-6">
                                                                             <select class="form-control"
                                                                                 name="tempat_terbit_id"
                                                                                 id="tempat_terbit_id">
-                                                                                <option value="">--Piih Tempat
-                                                                                    Terbit--
+                                                                                <option
+                                                                                    value="{{ $buku->tempat_terbit->id ?? '' }}">
+                                                                                    {{ $buku->tempat_terbit->kota ?? '' }}
                                                                                 </option>
                                                                                 @foreach ($tempat_terbit as $row)
                                                                                     <option value="{{ $row->id }}">
@@ -629,6 +696,12 @@
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>
+                                                                        <button type="button"
+                                                                            title="Tambah Tempat Terbit"
+                                                                            onclick="location.href='/dataTempatTerbit';"
+                                                                            class="btn btn-sm btn-inverse-primary btn-icon ">
+                                                                            <i
+                                                                                class="mdi mdi-file-document-box"></i></button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -657,10 +730,9 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group row">
                                                                         <label class="col-sm-3 col-form-label"
-                                                                            for="cetakan">Cetakan<span
-                                                                                class="text-danger">*</span></label>
+                                                                            for="cetakan">Cetakan</label>
                                                                         <div class="col-sm-9">
-                                                                            <input required value="{{ $buku->cetakan }}"
+                                                                            <input value="{{ $buku->cetakan }}"
                                                                                 type="number" name="cetakan"
                                                                                 class="form-control" id="cetakan"
                                                                                 placeholder="Cetakan"
@@ -681,60 +753,42 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group row">
                                                                         <label class="col-sm-3 col-form-label"
-                                                                            for="halaman">Halaman<span
-                                                                                class="text-danger">*</span></label>
+                                                                            for="halaman">Halaman</label>
                                                                         <div class="col-sm-9">
-                                                                            <input required value="{{ $buku->halaman }}"
+                                                                            <input value="{{ $buku->halaman }}"
                                                                                 type="number" name="halaman"
                                                                                 class="form-control" id="halaman"
-                                                                                placeholder="Halaman" required
+                                                                                placeholder="Halaman"
                                                                                 value="{{ old('halaman') }}"
-                                                                                autocomplete="halaman"
-                                                                                class="@error('halaman') is-invalid @enderror">
-                                                                            @error('halaman')
-                                                                                <sub
-                                                                                    class="fst-italic text-danger">{{ "$message" }}</sub>
-                                                                            @enderror
+                                                                                autocomplete="halaman">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <div class="form-group row">
                                                                         <label class="col-sm-6 col-form-label"
-                                                                            for="panjang">Panjang<span
-                                                                                class="text-danger">*</span></label>
+                                                                            for="panjang">Panjang</label>
                                                                         <div class="col-sm-6">
-                                                                            <input required value="{{ $buku->panjang }}"
+                                                                            <input value="{{ $buku->panjang }}"
                                                                                 type="number" name="panjang"
                                                                                 class="form-control" id="panjang"
                                                                                 placeholder="Panjang (cm)"
                                                                                 value="{{ old('panjang') }}"
-                                                                                autocomplete="panjang"
-                                                                                class="@error('panjang') is-invalid @enderror">
-                                                                            @error('panjang')
-                                                                                <sub
-                                                                                    class="fst-italic text-danger">{{ "$message" }}</sub>
-                                                                            @enderror
+                                                                                autocomplete="panjang">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <div class="form-group row">
                                                                         <label class="col-sm-6 col-form-label"
-                                                                            for="lebar">Lebar<span
-                                                                                class="text-danger">*</span></label>
+                                                                            for="lebar">Lebar</label>
                                                                         <div class="col-sm-6">
-                                                                            <input required value="{{ $buku->lebar }}"
+                                                                            <input value="{{ $buku->lebar }}"
                                                                                 type="number" name="lebar"
                                                                                 class="form-control" id="lebar"
                                                                                 placeholder="Lebar (cm)"
                                                                                 value="{{ old('lebar') }}"
-                                                                                autocomplete="lebar"
-                                                                                class="@error('lebar') is-invalid @enderror">
-                                                                            @error('lebar')
-                                                                                <sub
-                                                                                    class="fst-italic text-danger">{{ "$message" }}</sub>
-                                                                            @enderror
+                                                                                autocomplete="lebar">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -853,5 +907,44 @@
         //         }
         //     });
         // })
+    </script>
+    <script>
+        $('#exportPDF').click(function() {
+            var tgl_awal = document.getElementById('tgl_awal').value;
+            var tgl_akhir = document.getElementById('tgl_akhir').value;
+
+            if (tgl_awal == '') {
+                tgl_awal = '2000-01-01';
+            }
+
+            if (tgl_akhir == '') {
+                const date = new Date();
+                const month = date.getMonth(); //getMonth mengembalikan bulan dalam nilai (0--11)
+                const realMonth = month + 1;
+                const now = date.getFullYear() + '-' + realMonth + '-' + date.getDate();
+                tgl_akhir = now;
+            }
+
+            window.location.href = '/exportpdf_buku/' + tgl_awal + '/' + tgl_akhir
+        })
+
+        $('#exportExcel').click(function() {
+            var tgl_awal_excel = document.getElementById('tgl_awal_excel').value;
+            var tgl_akhir_excel = document.getElementById('tgl_akhir_excel').value;
+
+            if (tgl_awal_excel == '') {
+                tgl_awal_excel = '2000-01-01';
+            }
+
+            if (tgl_akhir_excel == '') {
+                const date = new Date();
+                const month = date.getMonth(); //getMonth mengembalikan bulan dalam nilai (0--11)
+                const realMonth = month + 1;
+                const now = date.getFullYear() + '-' + realMonth + '-' + date.getDate();
+                tgl_akhir_excel = now;
+            }
+
+            window.location.href = '/exportexcel_buku/' + tgl_awal_excel + '/' + tgl_akhir_excel
+        })
     </script>
 @endsection

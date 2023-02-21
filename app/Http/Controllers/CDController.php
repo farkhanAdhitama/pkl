@@ -73,11 +73,14 @@ class CDController extends Controller
 
     }
 
-    public function exportpdf_cd(){
-        $data = CD::all();
-        view()->share('data', $data);
+    public function exportpdf_CD($tgl_awal, $tgl_akhir){
+        $data = CD::all()->whereBetween('created_at', [$tgl_awal,$tgl_akhir]);
+        $tgl_awal = $tgl_awal;
+        $tgl_akhir = $tgl_akhir;
+        view()->share('data', $data, $tgl_awal, $tgl_akhir);
         $pdf = PDF::loadview('cd.data_cd-pdf');
-        return $pdf->download('data_cd.pdf');
+        return $pdf->download('Data_Majalah.pdf');
+        
     }
 }
 

@@ -59,6 +59,8 @@ class BukuController extends Controller
             'kategori' => 'required', 
             'bahasa' => 'required', 
             'perolehan' => 'required', 
+            'jenis_id' => 'required', 
+            'tempat_terbit_id' => 'required', 
             'tahun_terbit' => 'required|numeric|min:4',
             'jumlah' => 'required|numeric',
         ],[
@@ -71,7 +73,9 @@ class BukuController extends Controller
             'kategori.required' => 'Kategori Harus Diisi',
             'bahasa.required' => 'Bahasa Harus Diisi',
             'perolehan.required' => 'Perolehan Harus Diisi',
-            'penerbit_id.required' => 'Penerbit Harus Diisi',
+            'jenis_id.required' => 'Jenis Harus Diisi, Tambahkan Jika Belum Tersedia',
+            'tempat_terbit_id.required' => 'Tempat Terbit Harus Diisi, Tambahkan Jika Belum Tersedia',
+            'penerbit_id.required' => 'Penerbit Harus Diisi, Tambahkan Jika Belum Tersedia',
 
         ]);
        
@@ -106,8 +110,8 @@ class BukuController extends Controller
 
     }
 
-    public function exportexcel(){
-        return Excel::download(new BukuExport, 'Data_Buku.xlsx');
+    public function exportexcel_buku($tgl_awal_excel, $tgl_akhir_excel){
+        return (new BukuExport($tgl_awal_excel, $tgl_akhir_excel))->download('Data Buku.xlsx');
     }
 
 
@@ -122,16 +126,7 @@ class BukuController extends Controller
 
     }
 
-    public function exportpdf_buku(){
-        $data = Buku::all();
-        $jen = Jenisbuku::all();
-        view()->share('data', $data, $jen);
-        $pdf = PDF::loadview('data_buku-pdf');
-        return $pdf->download('data_buku.pdf');
-    }
-
-    public function exportpdf_buku_pertanggal($tgl_awal, $tgl_akhir){
-        // dd(["tanggal awal " .$tgl_awal, "tanggal akhir :" .$tgl_akhir]);
+    public function exportpdf_buku($tgl_awal, $tgl_akhir){
         $data = Buku::all()->whereBetween('created_at', [$tgl_awal,$tgl_akhir]);
         $jen = Jenisbuku::all();
         $tgl_awal = $tgl_awal;

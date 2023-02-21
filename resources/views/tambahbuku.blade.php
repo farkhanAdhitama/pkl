@@ -97,10 +97,13 @@
                                 <label class="col-sm-3 col-form-label" for="kategori">Kategori <span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-9">
-                                    <select class="form-control w-50" name="kategori" id="kategori"
+                                    <select class="form-control w-50" name="kategori" id="kategori" required
                                         value="{{ old('kategori') }}"
                                         autocomplete="kategori 
                 class="@error('kategori') is-invalid @enderror">
+                                        @if (!empty(old('kategori')))
+                                            <option value="{{ old('kategori') }}">{{ old('kategori') }}</option>
+                                        @endif
                                         <option value="">--Piih Kategori Buku--</option>
                                         <option value="Fiksi">Fiksi</option>
                                         <option value="Nonfiksi">Non Fiksi</option>
@@ -114,16 +117,23 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label" for="jenis_id">Jenis</label>
+                                <label class="col-sm-3 col-form-label" for="jenis_id">Jenis<span
+                                        class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" name="jenis_id" id="jenis_id">
-                                        <option value="">--Piih Jenis Buku--</option>
+                                    <select class="form-control" name="jenis_id" id="jenis_id"
+                                        class="@error('jenis_id') is-invalid @enderror">
+                                        <option value="">--Piih
+                                            Jenis Buku--</option>
                                         @foreach ($jen as $jenisbuku)
                                             <option value="{{ $jenisbuku->id }}">{{ $jenisbuku->nama }}</option>
                                         @endforeach
                                     </select>
+                                    @error('jenis_id')
+                                        <sub class="fst-italic text-danger">{{ "$message" }}</sub>
+                                    @enderror
                                 </div>
-                                <button onclick="location.href='/datajenisbuku';"
+                                <button type="button" title="Tambah Jenis Buku"
+                                    onclick="location.href='/datajenisbuku';"
                                     class="btn btn-sm btn-inverse-primary btn-icon delete "> <i
                                         class="mdi mdi-file-document-box"></i></button>
 
@@ -138,8 +148,11 @@
                                 <label class="col-sm-3 col-form-label" for="bahasa">Bahasa <span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="bahasa" id="bahasa"
+                                    <select class="form-control" name="bahasa" id="bahasa" required
                                         class="@error('bahasa') is-invalid @enderror">
+                                        @if (!empty(old('bahasa')))
+                                            <option value="{{ old('bahasa') }}">{{ old('bahasa') }}</option>
+                                        @endif
                                         <option value="">--Piih Bahasa--</option>
                                         <option value="Indonesia">Indonesia</option>
                                         <option value="Arab">Arab</option>
@@ -157,8 +170,11 @@
                                 <label class="col-sm-3 col-form-label" for="perolehan">Perolehan <span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="perolehan" id="perolehan"
+                                    <select class="form-control" name="perolehan" id="perolehan" required
                                         class="@error('perolehan') is-invalid @enderror">
+                                        @if (!empty(old('perolehan')))
+                                            <option value="{{ old('perolehan') }}">{{ old('perolehan') }}</option>
+                                        @endif
                                         <option value="">--Piih Perolehan--</option>
                                         <option value="Pembelian">Pembelian</option>
                                         <option value="Hadiah">Hadiah</option>
@@ -235,7 +251,7 @@
                                         <sub class="fst-italic text-danger">{{ "$message" }}</p>
                                         @enderror
                                 </div>
-                                <button onclick="location.href='/dataPenerbit';"
+                                <button type="button" title="Tambah Penerbit" onclick="location.href='/dataPenerbit';"
                                     class="btn btn-sm btn-inverse-primary btn-icon "> <i
                                         class="mdi mdi-file-document-box"></i></button>
                             </div>
@@ -278,7 +294,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label" for="edisi">Edisi</label>
+                                <label class="col-sm-3 col-form-label" for="edisi">Edisi Ke-</label>
                                 <div class="col-sm-9">
                                     <input type="number" name="edisi" class="form-control" id="edisi"
                                         placeholder="Edisi" value="{{ old('edisi') }}" autocomplete="edisi"
@@ -305,7 +321,8 @@
                                         <sub class="fst-italic text-danger">{{ "$message" }}</p>
                                         @enderror
                                 </div>
-                                <button onclick="location.href='/dataTempatTerbit';"
+                                <button type="button" title="Tambah Tempat Terbit"
+                                    onclick="location.href='/dataTempatTerbit';"
                                     class="btn btn-sm btn-inverse-primary btn-icon "> <i
                                         class="mdi mdi-file-document-box"></i></button>
                             </div>
@@ -330,12 +347,11 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label" for="cetakan">Cetakan<span
-                                        class="text-danger">*</span></label>
+                                <label class="col-sm-3 col-form-label" for="cetakan">Cetakan</label>
                                 <div class="col-sm-9">
                                     <input type="number" name="cetakan" class="form-control" id="cetakan"
-                                        placeholder="Cetakan" required value="{{ old('cetakan') }}"
-                                        autocomplete="cetakan" class="@error('cetakan') is-invalid @enderror">
+                                        placeholder="Cetakan" value="{{ old('cetakan') }}" autocomplete="cetakan"
+                                        class="@error('cetakan') is-invalid @enderror">
                                     @error('cetakan')
                                         <sub class="fst-italic text-danger">{{ "$message" }}</sub>
                                     @enderror
@@ -348,12 +364,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label" for="halaman">Halaman<span
-                                        class="text-danger">*</span></label>
+                                <label class="col-sm-3 col-form-label" for="halaman">Halaman</label>
                                 <div class="col-sm-9">
                                     <input type="number" name="halaman" class="form-control" id="halaman"
-                                        placeholder="Halaman" required value="{{ old('halaman') }}"
-                                        autocomplete="halaman" class="@error('halaman') is-invalid @enderror">
+                                        placeholder="Halaman" value="{{ old('halaman') }}" autocomplete="halaman"
+                                        class="@error('halaman') is-invalid @enderror">
                                     @error('halaman')
                                         <sub class="fst-italic text-danger">{{ "$message" }}</sub>
                                     @enderror
@@ -362,12 +377,11 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label" for="panjang">Panjang<span
-                                        class="text-danger">*</span></label>
+                                <label class="col-sm-3 col-form-label" for="panjang">Panjang</label>
                                 <div class="col-sm-9">
                                     <input type="number" name="panjang" class="form-control" id="panjang"
-                                        placeholder="Panjang (cm)" required value="{{ old('panjang') }}"
-                                        autocomplete="panjang" class="@error('panjang') is-invalid @enderror">
+                                        placeholder="Panjang (cm)" value="{{ old('panjang') }}" autocomplete="panjang"
+                                        class="@error('panjang') is-invalid @enderror">
                                     @error('panjang')
                                         <sub class="fst-italic text-danger">{{ "$message" }}</sub>
                                     @enderror
@@ -393,10 +407,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label" for="lebar">Lebar<span
-                                        class="text-danger">*</span></label>
+                                <label class="col-sm-3 col-form-label" for="lebar">Lebar</label>
                                 <div class="col-sm-9">
-                                    <input type="number" name="lebar" class="form-control" id="lebar" required
+                                    <input type="number" name="lebar" class="form-control" id="lebar"
                                         placeholder="Lebar (cm)" value="{{ old('lebar') }}" autocomplete="lebar"
                                         class="@error('lebar') is-invalid @enderror">
                                     @error('lebar')

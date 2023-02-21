@@ -45,9 +45,8 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator,Operator']], func
     // upload/import
     Route::post('/importexcel', [App\Http\Controllers\BukuController::class, 'importexcel'])->name('importexcel');
     //export buku
-    Route::get('/exportexcel', [App\Http\Controllers\BukuController::class, 'exportexcel'])->name('exportexcel');
-    Route::get('/exportpdf_buku/', [App\Http\Controllers\BukuController::class, 'exportpdf_buku'])->name('exportpdf_buku');
-    Route::get('/exportpdf_buku_pertanggal/{tgl_awal}/{tgl_akhir}', [App\Http\Controllers\BukuController::class, 'exportpdf_buku_pertanggal'])->name('exportpdf_buku_pertanggal');
+    Route::get('/exportexcel_buku/{tgl_awal}/{tgl_akhir}', [App\Http\Controllers\BukuController::class, 'exportexcel_buku'])->name('exportexcel_buku');
+    Route::get('/exportpdf_buku/{tgl_awal}/{tgl_akhir}', [App\Http\Controllers\BukuController::class, 'exportpdf_buku'])->name('exportpdf_buku');
 
     // PENERBIT ROUTE
     Route::get('/dataPenerbit', [App\Http\Controllers\PenerbitController::class, 'index'])->name('dataPenerbit');
@@ -76,8 +75,7 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator,Operator']], func
     Route::get('/deleteMajalah/{id}', [App\Http\Controllers\MajalahController::class, 'deleteMajalah'])->name('deleteTempatTerbit');
     Route::post('/importexcel_majalah', [App\Http\Controllers\MajalahController::class, 'importexcel_majalah'])->name('importexcel_majalah');
     Route::get('/exportexcel_majalah', [App\Http\Controllers\MajalahController::class, 'exportexcel_majalah'])->name('exportexcel_majalah');
-    Route::get('/exportpdf_majalah/', [App\Http\Controllers\MajalahController::class, 'exportpdf_majalah'])->name('exportpdf_majalah');
-
+    Route::get('/exportpdf_majalah/{tgl_awal}/{tgl_akhir}', [App\Http\Controllers\MajalahController::class, 'exportpdf_majalah'])->name('exportpdf_majalah');
 
     // CD ROUTE
     Route::get('/dataCD', [App\Http\Controllers\CDController::class, 'index'])->name('dataCD');
@@ -87,8 +85,7 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator,Operator']], func
     Route::get('/deleteCD/{id}', [App\Http\Controllers\CDController::class, 'deleteCD'])->name('deleteTempatTerbit');
     Route::post('/importexcel_CD', [App\Http\Controllers\CDController::class, 'importexcel_CD'])->name('importexcel_CD');
     Route::get('/exportexcel_CD', [App\Http\Controllers\CDController::class, 'exportexcel_CD'])->name('exportexcel_CD');
-    Route::get('/exportpdf_CD/', [App\Http\Controllers\CDController::class, 'exportpdf_CD'])->name('exportpdf_CD');
-
+    Route::get('/exportpdf_CD/{tgl_awal}/{tgl_akhir}', [App\Http\Controllers\CDController::class, 'exportpdf_CD'])->name('exportpdf_CD');
 
     // ANGGOTA ROUTE
     Route::get('/dataanggota', [App\Http\Controllers\AnggotaController::class, 'index'])->name('dataanggota');

@@ -21,7 +21,7 @@ class MajalahExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadi
     {
         return [
             $majalah->nama,
-            $majalah->getTanggalTerbit,
+            $majalah->getTanggalTerbit(),
             $majalah->nomor,
             $majalah->volume,
             $majalah->tahun,

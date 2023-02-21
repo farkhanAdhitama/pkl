@@ -28,12 +28,26 @@ class BukuExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
     */
     use Exportable;
 
+    protected $tgl_awal_excel;
+    protected $tgl_akhir_excel;
+
+    function __construct($tgl_awal_excel,$tgl_akhir_excel) {
+        $this->tgl_awal_excel = $tgl_awal_excel;
+        $this->tgl_akhir_excel = $tgl_akhir_excel;
+    }
+
+    
     public function query()
     {
-        return Buku::query();
+        return Buku::query()->whereBetween('created_at', [$this->tgl_awal_excel,$this->tgl_akhir_excel]);
     }
-    public function map($buku): array
-    {
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+
+     public function map($buku): array
+    {   
         return [
             $buku->judul_buku,
             $buku->isbn,

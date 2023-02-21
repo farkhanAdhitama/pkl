@@ -52,7 +52,7 @@
         <li class="nav-item {{ request()->is('tambahanggota', 'tambahguru') ? 'active' : '' }}">
             <a class="nav-link " data-bs-toggle="collapse" href="#anggota" aria-expanded="false"
                 aria-controls="anggota">
-                <span class="menu-title">Anggota</span>
+                <span class="menu-title">Peminjam</span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-account-multiple menu-icon"></i>
             </a>
