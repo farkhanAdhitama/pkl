@@ -61,7 +61,7 @@
                         <h4 class="card-title float-left mb-1">Profil User</h4>
                         <div id="visit-sale-chart-legend"
                             class="rounded-legend legend-horizontal legend-top-right float-right"></div><br>
-                        <div class="text-center mb-5">
+                        <div class="text-center mb-3">
                             <img height="200px" width="200px" src="../assets/images/foto_profil/{{ $profil->foto_profil }}"
                                 class="rounded mx-auto d-block rounded-circle mt-2" alt="">
                         </div>
@@ -139,6 +139,10 @@
                             <button type="submit"
                                 class="btn btn-gradient-primary btn-rounded btn-fw text-center">Simpan</button>
                         </div>
+                        <h6 class="mt-2">Keterangan :</h6>
+                        <ul>
+                            <li class="small">Batas Peminjaman Untuk Masing-Masing Item Sama</li>
+                        </ul>
                     </form>
 
                 </div>
@@ -165,6 +169,10 @@
                             <button type="submit"
                                 class="btn btn-gradient-primary btn-rounded btn-fw text-center">Simpan</button>
                         </div>
+                        <h6 class="mt-2">Keterangan :</h6>
+                        <ul>
+                            <li class="small">Batas Peminjaman Untuk Masing-Masing Item Sama</li>
+                        </ul>
                     </form>
 
                 </div>

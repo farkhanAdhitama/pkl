@@ -30,6 +30,16 @@
                 )
             </script>
         @endif
+        {{-- swal gagal insert --}}
+        @if ($message = Session::get('insertgagal'))
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Peminjaman Melebihi Batas Pinjam {{ $batas_pinjam->batas_guru ?? 'Belum Diset' }}',
+                })
+            </script>
+        @endif
     </div>
     <div class="row">
         <div class="col-12 grid-margin">

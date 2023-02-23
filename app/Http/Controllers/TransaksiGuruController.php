@@ -7,6 +7,7 @@ use App\Models\Buku;
 use App\Models\Guru;
 use App\Models\Anggota;
 use App\Models\Majalah;
+use App\Models\BatasPinjam;
 use Illuminate\Http\Request;
 use App\Models\TransaksiGuru;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -28,7 +29,8 @@ class TransaksiGuruController extends Controller
         $peminjaman = TransaksiGuru::with('buku','guru')->where('status', 'Dipinjam')->where('jenis', 'buku')->paginate(99999);
         $bukus = Buku::all()->where('jumlah','>', 0);
         $gurus = Guru::all()->where('status', 'Aktif');
-        return view('transaksi-guru.peminjaman_buku_guru', compact('peminjaman','bukus', 'gurus'));
+        $batas_pinjam = BatasPinjam::first();
+        return view('transaksi-guru.peminjaman_buku_guru', compact('peminjaman','bukus', 'gurus','batas_pinjam'));
     }
 
 
@@ -50,9 +52,15 @@ class TransaksiGuruController extends Controller
             'guru_id.required'=> 'Peminjam Harus Diisi',
 
         ]);
-        $data = TransaksiGuru::create($request->all());
-        Buku::where('id', $data->buku_id)->decrement('jumlah',1);
-        return redirect()->route('guru_pinjam')->with('insertsuccess', 'Peminjaman Berhasil');
+        $batas = BatasPinjam::first()->batas_guru;
+        $jumlah = TransaksiGuru::where('guru_id', $request->guru_id)->where('status','Dipinjam')->where('jenis', 'buku')->count();
+        if($jumlah >= $batas){
+             return redirect()->route('guru_pinjam')->with('insertgagal', 'Peminjaman Gagal');
+        }else{
+            $data = TransaksiGuru::create($request->all());
+            Buku::where('id', $data->buku_id)->decrement('jumlah',1);
+            return redirect()->route('guru_pinjam')->with('insertsuccess', 'Peminjaman Berhasil');
+        }
     }
 
     public function kembalikan_buku_guru(Request $request,$id,$id_buku)
@@ -111,7 +119,8 @@ class TransaksiGuruController extends Controller
         $peminjaman_majalah = TransaksiGuru::with('majalah','guru')->where('status', 'Dipinjam')->where('jenis', 'majalah')->paginate(99999);
         $majalahs = Majalah::all()->where('jumlah','>', 0);
         $gurus = Guru::all()->where('status', 'Aktif');
-        return view('transaksi-guru.peminjaman_majalah_guru', compact('peminjaman_majalah','majalahs', 'gurus'));
+        $batas_pinjam = BatasPinjam::first();
+        return view('transaksi-guru.peminjaman_majalah_guru', compact('peminjaman_majalah','majalahs', 'gurus','batas_pinjam'));
     }
 
      public function showPengembalianMajalahGuru()
@@ -132,9 +141,16 @@ class TransaksiGuruController extends Controller
             'guru_id.required'=> 'Peminjam Harus Diisi',
 
         ]);
-        $data = TransaksiGuru::create($request->all());
-        Majalah::where('id', $data->majalah_id)->decrement('jumlah',1);
-        return redirect()->route('majalah_guru_pinjam')->with('insertsuccess', 'Peminjaman Berhasil');
+        $batas = BatasPinjam::first()->batas_guru;
+        $jumlah = TransaksiGuru::where('guru_id', $request->guru_id)->where('status','Dipinjam')->where('jenis', 'majalah')->count();
+        if($jumlah >= $batas){
+             return redirect()->route('majalah_guru_pinjam')->with('insertgagal', 'Peminjaman Gagal');
+        }else{
+          $data = TransaksiGuru::create($request->all());
+            Majalah::where('id', $data->majalah_id)->decrement('jumlah',1);
+            return redirect()->route('majalah_guru_pinjam')->with('insertsuccess', 'Peminjaman Berhasil');
+        }
+        
     }
 
     public function kembalikan_majalah_guru(Request $request,$id,$id_majalah)
@@ -188,7 +204,8 @@ class TransaksiGuruController extends Controller
         $peminjaman_cd = TransaksiGuru::with('cd','guru')->where('status', 'Dipinjam')->where('jenis', 'cd')->paginate(99999);
         $cds = CD::all()->where('jumlah','>', 0);
         $gurus = Guru::all()->where('status', 'Aktif');
-        return view('transaksi-guru.peminjaman_cd_guru', compact('peminjaman_cd','cds', 'gurus'));
+        $batas_pinjam = BatasPinjam::first();
+        return view('transaksi-guru.peminjaman_cd_guru', compact('peminjaman_cd','cds', 'gurus','batas_pinjam'));
     }
 
      public function showPengembalianCDGuru()
@@ -209,9 +226,15 @@ class TransaksiGuruController extends Controller
             'guru_id.required'=> 'Peminjam Harus Diisi',
 
         ]);
-        $data = TransaksiGuru::create($request->all());
-        CD::where('id', $data->cd_id)->decrement('jumlah',1);
-        return redirect()->route('cd_guru_pinjam')->with('insertsuccess', 'Peminjaman Berhasil');
+        $batas = BatasPinjam::first()->batas_guru;
+        $jumlah = TransaksiGuru::where('guru_id', $request->guru_id)->where('status','Dipinjam')->where('jenis', 'cd')->count();
+        if($jumlah >= $batas){
+             return redirect()->route('cd_guru_pinjam')->with('insertgagal', 'Peminjaman Gagal');
+        }else{
+            $data = TransaksiGuru::create($request->all());
+            CD::where('id', $data->cd_id)->decrement('jumlah',1);
+            return redirect()->route('cd_guru_pinjam')->with('insertsuccess', 'Peminjaman Berhasil');
+        } 
     }
 
     public function kembalikan_cd_guru(Request $request,$id,$id_cd)
