@@ -75,8 +75,8 @@ class MajalahController extends Controller
 
     }
 
-    public function exportexcel_majalah(){
-        return Excel::download(new MajalahExport, 'Data_Majalah.xlsx');
+    public function exportexcel_majalah($tgl_awal_excel, $tgl_akhir_excel){
+        return Excel::download(new MajalahExport($tgl_awal_excel, $tgl_akhir_excel), 'Data Majalah.xlsx');
     }
 
     public function importexcel_majalah(Request $request)

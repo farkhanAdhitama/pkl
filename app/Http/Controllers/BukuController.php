@@ -13,6 +13,7 @@ use App\Http\Requests\UpdateBukuRequest;
 use App\Imports\BukuImport;
 use App\Models\Penerbit;
 use App\Models\TempatTerbit;
+use Illuminate\Support\Facades\File;
 Use Barryvdh\DomPDF\Facade\Pdf;
 
 class BukuController extends Controller
@@ -92,6 +93,11 @@ class BukuController extends Controller
     public function deletebuku($id)
     {
         $data = Buku::find($id);
+        if ($data->sampul != 'sampuldefault.png') {
+            if (File::exists(public_path('assets/images/sampul/'.$data->sampul))) {
+                File::delete(public_path('assets/images/sampul/'.$data->sampul));
+            }
+        }
         $data->delete();
         return redirect()->route('databuku')->with('deletesuccess', 'Data Berhasil Dihapus');
 
@@ -102,6 +108,9 @@ class BukuController extends Controller
         $data = Buku::find( $id);
         $data->update($request->all());
         if($request->hasFile('sampul')){
+            if ($data->sampul != 'sampuldefault.png') {
+            File::delete(public_path('assets/images/sampul/'.$data->sampul));
+            }
             $request->file('sampul')->move('assets/images/sampul/', $request->file('sampul')->getClientOriginalName());
             $data->sampul = $request->file('sampul')->getClientOriginalName();
             $data->save();
@@ -120,8 +129,10 @@ class BukuController extends Controller
         $data = $request->file('file');
         $namafile = $data->getClientOriginalName();
         $data->move('assets/data_buku_excel/', $namafile);
-
         Excel::import(new BukuImport, \public_path('/assets/data_buku_excel/'.$namafile));
+        if (File::exists(public_path('assets/data_buku_excel/'.$namafile))) {
+                File::delete(public_path('assets/data_buku_excel/'. $namafile));
+            }
         return \redirect()->back()->with('importsuccess', 'Data Berhasil Diimport');;
 
     }

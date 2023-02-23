@@ -58,7 +58,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="clearfix">
-                        <h4 class="card-title float-left mb-3">Profil User</h4>
+                        <h4 class="card-title float-left mb-1">Profil User</h4>
                         <div id="visit-sale-chart-legend"
                             class="rounded-legend legend-horizontal legend-top-right float-right"></div><br>
                         <div class="text-center mb-5">
@@ -83,7 +83,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5 grid-margin stretch-card">
+        <div class="col-md grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title mb-4">Ubah Password</h4>
@@ -117,6 +117,60 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Batas Peminjaman Siswa</h4>
+                    <form action="/update_BatasSiswa/1" method="POST" enctype="multipart/form-data" class="forms-sample">
+                        @csrf
+
+                        <div class="form-group">
+                            <label for="batas_siswa">Siswa</label>
+                            <input type="number" name="batas_siswa" class="form-control" id="batas_siswa"
+                                placeholder="{{ $batas_pinjam->batas_siswa ?? 'Belum Diset' }}" required
+                                value="{{ old('batas_siswa') }}" autocomplete="new-batas_siswa"
+                                class="@error('batas_siswa') is-invalid @enderror">
+                            @error('batas_siswa')
+                                <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
+                            @enderror
+                        </div>
+                        <div class="text-center">
+                            <button type="submit"
+                                class="btn btn-gradient-primary btn-rounded btn-fw text-center">Simpan</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Batas Peminjaman Guru/Staff</h4>
+                    <form action="/update_BatasGuru/1" method="POST" enctype="multipart/form-data" class="forms-sample">
+                        @csrf
+
+                        <div class="form-group">
+                            <label for="batas_guru">Guru/Staff</label>
+                            <input type="number" name="batas_guru" class="form-control" id="batas_guru"
+                                placeholder="{{ $batas_pinjam->batas_guru ?? 'Belum Diset' }}" required
+                                value="{{ old('batas_guru') }}" autocomplete="new-batas_guru"
+                                class="@error('batas_guru') is-invalid @enderror">
+                            @error('batas_guru')
+                                <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
+                            @enderror
+                        </div>
+                        <div class="text-center">
+                            <button type="submit"
+                                class="btn btn-gradient-primary btn-rounded btn-fw text-center">Simpan</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="editProfil">
         <div class="modal-dialog modal-dialog-centered">
@@ -142,8 +196,8 @@
                         </div>
                         <div class="form-group">
                             <label for="name">Nama</label>
-                            <input required value="{{ $profil->name }}" type="text" name="name" class="form-control"
-                                id="name" placeholder="Nama">
+                            <input required value="{{ $profil->name }}" type="text" name="name"
+                                class="form-control" id="name" placeholder="Nama">
                         </div>
                         <div class="form-group">
                             <label for="username">Username</label>

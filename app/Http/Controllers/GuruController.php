@@ -10,6 +10,7 @@ use App\Imports\GuruImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\File;
 
 class GuruController extends Controller
 {
@@ -69,11 +70,31 @@ class GuruController extends Controller
         return redirect()->route('dataguru')->with('insertsuccess', 'Guru Berhasil Ditambahkan');
     }
 
-    //Delete Anggota
+    //Delete Guru
     public function deleteguru($id)
     {
         $data = Guru::find($id);
-        $data->delete();
+        if ($data->foto_guru != 'person.png') {
+            if (File::exists(public_path('assets/images/foto_guru/'.$data->foto_guru))) {
+                File::delete(public_path('assets/images/foto_guru/'.$data->foto_guru));
+            }
+        }
+            $data->delete();
+        return redirect()->route('dataguru')->with('deletesuccess', 'Data Berhasil Dihapus');
+    }
+
+    //Delete Guru All
+    public function deleteGuruAll()
+    {
+        Guru::getQuery()->delete();
+        return redirect()->route('dataguru')->with('deletesuccess', 'Data Berhasil Dihapus');
+
+    }
+
+     //Delete Guru Non
+    public function deleteGuruNonAktif()
+    {
+        Guru::where("status", "NonAktif")->getQuery()->delete();
         return redirect()->route('dataguru')->with('deletesuccess', 'Data Berhasil Dihapus');
 
     }
@@ -83,6 +104,9 @@ class GuruController extends Controller
         $data = Guru::find( $id);
         $data->update($request->all());
         if($request->hasFile('foto_guru')){
+            if ($data->foto_guru != 'person.png') {
+                File::delete(public_path('assets/images/foto_guru/'.$data->foto_guru));
+            }
             $request->file('foto_guru')->move('assets/images/foto_guru/', $request->file('foto_guru')->getClientOriginalName());
             $data->foto_guru = $request->file('foto_guru')->getClientOriginalName();
             $data->save();

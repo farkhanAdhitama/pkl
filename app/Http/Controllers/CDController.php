@@ -58,8 +58,8 @@ class CDController extends Controller
 
     }
 
-    public function exportexcel_CD(){
-        return Excel::download(new CDExport, 'Data_CD.xlsx');
+    public function exportexcel_CD($tgl_awal_excel, $tgl_akhir_excel){
+        return Excel::download(new CDExport($tgl_awal_excel, $tgl_akhir_excel), 'Data CD.xlsx');
     }
 
     public function importexcel_cd(Request $request)

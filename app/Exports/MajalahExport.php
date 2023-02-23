@@ -12,10 +12,17 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 class MajalahExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
 {
     use Exportable;
+    protected $tgl_awal_excel;
+    protected $tgl_akhir_excel;
+
+    function __construct($tgl_awal_excel,$tgl_akhir_excel) {
+        $this->tgl_awal_excel = $tgl_awal_excel;
+        $this->tgl_akhir_excel = $tgl_akhir_excel;
+    }
 
     public function query()
     {
-        return Majalah::query();
+        return Majalah::query()->whereBetween('created_at', [$this->tgl_awal_excel,$this->tgl_akhir_excel]);
     }
     public function map($majalah): array
     {

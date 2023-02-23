@@ -99,6 +99,9 @@ class DataPenggunaController extends Controller
             $data = User::find( $id);
             $data->update($request->all());
             if($request->hasFile('foto_profil')){
+                if ($data->sampul != 'person.png') {
+                    File::delete(public_path('assets/images/foto_profil/'.$data->foto_profil));
+                }
                 $request->file('foto_profil')->move('assets/images/foto_profil/', $request->file('foto_profil')->getClientOriginalName());
                 $data->foto_profil = $request->file('foto_profil')->getClientOriginalName();
                 $data->save();

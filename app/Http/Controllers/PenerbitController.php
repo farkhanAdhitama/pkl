@@ -28,7 +28,11 @@ class PenerbitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function insertPenerbit(Request $request)
-    {   
+    {    $validated = $request->validate([
+            'nama_penerbit' => 'required|unique:majalahs|numeric',
+        ],[
+            'nama_penerbit.unique' => 'Data Majalah Sudah Ada, Silahkan Dicek Kembali',
+        ]);
         $data = Penerbit::create($request->all());
         return redirect()->route('dataPenerbit')->with('insertsuccess', 'Penerbit Berhasil Ditambahkan');
     }

@@ -10,7 +10,7 @@
         <div class="dropdown">
             <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
-                Peminjaman
+                Jenis Peminjaman
             </button>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="/peminjaman_buku">Buku</a></li>
@@ -28,6 +28,16 @@
                     'Data Peminjaman Ditambahkan!',
                     'success'
                 )
+            </script>
+        @endif
+        {{-- swal gagal insert --}}
+        @if ($message = Session::get('insertgagal'))
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Peminjaman Siswa Melebihi Batas Pinjam {{ $batas_pinjam->batas_siswa ?? 'Belum Diset' }}',
+                })
             </script>
         @endif
     </div>

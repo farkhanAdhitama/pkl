@@ -74,7 +74,7 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator,Operator']], func
     Route::post('/updateMajalah/{id}', [App\Http\Controllers\MajalahController::class, 'updateMajalah'])->name('updateMajalah');
     Route::get('/deleteMajalah/{id}', [App\Http\Controllers\MajalahController::class, 'deleteMajalah'])->name('deleteTempatTerbit');
     Route::post('/importexcel_majalah', [App\Http\Controllers\MajalahController::class, 'importexcel_majalah'])->name('importexcel_majalah');
-    Route::get('/exportexcel_majalah', [App\Http\Controllers\MajalahController::class, 'exportexcel_majalah'])->name('exportexcel_majalah');
+    Route::get('/exportexcel_majalah/{tgl_awal}/{tgl_akhir}', [App\Http\Controllers\MajalahController::class, 'exportexcel_majalah'])->name('exportexcel_majalah');
     Route::get('/exportpdf_majalah/{tgl_awal}/{tgl_akhir}', [App\Http\Controllers\MajalahController::class, 'exportpdf_majalah'])->name('exportpdf_majalah');
 
     // CD ROUTE
@@ -84,7 +84,7 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator,Operator']], func
     Route::post('/updateCD/{id}', [App\Http\Controllers\CDController::class, 'updateCD'])->name('updateCD');
     Route::get('/deleteCD/{id}', [App\Http\Controllers\CDController::class, 'deleteCD'])->name('deleteTempatTerbit');
     Route::post('/importexcel_CD', [App\Http\Controllers\CDController::class, 'importexcel_CD'])->name('importexcel_CD');
-    Route::get('/exportexcel_CD', [App\Http\Controllers\CDController::class, 'exportexcel_CD'])->name('exportexcel_CD');
+    Route::get('/exportexcel_CD/{tgl_awal}/{tgl_akhir}', [App\Http\Controllers\CDController::class, 'exportexcel_CD'])->name('exportexcel_CD');
     Route::get('/exportpdf_CD/{tgl_awal}/{tgl_akhir}', [App\Http\Controllers\CDController::class, 'exportpdf_CD'])->name('exportpdf_CD');
 
     // ANGGOTA ROUTE
@@ -100,6 +100,8 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator,Operator']], func
     Route::get('/exportpdf_anggota/', [App\Http\Controllers\AnggotaController::class, 'exportpdf_anggota'])->name('exportpdf_anggota');
     Route::get('/ubahStatusAktif/{id}', [App\Http\Controllers\AnggotaController::class, 'ubahStatusAktif'])->name('ubahStatusAktif');
     Route::get('/ubahStatusNonAktif/{id}', [App\Http\Controllers\AnggotaController::class, 'ubahStatusNonAktif'])->name('ubahStatusNonAktif');
+    Route::get('/deleteAnggotaAll', [App\Http\Controllers\AnggotaController::class, 'deleteAnggotaAll'])->name('deleteAnggotaAll');
+    Route::get('/deleteAnggotaNonAktif', [App\Http\Controllers\AnggotaController::class, 'deleteAnggotaNonAktif'])->name('deleteAnggotaNonAktif');
 
     // GURU ROUTE
     Route::get('/dataguru', [App\Http\Controllers\GuruController::class, 'index'])->name('dataguru');
@@ -114,6 +116,8 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator,Operator']], func
     Route::get('/exportpdf_guru/', [App\Http\Controllers\GuruController::class, 'exportpdf_guru'])->name('exportpdf_guru');
     Route::get('/ubahStatusAktifGuru/{id}', [App\Http\Controllers\GuruController::class, 'ubahStatusAktifGuru'])->name('ubahStatusAktifGuru');
     Route::get('/ubahStatusNonAktifGuru/{id}', [App\Http\Controllers\GuruController::class, 'ubahStatusNonAktifGuru'])->name('ubahStatusNonAktifGuru');
+    Route::get('/deleteGuruAll', [App\Http\Controllers\GuruController::class, 'deleteGuruAll'])->name('deleteGuruAll');
+    Route::get('/deleteGuruNonAktif', [App\Http\Controllers\GuruController::class, 'deleteGuruNonAktif'])->name('deleteGuruNonAktif');
 
 
 
@@ -210,9 +214,11 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator,Operator']], func
     Route::get('/pengaturan/{id}', [App\Http\Controllers\PengaturanController::class, 'showPengaturan'])->name('pengaturan');
     Route::post('/updateAdmin/{id}', [App\Http\Controllers\PengaturanController::class, 'updateAdmin'])->name('updateAdmin');
     Route::post('/ubahPassword/{id}', [App\Http\Controllers\PengaturanController::class, 'ubahPassword'])->name('ubahPassword');
+    Route::post('/update_BatasSiswa/{id}', [App\Http\Controllers\PengaturanController::class, 'update_BatasSiswa'])->name('update_BatasSiswa');
+    Route::post('/update_BatasGuru/{id}', [App\Http\Controllers\PengaturanController::class, 'update_BatasGuru'])->name('update_BatasGuru');
 
     //update foto profil
-    Route::post('/updateFotoProfil/', [App\Http\Controllers\PengaturanController::class, 'updateFotoProfil'])->name('updateFotoProfil');
+    Route::post('/updateFotoProfil', [App\Http\Controllers\PengaturanController::class, 'updateFotoProfil'])->name('updateFotoProfil');
 
    
     //KIRIM EMAIL

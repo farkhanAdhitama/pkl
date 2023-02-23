@@ -62,10 +62,11 @@
                             class="mdi mdi-printer
                                 btn-icon-append"></i>Cetak
                         PDF</button>
-                    {{-- <a href="exportpdf_CD"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i
-                                class="mdi mdi-printer btn-icon-append"></i> Cetak PDF </button></a> --}}
-                    <a href="exportexcel_CD"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i
-                                class="mdi mdi-printer btn-icon-append"></i> Cetak Excel </button></a>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#cetakExcel"
+                        class="btn btn-sm btn-success btn-icon-text me-1"><i
+                            class="mdi mdi-printer
+                                btn-icon-append"></i>Cetak
+                        Excel</button>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#import_CD"
                         class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import
                         Data</button>
@@ -109,6 +110,43 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- The Cetak Excel pertanggal Modal -->
+                    <div class="modal fade" id="cetakExcel">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title ">Cetak Excel</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="modal-body px-4">
+                                    <div class="form-group">
+                                        <label for="tgl_awal_excel">Tanggal Awal</label>
+                                        <input type="date" name="tgl_awal_excel" class="form-control" id="tgl_awal_excel"
+                                            placeholder="Tanggal Awal" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tgl_akhir_excel">Tanggal Akhir</label>
+                                        <input type="date" name="tgl_akhir_excel" class="form-control"
+                                            id="tgl_akhir_excel" placeholder="Tanggal Akhir" required>
+                                    </div>
+                                    <button id="exportExcel" type="button"
+                                        class="exportExcel btn btn-primary w-100 mb-2">Cetak
+                                        Excel</button>
+                                    <h6 class="mt-2">Keterangan :</h6>
+                                    <ul>
+                                        <li class="small">Jangkauan Tanggal Menurut Tanggal CD Masuk</li>
+                                        <li class="small">Kosongkan Tanggal Untuk Mencetak Semua</li>
+                                    </ul>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- The Import Excel Modal -->
                     <div class="modal fade" id="import_CD">
                         <div class="modal-dialog modal-dialog-centered">
@@ -143,7 +181,8 @@
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary"
                                             data-bs-dismiss="modal">Import</button>
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                                        <button type="button" class="btn btn-danger"
+                                            data-bs-dismiss="modal">Tutup</button>
                                     </div>
                                 </form>
                             </div>
@@ -356,6 +395,25 @@
             }
 
             window.location.href = '/exportpdf_CD/' + tgl_awal + '/' + tgl_akhir
+        })
+
+        $('#exportExcel').click(function() {
+            var tgl_awal_excel = document.getElementById('tgl_awal_excel').value;
+            var tgl_akhir_excel = document.getElementById('tgl_akhir_excel').value;
+
+            if (tgl_awal_excel == '') {
+                tgl_awal_excel = '2000-01-01';
+            }
+
+            if (tgl_akhir_excel == '') {
+                const date = new Date();
+                const month = date.getMonth(); //getMonth mengembalikan bulan dalam nilai (0--11)
+                const realMonth = month + 1;
+                const now = date.getFullYear() + '-' + realMonth + '-' + date.getDate();
+                tgl_akhir_excel = now;
+            }
+
+            window.location.href = '/exportexcel_CD/' + tgl_awal_excel + '/' + tgl_akhir_excel
         })
     </script>
 @endsection

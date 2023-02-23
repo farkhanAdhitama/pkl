@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BatasPinjam;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,8 @@ class PengaturanController extends Controller
     public function showPengaturan(Request $request, $id)
     {
         $profil = User::find($id);
-        return view('.pengaturan', compact('profil'));
+        $batas_pinjam = BatasPinjam::first();
+        return view('.pengaturan', compact('profil','batas_pinjam'));
     }
 
     public function updateAdmin(Request $request, $id)
@@ -83,5 +85,25 @@ class PengaturanController extends Controller
                 ->back()
                 ->with('update_success', 'Data Berhasil Diubah.');
         }
+    }
+
+    public function update_BatasSiswa(Request $request, $id)
+    {
+        $data = BatasPinjam::find($id);
+        $data->update($request->all());
+        return redirect()
+            ->back()
+            ->with('updatesuccess', 'Data Berhasil Diubah.');
+
+    }
+
+    public function update_BatasGuru(Request $request, $id)
+    {
+        $data = BatasPinjam::find($id);
+        $data->update($request->all());
+        return redirect()
+            ->back()
+            ->with('updatesuccess', 'Data Berhasil Diubah.');
+
     }
 }

@@ -23,7 +23,7 @@ use App\Exports\PeminjamanMajalahSiswaExport;
 use App\Exports\PengembalianMajalahSiswaExport;
 use App\Http\Requests\StoreTransaksiSiswaRequest;
 use App\Http\Requests\UpdateTransaksiSiswaRequest;
-
+use App\Models\BatasPinjam;
 
 class TransaksiSiswaController extends Controller
 {
@@ -33,7 +33,8 @@ class TransaksiSiswaController extends Controller
         $peminjaman = TransaksiSiswa::with('buku','anggota')->where('status', 'Dipinjam')->where('jenis', 'buku')->paginate(99999);
         $bukus = Buku::all()->where('jumlah','>', 0);
         $anggotas = Anggota::all()->where('status', 'Aktif');
-        return view('transaksi-siswa.peminjaman', compact('peminjaman','bukus', 'anggotas'));
+        $batas_pinjam = BatasPinjam::first();
+        return view('transaksi-siswa.peminjaman', compact('peminjaman','bukus', 'anggotas', 'batas_pinjam'));
     }
 
 
@@ -47,9 +48,16 @@ class TransaksiSiswaController extends Controller
             'anggota_id.required'=> 'Peminjam Harus Diisi',
 
         ]);
-        $data = TransaksiSiswa::create($request->all());
-        Buku::where('id', $data->buku_id)->decrement('jumlah',1);
-        return redirect()->route('peminjaman_buku')->with('insertsuccess', 'Peminjaman Berhasil');
+        $batas = BatasPinjam::first()->batas_siswa;
+        $jumlah = TransaksiSiswa::where('anggota_id', $request->anggota_id)->where('status','Dipinjam')->where('jenis', 'buku')->count();
+        // dd($jumlah);
+        if($jumlah >= $batas){
+             return redirect()->route('peminjaman_buku')->with('insertgagal', 'Peminjaman Gagal');
+        }else{
+            $data = TransaksiSiswa::create($request->all());
+            Buku::where('id', $data->buku_id)->decrement('jumlah',1);
+            return redirect()->route('peminjaman_buku')->with('insertsuccess', 'Peminjaman Berhasil');
+        }
     }
 
     public function kembalikan(Request $request,$id,$id_buku)
@@ -116,7 +124,8 @@ class TransaksiSiswaController extends Controller
         $peminjaman = TransaksiSiswa::with('majalah','anggota')->where('status', 'Dipinjam')->where('jenis', 'majalah')->paginate(99999);
         $majalahs = Majalah::all()->where('jumlah','>', 0);
         $anggotas = Anggota::all()->where('status', 'Aktif');
-        return view('transaksi-siswa.peminjaman_majalah_siswa', compact('peminjaman','majalahs', 'anggotas'));
+        $batas_pinjam = BatasPinjam::first();
+        return view('transaksi-siswa.peminjaman_majalah_siswa', compact('peminjaman','majalahs', 'anggotas', 'batas_pinjam'));
     }
 
 
@@ -129,9 +138,18 @@ class TransaksiSiswaController extends Controller
             'majalah_id.required'=> 'Majalah Harus Diisi',
             'anggota_id.required'=> 'Peminjam Harus Diisi',
         ]);
-        $data = TransaksiSiswa::create($request->all());
-        Majalah::where('id', $data->majalah_id)->decrement('jumlah',1);
-        return redirect()->route('peminjaman_majalah')->with('insertsuccess', 'Peminjaman Berhasil');
+
+        $batas = BatasPinjam::first()->batas_siswa;
+        $jumlah = TransaksiSiswa::where('anggota_id', $request->anggota_id)->where('status','Dipinjam')->where('jenis', 'majalah')->count();
+        // dd($jumlah);
+        if($jumlah >= $batas){
+             return redirect()->route('peminjaman_majalah')->with('insertgagal', 'Peminjaman Gagal');
+        }else{
+            $data = TransaksiSiswa::create($request->all());
+            Majalah::where('id', $data->majalah_id)->decrement('jumlah',1);
+            return redirect()->route('peminjaman_majalah')->with('insertsuccess', 'Peminjaman Berhasil');
+        }
+       
     }
 
     public function kembalikan_majalah(Request $request,$id,$id_majalah)
@@ -196,7 +214,8 @@ class TransaksiSiswaController extends Controller
         $peminjaman = TransaksiSiswa::with('cd','anggota')->where('status', 'Dipinjam')->where('jenis', 'cd')->paginate(99999);
         $cds = CD::all()->where('jumlah','>', 0);
         $anggotas = Anggota::all()->where('status', 'Aktif');
-        return view('transaksi-siswa.peminjaman_cd_siswa', compact('peminjaman','cds', 'anggotas'));
+        $batas_pinjam = BatasPinjam::first();
+        return view('transaksi-siswa.peminjaman_cd_siswa', compact('peminjaman','cds', 'anggotas', 'batas_pinjam'));
     }
 
 
@@ -210,9 +229,16 @@ class TransaksiSiswaController extends Controller
             'anggota_id.required'=> 'Peminjam Harus Diisi',
 
         ]);
-        $data = TransaksiSiswa::create($request->all());
-        CD::where('id', $data->cd_id)->decrement('jumlah',1);
-        return redirect()->route('peminjaman_cd')->with('insertsuccess', 'Peminjaman Berhasil');
+        $batas = BatasPinjam::first()->batas_siswa;
+        $jumlah = TransaksiSiswa::where('anggota_id', $request->anggota_id)->where('status','Dipinjam')->where('jenis', 'cd')->count();
+        // dd($jumlah);
+        if($jumlah >= $batas){
+             return redirect()->route('peminjaman_cd')->with('insertgagal', 'Peminjaman Gagal');
+        }else{
+             $data = TransaksiSiswa::create($request->all());
+            CD::where('id', $data->cd_id)->decrement('jumlah',1);
+            return redirect()->route('peminjaman_cd')->with('insertsuccess', 'Peminjaman Berhasil');
+        }
     }
 
     public function kembalikan_cd(Request $request,$id,$id_cd)

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 
 class AnggotaController extends Controller
 {
@@ -71,7 +72,28 @@ class AnggotaController extends Controller
     public function deleteanggota($id)
     {
         $data = Anggota::find($id);
+        if ($data->foto_anggota != 'person.png') {
+            if (File::exists(public_path('assets/images/foto_anggota/'.$data->foto_anggota))) {
+                File::delete(public_path('assets/images/foto_anggota/'.$data->foto_anggota));
+            }
+        }
         $data->delete();
+        return redirect()->route('dataanggota')->with('deletesuccess', 'Data Berhasil Dihapus');
+
+    }
+
+    //Delete Anggota All
+    public function deleteAnggotaAll()
+    {
+        Anggota::getQuery()->delete();
+        return redirect()->route('dataanggota')->with('deletesuccess', 'Data Berhasil Dihapus');
+
+    }
+
+     //Delete Anggota Non
+    public function deleteAnggotaNonAktif()
+    {
+        Anggota::where("status", "NonAktif")->getQuery()->delete();
         return redirect()->route('dataanggota')->with('deletesuccess', 'Data Berhasil Dihapus');
 
     }
@@ -81,6 +103,9 @@ class AnggotaController extends Controller
         $data = Anggota::find( $id);
         $data->update($request->all());
         if($request->hasFile('foto_anggota')){
+            if ($data->foto_anggota != 'person.png') {
+                File::delete(public_path('assets/images/foto_anggota/'.$data->foto_anggota));
+            }
             $request->file('foto_anggota')->move('assets/images/foto_anggota/', $request->file('foto_anggota')->getClientOriginalName());
             $data->foto_anggota = $request->file('foto_anggota')->getClientOriginalName();
             $data->save();

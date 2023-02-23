@@ -57,7 +57,7 @@ class BukuExport implements FromQuery, WithMapping, ShouldAutoSize, WithHeadings
             $buku->penerbit->nama_penerbit ?? 'N/A',
             $buku->tahun_terbit,
             $buku->jumlah,
-            $buku->created_at,
+            $buku->getCreatedAttribute(),
         ];
     }
            

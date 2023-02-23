@@ -59,12 +59,16 @@
                 <div class="float-end mb-3">
 
                     <a href="/exportpdf_guru"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i
-                                class="mdi mdi-printer btn-icon-append"></i> PDF </button></a>
+                                class="mdi mdi-printer btn-icon-append"></i> Cetak PDF </button></a>
                     <a href="/exportexcel_guru"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1">
-                            <i class="mdi mdi-printer btn-icon-append"></i> Excel </button></a>
+                            <i class="mdi mdi-printer btn-icon-append"></i> Cetak Excel </button></a>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#importguru"
-                        class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import
+                        class="btn btn-sm btn-info btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend me-1"></i>Import
                         Data</button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#hapus_data"
+                        class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-delete btn-icon-append"></i>Hapus
+                        Data</button>
+
 
                     <!-- The Import Guru Excel Modal -->
                     <div class="modal fade" id="importguru">
@@ -103,6 +107,28 @@
                                     </div>
                                 </form>
 
+                            </div>
+                        </div>
+                    </div>
+                    <!-- The Hapus Modal -->
+                    <div class="modal fade" id="hapus_data">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title ">Hapus Data</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="modal-body px-4">
+                                    <button id="hapus_nonaktif" type="button"
+                                        class="hapus_nonaktif btn btn-danger w-100 mb-2">Hapus Non Aktif</button>
+                                    <button id="hapus_semua" type="button"
+                                        class="hapus_semua btn btn-danger w-100 mb-2">Hapus Semua</button>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -376,6 +402,48 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deleteguru/" + idguru + ""
+                    Swal.fire(
+                        'Dihapus!',
+                        'Data Berhasil Dihapus',
+                        'success'
+                    )
+                }
+            })
+        })
+        $('.hapus_semua').click(function() {
+            Swal.fire({
+                title: 'Apakah Yakin?',
+                text: "Hapus Semua Data Guru",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = "/deleteGuruAll/"
+                    Swal.fire(
+                        'Dihapus!',
+                        'Data Berhasil Dihapus',
+                        'success'
+                    )
+                }
+            })
+        })
+        $('.hapus_nonaktif').click(function() {
+            Swal.fire({
+                title: 'Apakah Yakin?',
+                text: "Hapus Data Guru Non Aktif",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = "/deleteGuruNonAktif/"
                     Swal.fire(
                         'Dihapus!',
                         'Data Berhasil Dihapus',

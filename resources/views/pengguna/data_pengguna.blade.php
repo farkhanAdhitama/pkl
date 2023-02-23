@@ -80,9 +80,8 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="password">Password<span class="text-danger">*</span> </label>
-                                        <input type="password" name="password" class="form-control" id="password"
-                                            placeholder="Password" required value="{{ old('password') }}"
+                                        <input type="hidden" value="1234" name="password" class="form-control"
+                                            id="password" placeholder="Password" required value="{{ old('password') }}"
                                             autocomplete="password" class="@error('password') is-invalid @enderror">
                                         @error('password')
                                             <sub class="p fst-italic text-danger invalid-feedback"
@@ -102,7 +101,8 @@
                                         @enderror
                                     </div> --}}
                                     <div class="form-group">
-                                        <label for="level">Level</label>
+                                        <label for="level">Level<span class="text-danger">*</span>
+                                        </label>
                                         <select class="form-control selectpicker" data-live-search="true" name="level"
                                             id="level">
                                             <option value="Operator">Operator</option>
