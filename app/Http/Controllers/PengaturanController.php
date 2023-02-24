@@ -89,21 +89,38 @@ class PengaturanController extends Controller
 
     public function update_BatasSiswa(Request $request, $id)
     {
-        $data = BatasPinjam::find($id);
-        $data->update($request->all());
-        return redirect()
+        $batas = BatasPinjam::first()->batas_siswa ?? '';
+        if($batas == ''){
+            BatasPinjam::create($request->all());
+            return redirect()
             ->back()
             ->with('updatesuccess', 'Data Berhasil Diubah.');
-
+        }else{
+            $data = BatasPinjam::find($id);
+            $data->update($request->all());
+            return redirect()
+            ->back()
+            ->with('updatesuccess', 'Data Berhasil Diubah.');
+        }
+       
     }
 
     public function update_BatasGuru(Request $request, $id)
     {
-        $data = BatasPinjam::find($id);
-        $data->update($request->all());
-        return redirect()
+
+        $batas = BatasPinjam::first()->batas_guru ?? '';
+        if($batas == ''){
+            BatasPinjam::create($request->all());
+            return redirect()
             ->back()
             ->with('updatesuccess', 'Data Berhasil Diubah.');
+        }else{
+            $data = BatasPinjam::find($id);
+            $data->update($request->all());
+            return redirect()
+            ->back()
+            ->with('updatesuccess', 'Data Berhasil Diubah.');
+        }
 
     }
 }

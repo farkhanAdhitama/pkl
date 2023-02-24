@@ -98,6 +98,7 @@
                                         @enderror
                                     </div>
                                     <input type="hidden" value="buku" name="jenis" class="form-control" id="jenis">
+                                    <input type="hidden" name="petugas" id="petugas" value="{{ auth()->user()->name }}">
 
 
                                     <button type="submit"class="btn btn-primary me-2">Submit</button>
@@ -134,6 +135,7 @@
                                         <th> Tanggal Pinjam</th>
                                         <th> Batas Kembali</th>
                                         <th> Lama </th>
+                                        <th> Petugas </th>
                                         <th> Status </th>
                                         <th> Aksi </th>
                                     </tr>
@@ -156,21 +158,23 @@
                                             <td>{{ $pinjam->getCreatedAttribute() }}</td>
                                             <td>{{ $pinjam->getTenggatWaktu($pinjam->lama) }}</td>
                                             <td>{{ $pinjam->lama }} Hari</td>
+                                            <td>{{ $pinjam->petugas }}</td>
                                             <td><label class="badge badge-gradient-warning">{{ $pinjam->status }}</label>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-inverse-danger btn-sm perpanjang "
                                                     data-bs-toggle="modal " data-id="{{ $pinjam->id }}"
                                                     @if ($pinjam->getSelisih($pinjam->lama) < 0) disabled @endif
-                                                    data-buku="{{ $pinjam->buku->judul_buku }}"
-                                                    data-guru="{{ $pinjam->guru->nama }}">
+                                                    data-buku="{{ $pinjam->buku->judul_buku ?? 'N/A' }}"
+                                                    data-guru="{{ $pinjam->guru->nama ?? 'N/A' }}">
                                                     Perpanjang
                                                 </button>
                                                 <a href="#">
                                                     <button class="btn btn-sm btn-inverse-primary kembalikan"
-                                                        buku-id="{{ $pinjam->buku->id }}" data-id="{{ $pinjam->id }}"
-                                                        data-buku="{{ $pinjam->buku->judul_buku }}"
-                                                        data-guru="{{ $pinjam->guru->nama }}">
+                                                        buku-id="{{ $pinjam->buku->id ?? 'N/A' }}"
+                                                        data-id="{{ $pinjam->id }}"
+                                                        data-buku="{{ $pinjam->buku->judul_buku ?? 'N/A' }}"
+                                                        data-guru="{{ $pinjam->guru->nama ?? 'N/A' }}">
                                                         Kembalikan
                                                     </button>
                                                 </a>

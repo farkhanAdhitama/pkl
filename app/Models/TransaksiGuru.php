@@ -26,6 +26,7 @@ class TransaksiGuru extends Model
         'status',
         'status_email',
         'lama',
+        'petugas',
     ];
 
     public function getCreatedAttribute(){

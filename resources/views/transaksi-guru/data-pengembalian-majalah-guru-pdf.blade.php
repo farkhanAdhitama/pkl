@@ -42,6 +42,7 @@
             <th> Tanggal Pinjam</th>
             <th> Tanggal Kembali </th>
             <th> Total </th>
+            <th> Petugas</th>
         </tr>
 
         @php
@@ -55,6 +56,7 @@
                 <td>{{ $row->getCreatedAttribute() }}</td>
                 <td>{{ $row->getTanggalKembali() }}</td>
                 <td>{{ $row->lama_peminjaman() }} Hari</td>
+                <td>{{ $row->petugas ?? '' }}</td>
             </tr>
         @endforeach
     </table>

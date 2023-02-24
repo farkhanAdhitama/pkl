@@ -24,6 +24,8 @@ class TransaksiSiswa extends Model
         'lama',
         'status_email',
         'denda',
+        'petugas',
+
     ];
 
     public function getCreatedAttribute(){

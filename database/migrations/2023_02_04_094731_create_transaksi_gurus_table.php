@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('lama');
             $table->integer('status_email')->default(0);
             $table->timestamp('tgl_kembali');
+            $table->string('petugas')->nullable();
             $table->timestamps();
         });
     }

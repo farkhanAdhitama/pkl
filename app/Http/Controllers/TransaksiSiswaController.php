@@ -24,6 +24,7 @@ use App\Exports\PengembalianMajalahSiswaExport;
 use App\Http\Requests\StoreTransaksiSiswaRequest;
 use App\Http\Requests\UpdateTransaksiSiswaRequest;
 use App\Models\BatasPinjam;
+use App\Models\User;
 
 class TransaksiSiswaController extends Controller
 {
@@ -34,7 +35,8 @@ class TransaksiSiswaController extends Controller
         $bukus = Buku::all()->where('jumlah','>', 0);
         $anggotas = Anggota::all()->where('status', 'Aktif');
         $batas_pinjam = BatasPinjam::first();
-        return view('transaksi-siswa.peminjaman', compact('peminjaman','bukus', 'anggotas', 'batas_pinjam'));
+        $petugas = User::all();
+        return view('transaksi-siswa.peminjaman', compact('peminjaman','bukus', 'anggotas', 'batas_pinjam', 'petugas'));
     }
 
 

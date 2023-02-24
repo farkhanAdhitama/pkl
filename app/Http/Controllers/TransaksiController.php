@@ -7,6 +7,7 @@ use App\Exports\PengembalianExport;
 use App\Models\Anggota;
 use App\Models\Buku;
 use App\Models\Transaksi;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
@@ -19,7 +20,8 @@ class TransaksiController extends Controller
         $peminjaman = Transaksi::with('buku','anggota')->where('status', 'Dipinjam')->paginate(99999);
         $bukus = Buku::all()->where('jumlah','>', 0);
         $anggotas = Anggota::all()->where('status', 'Aktif');
-        return view('transaksi.peminjaman', compact('peminjaman','bukus', 'anggotas'));
+        $petugas = User::all();
+        return view('transaksi.peminjaman', compact('peminjaman','bukus', 'anggotas', 'petugas'));
     }
 
     public function showTambahPeminjaman()

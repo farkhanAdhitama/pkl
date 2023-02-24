@@ -53,6 +53,7 @@
                                         <th> Tanggal Pinjam</th>
                                         <th> Tanggal Kembali</th>
                                         <th> Total </th>
+                                        <th> Petugas</th>
                                         <th> Status </th>
                                         <th> Aksi </th>
                                     </tr>
@@ -68,12 +69,13 @@
                                             <td>{{ $pinjam->getCreatedAttribute() }}</td>
                                             <td>{{ $pinjam->getTanggalKembali() }}</td>
                                             <td>{{ $pinjam->lama_peminjaman() }} Hari</td>
+                                            <td>{{ $pinjam->petugas }}</td>
                                             <td><label class="badge badge-gradient-info">{{ $pinjam->status }}</label></td>
                                             <td>
                                                 <button class="btn btn-inverse-danger btn-icon delete"
                                                     data-id="{{ $pinjam->id }}"
-                                                    data-majalah="{{ $pinjam->majalah->nama }}"
-                                                    data-anggota="{{ $pinjam->anggota->nama }}">
+                                                    data-majalah="{{ $pinjam->majalah->nama ?? 'N/A' }}"
+                                                    data-anggota="{{ $pinjam->anggota->nama ?? 'N/A' }}">
                                                     <i class="mdi mdi-delete "></i>
 
 

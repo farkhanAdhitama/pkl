@@ -42,6 +42,7 @@
             <th> Tanggal Pinjam</th>
             <th> Tenggat Waktu </th>
             <th> Lama </th>
+            <th> Petugas</th>
         </tr>
 
         @php
@@ -55,6 +56,7 @@
                 <td>{{ $row->getCreatedAttribute() }}</td>
                 <td>{{ $row->getTenggatWaktu($row->lama) }}</td>
                 <td>{{ $row->lama }} Hari</td>
+                <td>{{ $row->petugas ?? '' }}</td>
             </tr>
         @endforeach
     </table>

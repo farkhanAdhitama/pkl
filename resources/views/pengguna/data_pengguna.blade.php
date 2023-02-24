@@ -154,9 +154,13 @@
                                                     data-bs-toggle="modal" data-bs-target="#edit{{ $user->id }}">
                                                     <i class="mdi mdi-pencil"></i>
                                                 </button>
-
                                                 <a href="#">
-                                                    <button class="btn btn-inverse-danger btn-icon delete "
+                                                    <button <?php  if ($user->level == 'Operator'){
+                                                        ?>
+                                                        class="btn btn-inverse-danger btn-icon delete disabled"
+                                                        <?php
+                                                            };
+                                                        ?> class="btn btn-inverse-danger btn-icon delete "
                                                         data-id="{{ $user->id }}" data-user="{{ $user->name }}">
                                                         <i class="mdi mdi-delete "></i>
                                                     </button></a>

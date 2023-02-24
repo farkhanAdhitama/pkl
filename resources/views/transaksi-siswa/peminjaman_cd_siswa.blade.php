@@ -62,7 +62,7 @@
                                     class="forms-sample">
                                     @csrf
                                     <input type="hidden" value="cd" name="jenis" class="form-control" id="jenis">
-
+                                    <input type="hidden" name="petugas" id="petugas" value="{{ auth()->user()->name }}">
                                     <div class="form-group">
                                         <label for="anggota_id">Peminjam</label>
                                         <select class="form-control" class="selectpicker" data-live-search="true" required
@@ -133,6 +133,7 @@
                                         <th> Tanggal Pinjam</th>
                                         <th> Batas Kembali</th>
                                         <th> Lama </th>
+                                        <th> Petugas </th>
                                         <th> Status </th>
                                         <th> Aksi </th>
                                     </tr>
@@ -156,21 +157,23 @@
                                             <td>{{ $pinjam->getCreatedAttribute() }}</td>
                                             <td>{{ $pinjam->getTenggatWaktu($pinjam->lama) }}</td>
                                             <td>{{ $pinjam->lama }} Hari</td>
+                                            <td>{{ $pinjam->petugas }}</td>
                                             <td><label class="badge badge-gradient-warning">{{ $pinjam->status }}</label>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-inverse-danger btn-sm perpanjang "
                                                     @if ($pinjam->getSelisih($pinjam->lama) < 0) disabled @endif
                                                     data-bs-toggle="modal " data-id="{{ $pinjam->id }}"
-                                                    data-cd="{{ $pinjam->cd->nama }}"
-                                                    data-anggota="{{ $pinjam->anggota->nama }}">
+                                                    data-cd="{{ $pinjam->cd->nama ?? 'N/A' }}"
+                                                    data-anggota="{{ $pinjam->anggota->nama ?? 'N/A' }}">
                                                     Perpanjang
                                                 </button>
                                                 <a href="#">
                                                     <button class="btn btn-sm btn-inverse-primary kembalikan"
-                                                        cd-id="{{ $pinjam->cd->id }}" data-id="{{ $pinjam->id }}"
-                                                        data-cd="{{ $pinjam->cd->nama }}"
-                                                        data-anggota="{{ $pinjam->anggota->nama }}">
+                                                        cd-id="{{ $pinjam->cd->id ?? 'N/A' }}"
+                                                        data-id="{{ $pinjam->id }}"
+                                                        data-cd="{{ $pinjam->cd->nama ?? 'N/A' }}"
+                                                        data-anggota="{{ $pinjam->anggota->nama ?? 'N/A' }}">
                                                         Kembalikan
                                                     </button>
                                                 </a>
