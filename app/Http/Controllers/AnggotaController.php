@@ -27,7 +27,7 @@ class AnggotaController extends Controller
                 $anggota::where('id', $id_anggota)->update(['status' => "NonAktif"]);
             }
         }
-        return view('dataanggota', compact('anggotas'));
+        return view('anggota.dataanggota', compact('anggotas'));
     }
 
     /**
@@ -35,7 +35,7 @@ class AnggotaController extends Controller
      */
     public function showTambahAnggota()
     {  
-        return view('tambahanggota');
+        return view('anggota.tambahanggota');
     }
     
 
@@ -132,7 +132,7 @@ class AnggotaController extends Controller
     public function exportpdf_anggota(){
         $data = Anggota::all();
         view()->share('data', $data);
-        $pdf = PDF::loadview('data_anggota-pdf');
+        $pdf = PDF::loadview('anggota.data_anggota-pdf');
         return $pdf->download('data_anggota.pdf');
     }
 

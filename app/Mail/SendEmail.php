@@ -37,7 +37,7 @@ class SendEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: new Address('farkhanduolingo@gmail.com', 'Perpustakaan SMA Negeri 1 Kajen'),
+            from: new Address('perpustakaansma1nkajen@gmail.com', 'Perpustakaan SMA Negeri 1 Kajen'),
             subject: 'Perpustakaan SMA N 1 Kajen : Masa Peminjaman Telah Habis',
         );
     }

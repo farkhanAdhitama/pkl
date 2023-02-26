@@ -19,7 +19,7 @@ class JenisbukuController extends Controller
     {   
         $jenisbukus = Jenisbuku::paginate(9999);
         
-        return view('datajenisbuku', compact('jenisbukus'));
+        return view('databuku.datajenisbuku', compact('jenisbukus'));
     }
 
     /**
@@ -75,7 +75,7 @@ class JenisbukuController extends Controller
     public function exportpdf_jenisbuku(){
         $data = Jenisbuku::all();
         view()->share('data', $data);
-        $pdf = PDF::loadview('data_jenisbuku-pdf');
+        $pdf = PDF::loadview('databuku.data_jenisbuku-pdf');
         return $pdf->download('data_jenisbuku.pdf');
     }
 

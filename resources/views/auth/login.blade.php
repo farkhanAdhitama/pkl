@@ -20,9 +20,10 @@
                             <div class="auth-form-light text-left p-5">
                                 <div class="brand-logo">
                                     <h3 class="text-primary">Manajemen Perpustakaan</h3>
+                                    <h3 class="text-primary">SMA Negeri 1 Kajen</h3>
                                 </div>
                                 <h4>Selamat Datang</h4>
-                                <h6 class="font-weight-light">Sign in untuk melanjutkan.</h6>
+                                <h6 class="font-weight-light">Login untuk melanjutkan.</h6>
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
 

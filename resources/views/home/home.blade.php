@@ -157,11 +157,12 @@
             <div class="card">
                 <div class="card-body">
                     <div class="clearfix">
-                        <h4 class="card-title float-left">Statistik Transaksi</h4>
+                        <h4 class="card-title float-left">Statistik Transaksi Tahun {{ now()->year }}</h4>
                         <div id="visit-sale-chart-legend"
                             class="rounded-legend legend-horizontal legend-top-right float-right"></div>
                     </div>
-                    <canvas id="visit-sale-chart" class="mt-4"></canvas>
+                    <canvas id="visit-sale-chart" data-siswa="{{ $stat_siswa }}" data-guru="{{ $stat_guru }}"
+                        data-bulan="{{ $bulan }} class="mt-4"></canvas>
                 </div>
             </div>
         </div>
@@ -169,11 +170,14 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Koleksi Kategori Buku</h4>
-                    <canvas id="traffic-chart"></canvas>
-                    <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>
+                    <canvas id="kategori-chart" data-fiksi="{{ $fiksi }}" data-nonfiksi="{{ $nonfiksi }}"
+                        data-referensi="{{ $referensi }}"></canvas>
+                    <div id="kategori-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="assets/js/dashboard.js"></script>
 @endsection

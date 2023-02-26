@@ -19,7 +19,7 @@ class PengaturanController extends Controller
     {
         $profil = User::find($id);
         $batas_pinjam = BatasPinjam::first();
-        return view('.pengaturan', compact('profil','batas_pinjam'));
+        return view('pengaturan.pengaturan', compact('profil','batas_pinjam'));
     }
 
     public function updateAdmin(Request $request, $id)

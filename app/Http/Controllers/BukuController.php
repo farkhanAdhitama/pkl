@@ -29,7 +29,7 @@ class BukuController extends Controller
         $jen = Jenisbuku::all();
         $penerbit = Penerbit::all();
         $tempat_terbit = TempatTerbit::all();
-        return view('databuku', compact('bukus'), compact('jen','penerbit', 'tempat_terbit'));
+        return view('databuku.databuku', compact('bukus'), compact('jen','penerbit', 'tempat_terbit'));
     }
 
     /**
@@ -40,7 +40,7 @@ class BukuController extends Controller
         $jen = Jenisbuku::all();
         $penerbit = Penerbit::all();
         $tempat_terbit = TempatTerbit::all();
-        return view('tambahbuku', compact('jen','penerbit', 'tempat_terbit'));;
+        return view('databuku.tambahbuku', compact('jen','penerbit', 'tempat_terbit'));;
     }
     
 
@@ -143,7 +143,7 @@ class BukuController extends Controller
         $tgl_awal = $tgl_awal;
         $tgl_akhir = $tgl_akhir;
         view()->share('data', $data, $jen, $tgl_awal, $tgl_akhir);
-        $pdf = PDF::loadview('data_buku-pdf_pertanggal');
+        $pdf = PDF::loadview('databuku.data_buku-pdf_pertanggal');
         return $pdf->download('data_buku.pdf');
         
     }
