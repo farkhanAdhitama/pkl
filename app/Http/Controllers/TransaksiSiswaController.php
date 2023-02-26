@@ -120,6 +120,13 @@ class TransaksiSiswaController extends Controller
 
     }
 
+    public function deletePengembalianBukuSiswaAll()
+    {
+        TransaksiSiswa::where('jenis','buku')->getQuery()->delete();
+        return redirect()->route('pengembalian_buku')->with('deletesuccess', 'Data Berhasil Dihapus');
+
+    }
+
     //MAJALAH
     public function showPeminjamanMajalah()
     {
@@ -210,6 +217,14 @@ class TransaksiSiswaController extends Controller
 
     }
 
+     public function deletePengembalianMajalahSiswaAll()
+    {
+        TransaksiSiswa::where('jenis','majalah')->getQuery()->delete();
+        return redirect()->route('pengembalian_majalah')->with('deletesuccess', 'Data Berhasil Dihapus');
+
+    }
+
+
     //CD
     public function showPeminjamanCD()
     {
@@ -295,6 +310,13 @@ class TransaksiSiswaController extends Controller
     {
         $data = TransaksiSiswa::find($id);
         $data->delete();
+        return redirect()->route('pengembalian_cd')->with('deletesuccess', 'Data Berhasil Dihapus');
+
+    }
+
+     public function deletePengembalianCDSiswaAll()
+    {
+        TransaksiSiswa::where('jenis','cd')->getQuery()->delete();
         return redirect()->route('pengembalian_cd')->with('deletesuccess', 'Data Berhasil Dihapus');
 
     }

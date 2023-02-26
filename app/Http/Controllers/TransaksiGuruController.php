@@ -113,6 +113,13 @@ class TransaksiGuruController extends Controller
 
     }
 
+    public function deletePengembalianBukuGuruAll()
+    {
+        TransaksiGuru::where('jenis','buku')->getQuery()->delete();
+        return redirect()->route('guru_kembali')->with('deletesuccess', 'Data Berhasil Dihapus');
+
+    }
+
      // MAJALAH
     public function showPeminjamanMajalahGuru()
     {
@@ -197,6 +204,13 @@ class TransaksiGuruController extends Controller
         return redirect()->route('majalah_guru_kembali')->with('deletesuccess', 'Data Berhasil Dihapus');
     }
 
+      public function deletePengembalianMajalahGuruAll()
+    {
+        TransaksiGuru::where('jenis','majalah')->getQuery()->delete();
+        return redirect()->route('majalah_guru_kembali')->with('deletesuccess', 'Data Berhasil Dihapus');
+
+    }
+
 
     // CD
     public function showPeminjamanCDGuru()
@@ -279,6 +293,13 @@ class TransaksiGuruController extends Controller
         $data = TransaksiGuru::find($id);
         $data->delete();
         return redirect()->route('cd_guru_kembali')->with('deletesuccess', 'Data Berhasil Dihapus');
+    }
+
+        public function deletePengembalianCDGuruAll()
+    {
+        TransaksiGuru::where('jenis','cd')->getQuery()->delete();
+        return redirect()->route('cd_guru_kembali')->with('deletesuccess', 'Data Berhasil Dihapus');
+
     }
 
 

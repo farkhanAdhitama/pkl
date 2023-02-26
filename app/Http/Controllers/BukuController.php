@@ -140,10 +140,10 @@ class BukuController extends Controller
     public function exportpdf_buku($tgl_awal, $tgl_akhir){
         $data = Buku::all()->whereBetween('created_at', [$tgl_awal,$tgl_akhir]);
         $jen = Jenisbuku::all();
-        $tgl_awal = $tgl_awal;
-        $tgl_akhir = $tgl_akhir;
-        view()->share('data', $data, $jen, $tgl_awal, $tgl_akhir);
-        $pdf = PDF::loadview('databuku.data_buku-pdf_pertanggal');
+        $awal = $tgl_awal;
+        $akhir = $tgl_akhir;
+        view()->share('data', $data, $jen,'awal', $awal, $akhir);
+        $pdf = PDF::loadview('databuku.data_buku-pdf');
         return $pdf->download('data_buku.pdf');
         
     }

@@ -12,6 +12,10 @@
                         class="mdi mdi-printer btn-icon-append"></i> Cetak PDF </button></a>
             <a href="/exportexcel_pengembalian"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1"> <i
                         class="mdi mdi-printer btn-icon-append"></i> Cetak Excel </button></a>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#hapus_all"
+                class="hapus_all btn btn-sm btn-danger btn-icon-text me-1"><i
+                    class="mdi mdi-delete
+                                btn-icon-append"></i>Hapus Semua</button>
             <div class="dropdown">
                 <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
@@ -105,6 +109,28 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deletePengembalianBukuSiswa/" + idtransaksi + ""
+                    Swal.fire(
+                        'Dihapus!',
+                        'Data Berhasil Dihapus',
+                        'success'
+                    )
+                }
+            })
+        })
+
+        $('.hapus_all').click(function() {
+            Swal.fire({
+                title: 'Apakah Yakin?',
+                text: "Hapus Semua Data Pengembalian Buku",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = "/deletePengembalianBukuSiswaAll/"
                     Swal.fire(
                         'Dihapus!',
                         'Data Berhasil Dihapus',

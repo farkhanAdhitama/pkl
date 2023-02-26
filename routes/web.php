@@ -149,6 +149,8 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator,Operator']], func
     Route::get('/exportexcel_peminjaman', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_peminjaman'])->name('exportexcel_peminjaman');
     Route::get('/exportexcel_pengembalian', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_pengembalian'])->name('exportexcel_pengembalian');
     Route::get('/deletePengembalianBukuSiswa/{id}', [App\Http\Controllers\TransaksiSiswaController::class, 'deletePengembalianBukuSiswa'])->name('deletePengembalianBukuSiswa');
+    Route::get('/deletePengembalianBukuSiswaAll', [App\Http\Controllers\TransaksiSiswaController::class, 'deletePengembalianBukuSiswaAll'])->name('deletePengembalianBukuSiswaAll');
+
     //majalah
     Route::get('/peminjaman_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'showPeminjamanMajalah'])->name('peminjaman_majalah');
     Route::post('/tambah_peminjaman_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'tambah_peminjaman_majalah'])->name('tambah_peminjaman_majalah');
@@ -160,6 +162,8 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator,Operator']], func
     Route::get('/exportexcel_peminjaman_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_peminjaman_majalah'])->name('exportexcel_peminjaman_majalah');
     Route::get('/exportexcel_pengembalian_majalah', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_pengembalian_majalah'])->name('exportexcel_pengembalian_majalah');
     Route::get('/deletePengembalianMajalahSiswa/{id}', [App\Http\Controllers\TransaksiSiswaController::class, 'deletePengembalianMajalahSiswa'])->name('deletePengembalianMajalahSiswa');
+    Route::get('/deletePengembalianMajalahSiswaAll', [App\Http\Controllers\TransaksiSiswaController::class, 'deletePengembalianMajalahSiswaAll'])->name('deletePengembalianMajalahSiswaAll');
+
     //cd
     Route::get('/peminjaman_cd', [App\Http\Controllers\TransaksiSiswaController::class, 'showPeminjamanCD'])->name('peminjaman_cd');
     Route::get('/showTambahPeminjaman', [App\Http\Controllers\TransaksiSiswaController::class, 'showTambahPeminjaman'])->name('showTambahPeminjaman');
@@ -172,6 +176,7 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator,Operator']], func
     Route::get('/exportexcel_peminjaman_cd', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_peminjaman_cd'])->name('exportexcel_peminjaman_cd');
     Route::get('/exportexcel_pengembalian_cd', [App\Http\Controllers\TransaksiSiswaController::class, 'exportexcel_pengembalian_cd'])->name('exportexcel_pengembalian_cd');
     Route::get('/deletePengembalianCDSiswa/{id}', [App\Http\Controllers\TransaksiSiswaController::class, 'deletePengembalianCDSiswa'])->name('deletePengembalianCDSiswa');
+    Route::get('/deletePengembalianCDSiswaAll', [App\Http\Controllers\TransaksiSiswaController::class, 'deletePengembalianCDSiswaAll'])->name('deletePengembalianCDSiswaAll');
 
 
 
@@ -186,6 +191,8 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator,Operator']], func
     Route::get('/exportpdf_pengembalian_buku_guru', [App\Http\Controllers\TransaksiGuruController::class, 'exportpdf_pengembalian_buku_guru'])->name('exportpdf_pengembalian_buku_guru');
     Route::get('/exportexcel_peminjaman_buku_guru', [App\Http\Controllers\TransaksiGuruController::class, 'exportexcel_peminjaman_buku_guru'])->name('exportexcel_peminjaman_buku_guru');
     Route::get('/exportexcel_pengembalian_buku_guru', [App\Http\Controllers\TransaksiGuruController::class, 'exportexcel_pengembalian_buku_guru'])->name('exportexcel_pengembalian_buku_guru');
+    Route::get('/deletePengembalianBukuGuruAll', [App\Http\Controllers\TransaksiGuruController::class, 'deletePengembalianBukuGuruAll'])->name('deletePengembalianBukuGuruAll');
+
     //majalah
     Route::get('/majalah_guru_pinjam', [App\Http\Controllers\TransaksiGuruController::class, 'showPeminjamanMajalahGuru'])->name('majalah_guru_pinjam');
     Route::post('/tambah_peminjaman_majalah_guru', [App\Http\Controllers\TransaksiGuruController::class, 'tambah_peminjaman_majalah_guru'])->name('tambah_peminjaman_majalah_guru');
@@ -197,6 +204,8 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator,Operator']], func
     Route::get('/deletePengembalianMajalah/{id}', [App\Http\Controllers\TransaksiGuruController::class, 'deletePengembalianMajalah'])->name('deletePengembalianMajalah');
     Route::get('/exportexcel_pengembalian_majalah_guru', [App\Http\Controllers\TransaksiGuruController::class, 'exportexcel_pengembalian_majalah_guru'])->name('exportexcel_pengembalian_majalah_guru');
     Route::get('/exportpdf_pengembalian_majalah_guru', [App\Http\Controllers\TransaksiGuruController::class, 'exportpdf_pengembalian_majalah_guru'])->name('exportpdf_pengembalian_majalah_guru');
+    Route::get('/deletePengembalianMajalahGuruAll', [App\Http\Controllers\TransaksiGuruController::class, 'deletePengembalianMajalahGuruAll'])->name('deletePengembalianMajalahGuruAll');
+
     //cd
     Route::get('/cd_guru_pinjam', [App\Http\Controllers\TransaksiGuruController::class, 'showPeminjamanCDGuru'])->name('cd_guru_pinjam');
     Route::post('/tambah_peminjaman_cd_guru', [App\Http\Controllers\TransaksiGuruController::class, 'tambah_peminjaman_cd_guru'])->name('tambah_peminjaman_cd_guru');
@@ -208,6 +217,7 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator,Operator']], func
     Route::get('/deletePengembalianCD/{id}', [App\Http\Controllers\TransaksiGuruController::class, 'deletePengembalianCD'])->name('deletePengembalianCD');
     Route::get('/exportexcel_pengembalian_cd_guru', [App\Http\Controllers\TransaksiGuruController::class, 'exportexcel_pengembalian_cd_guru'])->name('exportexcel_pengembalian_cd_guru');
     Route::get('/exportpdf_pengembalian_cd_guru', [App\Http\Controllers\TransaksiGuruController::class, 'exportpdf_pengembalian_cd_guru'])->name('exportpdf_pengembalian_cd_guru');
+    Route::get('/deletePengembalianCDGuruAll', [App\Http\Controllers\TransaksiGuruController::class, 'deletePengembalianCDGuruAll'])->name('deletePengembalianCDGuruAll');
 
     //PENGATURAN
 
