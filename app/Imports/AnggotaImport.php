@@ -19,9 +19,12 @@ class AnggotaImport implements ToModel, WithStartRow
         return new Anggota([
             'nama' => $row[1],
             'nis' => $row[2],
-            'kelas' => $row[3],
-            'no_hp' => $row[4],
-            'alamat' => $row[5],
+            'email' => $row[3],
+            'angkatan' => $row[4],
+            'kelas' => $row[5],
+            'jurusan' => $row[6],
+            'masa_berlaku' => $row[7],
+
         ]);
     }
 

@@ -215,13 +215,20 @@
       gradientStrokeRed.addColorStop(1, 'rgba(254, 112, 150, 1)');
       var gradientLegendRed = 'linear-gradient(to right, rgba(255, 191, 150, 1), rgba(254, 112, 150, 1))';
 
+      var bulan = document.getElementById("visit-sale-chart").getAttribute("data-bulan");
+      var stat_siswa = document.getElementById("visit-sale-chart").getAttribute("data-siswa");
+      var data_siswa = JSON.parse(stat_siswa);
+      var stat_guru = document.getElementById("visit-sale-chart").getAttribute("data-guru");
+      var data_guru = JSON.parse(stat_guru);
+
+
       var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG'],
+            labels: ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGU', 'SEP','OKT', 'NOV','DES'],
             datasets: [
               {
-                label: "CHN",
+                label: "Siswa",
                 borderColor: gradientStrokeViolet,
                 backgroundColor: gradientStrokeViolet,
                 hoverBackgroundColor: gradientStrokeViolet,
@@ -230,10 +237,10 @@
                 fill: false,
                 borderWidth: 1,
                 fill: 'origin',
-                data: [20, 40, 15, 35, 25, 50, 30, 20]
+                data: data_siswa
               },
               {
-                label: "USA",
+                label: "Guru/Staff",
                 borderColor: gradientStrokeRed,
                 backgroundColor: gradientStrokeRed,
                 hoverBackgroundColor: gradientStrokeRed,
@@ -242,20 +249,9 @@
                 fill: false,
                 borderWidth: 1,
                 fill: 'origin',
-                data: [40, 30, 20, 10, 50, 15, 35, 40]
+                data: data_guru
               },
-              {
-                label: "UK",
-                borderColor: gradientStrokeBlue,
-                backgroundColor: gradientStrokeBlue,
-                hoverBackgroundColor: gradientStrokeBlue,
-                legendColor: gradientLegendBlue,
-                pointRadius: 0,
-                fill: false,
-                borderWidth: 1,
-                fill: 'origin',
-                data: [70, 10, 30, 40, 25, 50, 15, 30]
-              }
+            
           ]
         },
         options: {
@@ -434,7 +430,7 @@
       })
       $("#visit-sale-chart-legend-dark").html(myChart.generateLegend());
     }
-    if ($("#traffic-chart").length) {
+    if ($("#kategori-chart").length) {
       var gradientStrokeBlue = ctx.createLinearGradient(0, 0, 0, 181);
       gradientStrokeBlue.addColorStop(0, 'rgba(54, 215, 232, 1)');
       gradientStrokeBlue.addColorStop(1, 'rgba(177, 148, 250, 1)');
@@ -450,9 +446,16 @@
       gradientStrokeGreen.addColorStop(1, 'rgba(132, 217, 210, 1)');
       var gradientLegendGreen = 'linear-gradient(to right, rgba(6, 185, 157, 1), rgba(132, 217, 210, 1))';      
 
+      var DataFiksi = document.getElementById("kategori-chart").getAttribute("data-fiksi");
+      var DataNonFiksi = document.getElementById("kategori-chart").getAttribute("data-nonfiksi");
+      var DataReferensi = document.getElementById("kategori-chart").getAttribute("data-referensi");
+      var datafiksi = JSON.parse(DataFiksi);
+      var datanonfiksi = JSON.parse(DataNonFiksi);
+      var datareferensi = JSON.parse(DataReferensi);
+
       var trafficChartData = {
         datasets: [{
-          data: [30, 30, 40],
+          data: [datafiksi, datanonfiksi, datareferensi],
           backgroundColor: [
             gradientStrokeBlue,
             gradientStrokeGreen,
@@ -477,9 +480,9 @@
     
         // These labels appear in the legend and in the tooltips when hovering different arcs
         labels: [
-          'Search Engines',
-          'Direct Click',
-          'Bookmarks Click',
+          'Fiksi : ',
+          'Non FIksi : ',
+          'Referensi : ',
         ]
       };
       var trafficChartOptions = {
@@ -499,20 +502,20 @@
               if (trafficChartData.labels[i]) { 
                   text.push(trafficChartData.labels[i]); 
               }
-              text.push('<span class="float-right">'+trafficChartData.datasets[0].data[i]+"%"+'</span>')
+              text.push('<span class="float-right">'+trafficChartData.datasets[0].data[i]+'</span>')
               text.push('</li>'); 
           } 
           text.push('</ul>'); 
           return text.join('');
         }
       };
-      var trafficChartCanvas = $("#traffic-chart").get(0).getContext("2d");
+      var trafficChartCanvas = $("#kategori-chart").get(0).getContext("2d");
       var trafficChart = new Chart(trafficChartCanvas, {
         type: 'doughnut',
         data: trafficChartData,
         options: trafficChartOptions
       });
-      $("#traffic-chart-legend").html(trafficChart.generateLegend());      
+      $("#kategori-chart-legend").html(trafficChart.generateLegend());      
     }
     if ($("#inline-datepicker").length) {
       $('#inline-datepicker').datepicker({

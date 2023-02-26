@@ -26,16 +26,16 @@ class JenisbukuExport implements FromQuery, WithMapping, ShouldAutoSize, WithHea
     public function map($jenisbuku): array
     {
         return [
+            $jenisbuku->id,
             $jenisbuku->nama,
-            $jenisbuku->rak,
         ];
     }
 
     public function headings(): array
     {
         return [
+            'KODE JENIS BUKU',
             'JENIS BUKU',
-            'RAK',
         ];
     }
 }

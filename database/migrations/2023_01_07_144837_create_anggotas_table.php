@@ -17,9 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('nis');
-            $table->string('no_hp')->nullable();
-            $table->string('kelas');
-            $table->string('alamat')->nullable();
+            $table->string('email');
+            $table->string('angkatan');
+            $table->integer('kelas');
+            $table->string('jurusan');
+            $table->date('masa_berlaku');
+            $table->enum('status',['Aktif','NonAktif'])->default('Aktif');           
             $table->string('foto_anggota')->nullable();
             $table->timestamps();
         });

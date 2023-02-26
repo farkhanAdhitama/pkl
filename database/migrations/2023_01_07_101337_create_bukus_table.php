@@ -15,14 +15,29 @@ return new class extends Migration
     {
         Schema::create('bukus', function (Blueprint $table) {
             $table->id();
+            $table->string('peruntukan')->nullable();
+            $table->string('jenis_id')->nullable();
             $table->string('judul_buku');
-            $table->string('isbn');
+            $table->string('judul_asli')->nullable();
             $table->string('penulis');
-            $table->string('penerbit');
+            $table->integer('jumlah')->nullable();
+            $table->string('subyek')->nullable();
+            $table->string('penerjemah')->nullable();
+            $table->enum('kategori',['Fiksi','Nonfiksi', 'Referensi']);
+            $table->enum('bahasa',['Indonesia','Arab','Inggris','Lainnya']);
+            $table->enum('perolehan',['Pembelian','Hadiah','Hibah','Droping']);
+            $table->string('penerbit_id')->nullable();
+            $table->string('tempat_terbit_id')->nullable();
+            $table->string('jilid')->nullable();
+            $table->integer('cetakan')->nullable();
+            $table->integer('halaman')->nullable();
+            $table->integer('lebar')->nullable();
+            $table->integer('panjang')->nullable();
+            $table->integer('edisi')->nullable();
+            $table->string('rak')->nullable();
+            $table->string('isbn');
+            $table->integer('harga')->nullable();
             $table->string('tahun_terbit');
-            $table->enum('kategori',['Fiksi','Nonfiksi']);
-            $table->string('jenis_buku')->nullable();
-            $table->integer('jumlah');
             $table->string('sampul')->nullable();
             $table->timestamps();
     

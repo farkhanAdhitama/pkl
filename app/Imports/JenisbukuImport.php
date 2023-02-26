@@ -19,7 +19,6 @@ class JenisbukuImport implements ToModel, WithStartRow
         return new Jenisbuku([
 
             'nama' => $row[1],
-            'rak' => $row[2],
         ]);
     }
 

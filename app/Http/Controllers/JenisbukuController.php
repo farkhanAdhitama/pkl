@@ -17,19 +17,10 @@ class JenisbukuController extends Controller
 {
     public function index()
     {   
-        $jenisbukus = Jenisbuku::all();
+        $jenisbukus = Jenisbuku::paginate(9999);
         
-        return view('datajenisbuku', compact('jenisbukus'));
+        return view('databuku.datajenisbuku', compact('jenisbukus'));
     }
-
-    /**
-     * Display tambah jenis buku page
-     */
-    public function showTambahJenisBuku()
-    {  
-        return view('tambahjenisbuku');
-    }
-    
 
     /**
      * Insert Data
@@ -84,7 +75,7 @@ class JenisbukuController extends Controller
     public function exportpdf_jenisbuku(){
         $data = Jenisbuku::all();
         view()->share('data', $data);
-        $pdf = PDF::loadview('data_jenisbuku-pdf');
+        $pdf = PDF::loadview('databuku.data_jenisbuku-pdf');
         return $pdf->download('data_jenisbuku.pdf');
     }
 

@@ -16,15 +16,29 @@ class BukuImport implements ToModel, WithStartRow
     public function model(array $row)
     {
         return new Buku([
-
-            'judul_buku' => $row[1],
+            'peruntukan'=> $row[1],
             'isbn' => $row[2],
-            'kategori' => $row[3],
-            'jenis_buku' => $row[4],
-            'penulis' => $row[5],
-            'penerbit' => $row[6],
-            'tahun_terbit' => $row[7],
-            'jumlah'=> $row[8],
+            'judul_buku' => $row[3],
+            'judul_asli' => $row[4],
+            'kategori' => $row[5],
+            'jenis_id' => $row[6],
+            'bahasa' => $row[7],
+            'perolehan' => $row[8],
+            'subyek' => $row[9],
+            'penerjemah' => $row[10],
+            'penulis' => $row[11],
+            'penerbit_id' => $row[12],
+            'tahun_terbit' => $row[13],
+            'tempat_terbit_id'=> $row[14],
+            'jumlah'=> $row[15],
+            'edisi'=> $row[16],
+            'jilid'=> $row[17],
+            'cetakan'=> $row[18],
+            'halaman'=> $row[19],
+            'panjang'=> $row[20],
+            'lebar'=> $row[21],
+            'rak'=> $row[22],
+            'harga'=> $row[23],
           
         ]);
     }

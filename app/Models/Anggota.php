@@ -21,5 +21,16 @@ class Anggota extends Model
         return Carbon::parse($this->attributes['updated_at'])
             ->translatedFormat('l, d M Y');
     }
+
+    public function getMasaBerlaku(){
+        return Carbon::parse($this->attributes['masa_berlaku'])
+            ->translatedFormat('l, d M Y');
+    }
+    
+    public function transaksi(){
+        return $this->hasMany(Transaksi::class);
+    }
+
+    
 }
 

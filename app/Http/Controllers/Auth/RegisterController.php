@@ -51,13 +51,18 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255','unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:4', 'confirmed'],
+            'username' => ['required', 'max:255','unique:users'],
+            'email' => ['required', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:4','confirmed'],
         ],[
+            'name.required'=> 'Nama Harus Diisi',
+            'username.required'=> 'Username Harus Diisi',
+            'email.required'=> 'Email Harus Diisi',
+            'password.required'=> 'Password Harus Diisi',
             'username.unique'=> 'Username Tidak Tersedia',
             'email.unique'=> 'Email Tidak Tersedia',
-            'password.min'=> 'Password Harus Lebih Dari 4 Karakter'
+            'password.min'=> 'Password Harus Lebih Dari 4 Karakter',
+            'password.confirmed'=> 'Password Tidak Cocok'
         ]);
     }
 
@@ -73,6 +78,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'username' => $data['username'],
             'email' => $data['email'],
+            'level' => $data['level'],
             'password' => Hash::make($data['password']),
         ]);
     }

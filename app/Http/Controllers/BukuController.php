@@ -11,6 +11,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreBukuRequest;
 use App\Http\Requests\UpdateBukuRequest;
 use App\Imports\BukuImport;
+use App\Models\Penerbit;
+use App\Models\TempatTerbit;
+use Illuminate\Support\Facades\File;
 Use Barryvdh\DomPDF\Facade\Pdf;
 
 class BukuController extends Controller
@@ -22,10 +25,11 @@ class BukuController extends Controller
      */
     public function index()
     {   
-        $bukus = Buku::paginate(99999);
-        // $jen = Jenisbuku::all();
-        $jenisbukus = Jenisbuku::all();
-        return view('databuku', compact('bukus', 'jenisbukus'));
+        $bukus = Buku::with('jenis','penerbit', 'tempat_terbit')->paginate(99999);
+        $jen = Jenisbuku::all();
+        $penerbit = Penerbit::all();
+        $tempat_terbit = TempatTerbit::all();
+        return view('databuku.databuku', compact('bukus'), compact('jen','penerbit', 'tempat_terbit'));
     }
 
     /**
@@ -33,10 +37,10 @@ class BukuController extends Controller
      */
     public function showTambahBuku()
     {  
-        //$jen = Jenisbuku::all();
-        $bukus = Buku::paginate(99999);
-        $jenisbukus = Jenisbuku::all();
-        return view('tambahbuku', compact('jenisbukus'));
+        $jen = Jenisbuku::all();
+        $penerbit = Penerbit::all();
+        $tempat_terbit = TempatTerbit::all();
+        return view('databuku.tambahbuku', compact('jen','penerbit', 'tempat_terbit'));;
     }
     
 
@@ -49,11 +53,16 @@ class BukuController extends Controller
     {   
         $validated = $request->validate([
             'judul_buku' => 'required|max:255',
-            'isbn' => 'required|unique:bukus|max:255|numeric',
+            'isbn' => 'required|unique:bukus|numeric',
             'kategori' => 'required',
             'penulis' => 'required', 
-            'penerbit' => 'required',
-            'tahun_terbit' => 'required|numeric|min:4|max:4',
+            'penerbit_id' => 'required',
+            'kategori' => 'required', 
+            'bahasa' => 'required', 
+            'perolehan' => 'required', 
+            'jenis_id' => 'required', 
+            'tempat_terbit_id' => 'required', 
+            'tahun_terbit' => 'required|numeric|min:4',
             'jumlah' => 'required|numeric',
         ],[
             'judul_buku.required'=> 'Judul Buku Tidak Boleh Kosong',
@@ -62,6 +71,12 @@ class BukuController extends Controller
             'tahun_terbit.min' => 'Silahkan Isi dengan Format Tahun yang Tepat',
             'tahun_terbit.max' => 'Silahkan Isi dengan Format Tahun yang Tepat',
             'jumlah.numeric' => 'Jumlah Harus Berisi Angka',
+            'kategori.required' => 'Kategori Harus Diisi',
+            'bahasa.required' => 'Bahasa Harus Diisi',
+            'perolehan.required' => 'Perolehan Harus Diisi',
+            'jenis_id.required' => 'Jenis Harus Diisi, Tambahkan Jika Belum Tersedia',
+            'tempat_terbit_id.required' => 'Tempat Terbit Harus Diisi, Tambahkan Jika Belum Tersedia',
+            'penerbit_id.required' => 'Penerbit Harus Diisi, Tambahkan Jika Belum Tersedia',
 
         ]);
        
@@ -78,6 +93,11 @@ class BukuController extends Controller
     public function deletebuku($id)
     {
         $data = Buku::find($id);
+        if ($data->sampul != 'sampuldefault.png') {
+            if (File::exists(public_path('assets/images/sampul/'.$data->sampul))) {
+                File::delete(public_path('assets/images/sampul/'.$data->sampul));
+            }
+        }
         $data->delete();
         return redirect()->route('databuku')->with('deletesuccess', 'Data Berhasil Dihapus');
 
@@ -88,6 +108,9 @@ class BukuController extends Controller
         $data = Buku::find( $id);
         $data->update($request->all());
         if($request->hasFile('sampul')){
+            if ($data->sampul != 'sampuldefault.png') {
+            File::delete(public_path('assets/images/sampul/'.$data->sampul));
+            }
             $request->file('sampul')->move('assets/images/sampul/', $request->file('sampul')->getClientOriginalName());
             $data->sampul = $request->file('sampul')->getClientOriginalName();
             $data->save();
@@ -96,8 +119,8 @@ class BukuController extends Controller
 
     }
 
-    public function exportexcel(){
-        return Excel::download(new BukuExport, 'Data_Buku.xlsx');
+    public function exportexcel_buku($tgl_awal_excel, $tgl_akhir_excel){
+        return (new BukuExport($tgl_awal_excel, $tgl_akhir_excel))->download('Data Buku.xlsx');
     }
 
 
@@ -106,18 +129,25 @@ class BukuController extends Controller
         $data = $request->file('file');
         $namafile = $data->getClientOriginalName();
         $data->move('assets/data_buku_excel/', $namafile);
-
         Excel::import(new BukuImport, \public_path('/assets/data_buku_excel/'.$namafile));
+        if (File::exists(public_path('assets/data_buku_excel/'.$namafile))) {
+                File::delete(public_path('assets/data_buku_excel/'. $namafile));
+            }
         return \redirect()->back()->with('importsuccess', 'Data Berhasil Diimport');;
 
     }
 
-    public function exportpdf_buku(){
-        $data = Buku::all();
-        view()->share('data', $data);
-        $pdf = PDF::loadview('data_buku-pdf');
+    public function exportpdf_buku($tgl_awal, $tgl_akhir){
+        $data = Buku::all()->whereBetween('created_at', [$tgl_awal,$tgl_akhir]);
+        $jen = Jenisbuku::all();
+        $awal = $tgl_awal;
+        $akhir = $tgl_akhir;
+        view()->share('data', $data, $jen,'awal', $awal, $akhir);
+        $pdf = PDF::loadview('databuku.data_buku-pdf');
         return $pdf->download('data_buku.pdf');
+        
     }
+
 
 
 

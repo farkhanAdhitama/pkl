@@ -10,16 +10,24 @@ use App\Imports\AnggotaImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 
 class AnggotaController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {   
-        $anggotas = Anggota::paginate(1000000);
-        
-        return view('dataanggota', compact('anggotas'));
+        $anggotas = Anggota::all();
+        $members = Anggota::all();
+        foreach ($members as $anggota){
+            $id_anggota = $anggota->id;
+            $result = now()->diffInDays($anggota->masa_berlaku, false);
+            if($result < 0){
+                $anggota::where('id', $id_anggota)->update(['status' => "NonAktif"]);
+            }
+        }
+        return view('anggota.dataanggota', compact('anggotas'));
     }
 
     /**
@@ -27,7 +35,7 @@ class AnggotaController extends Controller
      */
     public function showTambahAnggota()
     {  
-        return view('tambahanggota');
+        return view('anggota.tambahanggota');
     }
     
 
@@ -42,13 +50,13 @@ class AnggotaController extends Controller
             'nama' => 'required|max:255|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/',
             'nis' => 'required|numeric|unique:anggotas',
             'kelas' => 'required', 
-            'no_hp' => 'required|numeric'
+            
             
         ],[
             'nama.regex' => 'Nama Harus Berisi Alphabet',
-            'nis.numeric' => 'NIS/NIP Harus Berisi Angka',
-            'nis.numeric' => 'NIS/NIP Sudah Ada',
-            'no_hp.numeric'=> 'Nomor HP Harus Berisi Angka',
+            'nis.numeric' => 'NIS Harus Berisi Angka',
+            'nis.unique' => 'NIS Sudah Ada',
+            'kelas.required' => 'Kelas Harus Diisi'
         ]);
 
         $data = Anggota::create($request->all());
@@ -64,7 +72,28 @@ class AnggotaController extends Controller
     public function deleteanggota($id)
     {
         $data = Anggota::find($id);
+        if ($data->foto_anggota != 'person.png') {
+            if (File::exists(public_path('assets/images/foto_anggota/'.$data->foto_anggota))) {
+                File::delete(public_path('assets/images/foto_anggota/'.$data->foto_anggota));
+            }
+        }
         $data->delete();
+        return redirect()->route('dataanggota')->with('deletesuccess', 'Data Berhasil Dihapus');
+
+    }
+
+    //Delete Anggota All
+    public function deleteAnggotaAll()
+    {
+        Anggota::getQuery()->delete();
+        return redirect()->route('dataanggota')->with('deletesuccess', 'Data Berhasil Dihapus');
+
+    }
+
+     //Delete Anggota Non
+    public function deleteAnggotaNonAktif()
+    {
+        Anggota::where("status", "NonAktif")->getQuery()->delete();
         return redirect()->route('dataanggota')->with('deletesuccess', 'Data Berhasil Dihapus');
 
     }
@@ -74,6 +103,9 @@ class AnggotaController extends Controller
         $data = Anggota::find( $id);
         $data->update($request->all());
         if($request->hasFile('foto_anggota')){
+            if ($data->foto_anggota != 'person.png') {
+                File::delete(public_path('assets/images/foto_anggota/'.$data->foto_anggota));
+            }
             $request->file('foto_anggota')->move('assets/images/foto_anggota/', $request->file('foto_anggota')->getClientOriginalName());
             $data->foto_anggota = $request->file('foto_anggota')->getClientOriginalName();
             $data->save();
@@ -100,8 +132,21 @@ class AnggotaController extends Controller
     public function exportpdf_anggota(){
         $data = Anggota::all();
         view()->share('data', $data);
-        $pdf = PDF::loadview('data_anggota-pdf');
+        $pdf = PDF::loadview('anggota.data_anggota-pdf');
         return $pdf->download('data_anggota.pdf');
     }
 
+    public function ubahStatusNonAktif(Request $request,$id)
+    {   
+        $data = Anggota::where('id', $id)->update(['status' => "NonAktif"]);
+        return redirect()->route('dataanggota')->with('succesUbahStatus', 'Status Diubah');
+
+    }
+
+    public function ubahStatusAktif(Request $request,$id)
+    {   
+        $data = Anggota::where('id', $id)->update(['status' => "Aktif"]);
+        return redirect()->route('dataanggota')->with('succesUbahStatus', 'Status Diubah');
+
+    }
 }
