@@ -103,6 +103,7 @@
                                                 id="lama">
                                                 <option value="7">1 Minggu</option>
                                                 <option value="30">1 Bulan</option>
+                                                <option value="180">1 Semester</option>
                                                 <option value="365">1 Tahun</option>
                                             </select>
                                             @error('lama')
