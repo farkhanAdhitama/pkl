@@ -9,6 +9,7 @@ use App\Imports\TempatTerbitImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 Use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Validator;
 
 class TempatTerbitController extends Controller
 {
@@ -27,8 +28,26 @@ class TempatTerbitController extends Controller
     public function insertTempatTerbit(Request $request)
     {   
 
-        $data = TempatTerbit::create($request->all());
+        $rules = [
+            'kota' => ['unique:tempat_terbits'],
+        ];
+
+        $message = [
+            'kota.unique' => 'Data Tempat Terbit Sudah Ada, Silahkan Dicek Kembali',
+        ];
+        $validasi = Validator::make($request->all(), $rules, $message);
+
+        if ($validasi->fails()) {
+            return redirect()
+                ->back()
+                ->with('add_fails', 'Data Gagal Ditambahkan.')
+                ->withErrors($validasi);
+        } else {
+            $data = TempatTerbit::create($request->all());
         return redirect()->route('dataTempatTerbit')->with('insertsuccess', 'Berhasil Ditambahkan');
+        }
+
+       
     }
 
     //Delete Anggota

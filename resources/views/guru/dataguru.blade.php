@@ -52,21 +52,23 @@
     <div class="row">
         <div class="col-12 grid-margin">
             <div class="float">
-
-                <a href="/tambahguru" type="button" class="btn btn-sm btn-primary mb-3"><i
-                        class="mdi mdi-library-plus mdi-icon"></i> Tambah Guru/Staff</a>
-
-                <div class="float-end mb-3">
-
-                    <a href="/exportpdf_guru"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i
+                <div class="text-end mb-3">
+                    <div class="float-start">
+                        <a href="/tambahguru" type="button" class="btn btn-sm btn-primary mb-3 mt-1"><i
+                                class="mdi mdi-library-plus mdi-icon"></i> Tambah Guru/Staff</a>
+                    </div>
+                    <a href="/exportpdf_guru"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1 mt-1"> <i
                                 class="mdi mdi-printer btn-icon-append"></i> Cetak PDF </button></a>
-                    <a href="/exportexcel_guru"> <button type="button" class="btn btn-sm btn-success btn-icon-text me-1">
+                    <a href="/exportexcel_guru"> <button type="button"
+                            class="btn btn-sm btn-success btn-icon-text me-1  mt-1">
                             <i class="mdi mdi-printer btn-icon-append"></i> Cetak Excel </button></a>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#importguru"
-                        class="btn btn-sm btn-info btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend me-1"></i>Import
+                        class="btn btn-sm btn-info btn-icon-text me-1 mt-1"><i
+                            class="mdi mdi-upload btn-icon-prepend  "></i>Import
                         Data</button>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#hapus_data"
-                        class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-delete btn-icon-append"></i>Hapus
+                        class="btn btn-sm btn-danger btn-icon-text me-1 mt-1"><i
+                            class="mdi mdi-delete btn-icon-append "></i>Hapus
                         Data</button>
 
 

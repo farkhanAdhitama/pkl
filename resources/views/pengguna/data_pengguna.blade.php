@@ -34,7 +34,8 @@
         <div class="col-12 grid-margin">
             <div class="float">
                 <button type="button" data-bs-toggle="modal" data-bs-target="#insertPengguna"
-                    class="btn btn-sm btn-primary mb-3"><i class="mdi mdi-library-plus mdi-icon"></i>Tambah Anggota</button>
+                    class="btn btn-sm btn-primary mb-3"><i class="mdi mdi-library-plus mdi-icon"></i>Tambah
+                    Pengguna</button>
                 <!-- The Insert Modal -->
                 <div class="modal fade" id="insertPengguna">
                     <div class="modal-dialog modal-dialog-centered">
@@ -172,7 +173,7 @@
                                                 <div class="modal-content">
                                                     <!-- Modal Header -->
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title ">Edit Data Anggota</h4>
+                                                        <h4 class="modal-title ">Edit Data Pengguna</h4>
                                                         <button type="button" class="btn-close"
                                                             data-bs-dismiss="modal"></button>
                                                     </div>

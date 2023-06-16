@@ -58,7 +58,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="clearfix">
-                        <h4 class="card-title float-left mb-1">Profil User</h4>
+                        <h4 class="card-title float-left mb-1">Profil Pengguna</h4>
                         <div id="visit-sale-chart-legend"
                             class="rounded-legend legend-horizontal legend-top-right float-right"></div><br>
                         <div class="text-center mb-3">

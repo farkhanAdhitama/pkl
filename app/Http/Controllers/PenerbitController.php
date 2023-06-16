@@ -11,7 +11,7 @@ use App\Imports\JenisbukuImport;
 use App\Imports\PenerbitImport;
 use Maatwebsite\Excel\Facades\Excel;
 Use Barryvdh\DomPDF\Facade\Pdf;
-
+use Illuminate\Support\Facades\Validator;
 
 class PenerbitController extends Controller
 {
@@ -28,13 +28,25 @@ class PenerbitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function insertPenerbit(Request $request)
-    {    $validated = $request->validate([
-            'nama_penerbit' => 'required|unique:majalahs|numeric',
-        ],[
-            'nama_penerbit.unique' => 'Data Majalah Sudah Ada, Silahkan Dicek Kembali',
-        ]);
-        $data = Penerbit::create($request->all());
-        return redirect()->route('dataPenerbit')->with('insertsuccess', 'Penerbit Berhasil Ditambahkan');
+    {    
+        $rules = [
+            'nama_penerbit' => ['unique:penerbits'],
+        ];
+
+        $message = [
+            'nama_penerbit.unique' => 'Data Penerbit Sudah Ada, Silahkan Dicek Kembali',
+        ];
+        $validasi = Validator::make($request->all(), $rules, $message);
+
+        if ($validasi->fails()) {
+            return redirect()
+                ->back()
+                ->with('add_fails', 'Data Gagal Ditambahkan.')
+                ->withErrors($validasi);
+        } else {
+            $data = Penerbit::create($request->all());
+            return redirect()->route('dataPenerbit')->with('insertsuccess', 'Penerbit Berhasil Ditambahkan');
+        }
     }
 
     //Delete Anggota

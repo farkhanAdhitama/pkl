@@ -29,7 +29,7 @@
     </li> --}}
 
         <li
-            class="nav-item {{ request()->is('tambahbuku', 'tambahMajalah', 'datajenisbuku', 'dataPenerbit', 'dataTempatTerbit') ? 'active' : '' }}">
+            class="nav-item {{ request()->is('tambahbuku', 'tambahMajalah', 'tambahCD', 'datajenisbuku', 'dataPenerbit', 'dataTempatTerbit') ? 'active' : '' }}">
             <a class="nav-link " data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
                 aria-controls="ui-basic">
                 <span class="menu-title">Koleksi</span>
@@ -44,7 +44,8 @@
                     {{-- <li class="nav-item"> <a class="nav-link" href="{{ route('kategori') }}">Kategori Buku</a></li> --}}
                     <li class="nav-item"> <a class="nav-link {{ request()->is('tambahMajalah') ? 'active' : '' }}"
                             href="{{ route('dataMajalah') }}">Koleksi Majalah</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('dataCD') }}">Koleksi CD</a></li>
+                    <li class="nav-item"> <a class="nav-link {{ request()->is('tambahCD') ? 'active' : '' }}"
+                            href="{{ route('dataCD') }}">Koleksi CD</a></li>
                 </ul>
             </div>
         </li>
