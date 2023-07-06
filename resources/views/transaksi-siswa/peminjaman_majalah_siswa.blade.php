@@ -1,6 +1,26 @@
 @extends('layouts.blank')
 
 @section('content')
+    {{-- Notif  Pengembalian Majalah berhasil --}}
+    @if ($message = Session::get('success_kembalikan_majalah'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Majalah Berhasil Dikembalikan!',
+                'success'
+            )
+        </script>
+    @endif
+    {{-- Notif  Perpanjangan Majalah berhasil --}}
+    @if ($message = Session::get('success_perpanjang_majalah'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Masa Peminjaman Diperpanjang 1 Minggu!',
+                'success'
+            )
+        </script>
+    @endif
     <div class="page-header">
         <h3 class="page-title">
             <span class="page-title-icon bg-gradient-primary text-white me-2">
@@ -71,7 +91,8 @@
                                             name="anggota_id" id="anggota_id">
                                             <option value="">--Nama Peminjam--</option>
                                             @foreach ($anggotas as $anggota)
-                                                <option value="{{ $anggota->id }}">{{ $anggota->nama }}</option>
+                                                <option value="{{ $anggota->id }}">{{ $anggota->nama }}
+                                                    {{ $anggota->kelas }} {{ $anggota->jurusan }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -155,7 +176,8 @@
                                         <tr @if ($pinjam->getSelisih($pinjam->lama) < 0) class="table-danger" @endif>
                                             <td scope="pinjam">{{ $index + $peminjaman->firstItem() }}</td>
                                             <td>{{ $pinjam->anggota->nama ?? 'N/A' }}</td>
-                                            <td>{{ $pinjam->anggota->kelas ?? 'N/A' }}</td>
+                                            <td>{{ $pinjam->anggota->kelas ?? 'N/A' }}
+                                                {{ $pinjam->anggota->jurusan ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->majalah->nama ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->getCreatedAttribute() }}</td>
                                             <td>{{ $pinjam->getTenggatWaktu($pinjam->lama) }}</td>
@@ -214,11 +236,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/perpanjang_majalah/" + idpinjam + ""
-                    Swal.fire(
-                        'Berhasil!',
-                        'Peminjaman Diperpanjang 1 Minggu',
-                        'success'
-                    )
                 }
             })
         })
@@ -243,11 +260,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/kembalikan_majalah/" + idpinjam + "/" + idmajalah + ""
-                    Swal.fire(
-                        'Berhasil!',
-                        'Majalah Berhasil Dikembalikan',
-                        'success'
-                    )
                 }
             })
         })

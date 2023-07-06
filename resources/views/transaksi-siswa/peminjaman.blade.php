@@ -1,6 +1,27 @@
 @extends('layouts.blank')
 
 @section('content')
+    {{-- Notif  Pengembalian Buku berhasil --}}
+    @if ($message = Session::get('successkembalikan_buku'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Buku Berhasil Dikembalikan!',
+                'success'
+            )
+        </script>
+    @endif
+    {{-- Notif  Perpanjangan Buku berhasil --}}
+    @if ($message = Session::get('successperpanjang_buku'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Masa Peminjaman Diperpanjang 1 Minggu!',
+                'success'
+            )
+        </script>
+    @endif
+
     <div class="page-header">
         <h3 class="page-title">
             <span class="page-title-icon bg-gradient-primary text-white me-2">
@@ -18,12 +39,6 @@
                 <li><a class="dropdown-item" href="/peminjaman_cd">CD</a></li>
             </ul>
         </div>
-        {{-- <select id="pindah_halaman" style="width : 100px" class="form-select form-select-sm "
-            aria-label="Default select example">
-            <option value="1">Buku</option>
-            <option value="2">Majalah</option>
-            <option value="3">CD</option>
-        </select> --}}
 
         {{-- swall berhasil insert --}}
         @if ($message = Session::get('insertsuccess'))
@@ -51,9 +66,20 @@
         <div class="row">
             <div class="col-12 grid-margin">
                 <div class="float">
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#insertPinjamBuku"
-                        class="btn btn-sm btn-primary mb-3"><i class="mdi mdi-library-plus mdi-icon"></i>Tambah Peminjaman
-                        Buku</button>
+                    <div class="text-end mb-3">
+                        <div class="float-start">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#insertPinjamBuku"
+                                class="btn btn-sm btn-primary  mt-1"><i class="mdi mdi-library-plus mdi-icon"></i>Tambah
+                                Peminjaman
+                                Buku</button>
+                        </div>
+                        <a href="/exportpdf_peminjaman"><button type="button"
+                                class="btn btn-sm btn-info btn-icon-text me-1 mt-1">
+                                <i class="mdi mdi-printer btn-icon-append"></i> Cetak PDF </button></a>
+                        <a href="/exportexcel_peminjaman"> <button type="button"
+                                class="btn btn-sm btn-success btn-icon-text me-1 mt-1"> <i
+                                    class="mdi mdi-printer btn-icon-append"></i> Cetak Excel </button></a>
+                    </div>
                     <!-- The Insert Modal -->
                     <div class="modal fade" id="insertPinjamBuku">
                         <div class="modal-dialog modal-dialog-centered">
@@ -61,7 +87,7 @@
                                 <!-- Modal Header -->
                                 <div class="modal-header">
                                     <h4 class="modal-title ">Tambah Peminjaman Buku</h4>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    <button type="button" class="btn-close mt-1" data-bs-dismiss="modal"></button>
                                 </div>
                                 <!-- Modal body -->
                                 <div class="modal-body px-4">
@@ -78,7 +104,9 @@
                                                 required name="anggota_id" id="anggota_id">
                                                 <option value="">--Nama Peminjam--</option>
                                                 @foreach ($anggotas as $anggota)
-                                                    <option value="{{ $anggota->id }}">{{ $anggota->nama }}</option>
+                                                    <option value="{{ $anggota->id }}">{{ $anggota->nama }}
+                                                        {{ $anggota->kelas }} {{ $anggota->jurusan }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                             <div class="text-danger" id="anggota_id_error"> </div>
@@ -90,7 +118,8 @@
                                                 required id="buku_id">
                                                 <option value="">--Judul Buku--</option>
                                                 @foreach ($bukus as $buku)
-                                                    <option value="{{ $buku->id }}">{{ $buku->judul_buku }}</option>
+                                                    <option value="{{ $buku->id }}">{{ $buku->judul_buku }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                             <div class="text-danger" id="buku_id_error"> </div>
@@ -121,86 +150,78 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="float-end mb-3">
-                        <a href="/exportpdf_peminjaman"><button type="button"
-                                class="btn btn-sm btn-info btn-icon-text me-1">
-                                <i class="mdi mdi-printer btn-icon-append"></i> Cetak PDF </button></a>
-                        <a href="/exportexcel_peminjaman"> <button type="button"
-                                class="btn btn-sm btn-success btn-icon-text me-1"> <i
-                                    class="mdi mdi-printer btn-icon-append"></i> Cetak Excel </button></a>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Daftar Peminjaman Buku</h4>
-                            <div class="table-responsive">
-                                <table class="table " id="myTable">
-                                    <thead>
-                                        <tr>
-                                            <th> No </th>
-                                            <th> Nama </th>
-                                            <th> Kelas</th>
-                                            <th> Judul </th>
-                                            <th> Tanggal Pinjam</th>
-                                            <th> Batas Kembali</th>
-                                            <th> Lama </th>
-                                            <th> Petugas </th>
-                                            <th> Status </th>
-                                            <th> Aksi </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($peminjaman as $index => $pinjam)
-                                            @if ($pinjam->getSelisih($pinjam->lama) < 0 && $pinjam->status_email == 0)
-                                                {{ $pinjam->sendEmail(
-                                                    $pinjam->anggota->email,
-                                                    $pinjam->id,
-                                                    $pinjam->anggota->nama,
-                                                    $pinjam->buku->judul_buku,
-                                                    $pinjam->getTenggatWaktu($pinjam->lama),
-                                                ) }}
-                                            @endif
-                                            <tr @if ($pinjam->getSelisih($pinjam->lama) < 0) class="table-danger" @endif>
-                                                <td scope="pinjam">{{ $index + $peminjaman->firstItem() }}</td>
-                                                <td>{{ $pinjam->anggota->nama ?? 'N/A' }}</td>
-                                                <td>{{ $pinjam->anggota->kelas ?? 'N/A' }}</td>
-                                                <td>{{ $pinjam->buku->judul_buku ?? 'N/A' }}</td>
-                                                <td>{{ $pinjam->getCreatedAttribute() }}</td>
-                                                <td>{{ $pinjam->getTenggatWaktu($pinjam->lama) }}</td>
-                                                <td>{{ $pinjam->lama }} Hari</td>
-                                                <td>{{ $pinjam->petugas ?? '' }}</td>
-                                                <td><label
-                                                        class="badge badge-gradient-warning">{{ $pinjam->status }}</label>
-                                                </td>
-                                                <td>
-                                                    <button type="button"
-                                                        class="btn btn-inverse-danger btn-sm perpanjang "
-                                                        @if ($pinjam->getSelisih($pinjam->lama) < 0) disabled @endif
-                                                        data-bs-toggle="modal " data-id="{{ $pinjam->id }}"
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Daftar Peminjaman Buku</h4>
+                        <div class="table-responsive">
+                            <table class="table " id="myTable">
+                                <thead>
+                                    <tr>
+                                        <th> No </th>
+                                        <th> Nama </th>
+                                        <th> Kelas</th>
+                                        <th> Judul </th>
+                                        <th> Tanggal Pinjam</th>
+                                        <th> Batas Kembali</th>
+                                        <th> Lama </th>
+                                        <th> Petugas </th>
+                                        <th> Status </th>
+                                        <th> Aksi </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($peminjaman as $index => $pinjam)
+                                        @if ($pinjam->getSelisih($pinjam->lama) < 0 && $pinjam->status_email == 0)
+                                            {{ $pinjam->sendEmail(
+                                                $pinjam->anggota->email,
+                                                $pinjam->id,
+                                                $pinjam->anggota->nama,
+                                                $pinjam->buku->judul_buku,
+                                                $pinjam->getTenggatWaktu($pinjam->lama),
+                                            ) }}
+                                        @endif
+                                        <tr @if ($pinjam->getSelisih($pinjam->lama) < 0) class="table-danger" @endif>
+                                            <td scope="pinjam">{{ $index + $peminjaman->firstItem() }}</td>
+                                            <td>{{ $pinjam->anggota->nama ?? 'N/A' }}</td>
+                                            <td>{{ $pinjam->anggota->kelas ?? 'N/A' }}
+                                                {{ $pinjam->anggota->jurusan ?? 'N/A' }}
+                                            </td>
+                                            <td>{{ $pinjam->buku->judul_buku ?? 'N/A' }}</td>
+                                            <td>{{ $pinjam->getCreatedAttribute() }}</td>
+                                            <td>{{ $pinjam->getTenggatWaktu($pinjam->lama) }}</td>
+                                            <td>{{ $pinjam->lama }} Hari</td>
+                                            <td>{{ $pinjam->petugas ?? '' }}</td>
+                                            <td><label class="badge badge-gradient-warning">{{ $pinjam->status }}</label>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-inverse-danger btn-sm perpanjang "
+                                                    @if ($pinjam->getSelisih($pinjam->lama) < 0) disabled @endif
+                                                    data-bs-toggle="modal " data-id="{{ $pinjam->id }}"
+                                                    data-buku="{{ $pinjam->buku->judul_buku ?? 'N/A' }}"
+                                                    data-anggota="{{ $pinjam->anggota->nama ?? 'N/A' }}">
+                                                    Perpanjang
+                                                </button>
+                                                <a href="#">
+                                                    <button class="btn btn-sm btn-inverse-primary kembalikan"
+                                                        buku-id="{{ $pinjam->buku->id ?? 'N/A' }}"
+                                                        data-id="{{ $pinjam->id }}"
                                                         data-buku="{{ $pinjam->buku->judul_buku ?? 'N/A' }}"
                                                         data-anggota="{{ $pinjam->anggota->nama ?? 'N/A' }}">
-                                                        Perpanjang
+                                                        Kembalikan
                                                     </button>
-                                                    <a href="#">
-                                                        <button class="btn btn-sm btn-inverse-primary kembalikan"
-                                                            buku-id="{{ $pinjam->buku->id ?? 'N/A' }}"
-                                                            data-id="{{ $pinjam->id }}"
-                                                            data-buku="{{ $pinjam->buku->judul_buku ?? 'N/A' }}"
-                                                            data-anggota="{{ $pinjam->anggota->nama ?? 'N/A' }}">
-                                                            Kembalikan
-                                                        </button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                <div>
-                                    Keterangan :
-                                    <p><i class="mdi mdi-checkbox-blank text-danger"></i> Masa Pinjam Telah Melewati Batas
-                                    </p>
-                                </div>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <div>
+                                Keterangan :
+                                <p><i class="mdi mdi-checkbox-blank text-danger"></i> Masa Pinjam Telah
+                                    Melewati Batas
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -208,6 +229,7 @@
             </div>
         </div>
     </div>
+
 
     {{-- perpanjang swal --}}
     <script>
@@ -227,11 +249,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/perpanjang/" + idpinjam + ""
-                    Swal.fire(
-                        'Berhasil!',
-                        'Peminjaman Diperpanjang 1 Minggu',
-                        'success'
-                    )
                 }
             })
         })
@@ -256,11 +273,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/kembalikan/" + idpinjam + "/" + idbuku + ""
-                    Swal.fire(
-                        'Berhasil!',
-                        'Buku Berhasil Dikembalikan',
-                        'success'
-                    )
                 }
             })
         })

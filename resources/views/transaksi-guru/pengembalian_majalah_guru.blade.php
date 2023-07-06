@@ -1,6 +1,26 @@
 @extends('layouts.blank')
 
 @section('content')
+    {{-- Notif  Hapus Pengembalian  Majalah berhasil --}}
+    @if ($message = Session::get('success_delete_majalah'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Pengembalian Majalah Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
+    {{-- Notif Hapus Pengembalian Semua Majalah berhasil --}}
+    @if ($message = Session::get('success_delete_majalah_all'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Semua Pengembalian Majalah Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
     <div class="page-header">
         <h3 class="page-title">
             <span class="page-title-icon bg-gradient-primary text-white me-2">
@@ -111,11 +131,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deletePengembalianMajalah/" + idtransaksi + ""
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
+
                 }
             })
         })
@@ -132,11 +148,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deletePengembalianMajalahGuruAll/"
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
+
                 }
             })
         })

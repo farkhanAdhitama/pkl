@@ -33,7 +33,6 @@
         ?>
         <br>
     </div>
-    {{ $awal }}
 
     <table id="book">
         <tr>

@@ -20,6 +20,17 @@
         </script>
     @endif
 
+    {{-- swal berhasil delete --}}
+    @if ($message = Session::get('deletesuccess'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Data Majalah Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
+
     {{-- swal berhasil import --}}
     @if ($message = Session::get('importsuccess'))
         {{-- Notif buku berhasil ditambah --}}
@@ -52,143 +63,141 @@
     <div class="row">
         <div class="col-12 grid-margin">
             <div class="float">
+                <div class="text-end mb-3">
+                    <div class="float-start">
+                        <a href="/tambahMajalah" type="button" class="btn btn-sm btn-primary mb-3"><i
+                                class="mdi mdi-library-plus mdi-icon"></i> Tambah Data Majalah</a>
+                    </div>
 
-                <a href="/tambahMajalah" type="button" class="btn btn-sm btn-primary mb-3"><i
-                        class="mdi mdi-library-plus mdi-icon"></i> Tambah Data Majalah</a>
-
-                <div class="float-end mb-3">
                     <button type="button" data-bs-toggle="modal" data-bs-target="#cetaktgl"
-                        class="btn btn-sm btn-primary btn-icon-text me-1"><i
+                        class="btn btn-sm btn-primary btn-icon-text me-1 mb-1"><i
                             class="mdi mdi-printer
                                 btn-icon-append"></i>Cetak
                         PDF</button>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#cetakExcel"
-                        class="btn btn-sm btn-success btn-icon-text me-1"><i
+                        class="btn btn-sm btn-success btn-icon-text me-1 mb-1"><i
                             class="mdi mdi-printer
                                 btn-icon-append"></i>Cetak
                         Excel</button>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#import_majalah"
-                        class="btn btn-sm btn-danger btn-icon-text"><i class="mdi mdi-upload btn-icon-prepend"></i>Import
+                        class="btn btn-sm btn-danger btn-icon-text me-1 mb-1"><i
+                            class="mdi mdi-upload btn-icon-prepend"></i>Import
                         Data</button>
-
-                    <!-- The Cetak PDF pertanggal Modal -->
-                    <div class="modal fade" id="cetaktgl">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <!-- Modal Header -->
-                                <div class="modal-header">
-                                    <h4 class="modal-title ">Cetak PDF</h4>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <!-- The Cetak PDF pertanggal Modal -->
+                <div class="modal fade" id="cetaktgl">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title ">Cetak PDF</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body px-4">
+                                <div class="form-group">
+                                    <label for="tgl_awal">Tanggal Awal</label>
+                                    <input type="date" name="tgl_awal" class="form-control" id="tgl_awal"
+                                        placeholder="Tanggal Awal" required>
                                 </div>
-                                <!-- Modal body -->
+                                <div class="form-group">
+                                    <label for="tgl_akhir">Tanggal Akhir</label>
+                                    <input type="date" name="tgl_akhir" class="form-control" id="tgl_akhir"
+                                        placeholder="Tanggal Akhir" required>
+                                </div>
+                                <button id="exportPDF" type="button" class="exportPDF btn btn-primary w-100 mb-2">Cetak
+                                    PDF</button>
+                                <h6 class="mt-2">Keterangan :</h6>
+                                <ul>
+                                    <li class="small">Jangkauan Tanggal Menurut Tanggal Majalah Masuk</li>
+                                    <li class="small">Kosongkan Tanggal Untuk Mencetak Semua</li>
+                                </ul>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- The Cetak Excel pertanggal Modal -->
+                <div class="modal fade" id="cetakExcel">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title ">Cetak Excel</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body px-4">
+                                <div class="form-group">
+                                    <label for="tgl_awal_excel">Tanggal Awal</label>
+                                    <input type="date" name="tgl_awal_excel" class="form-control" id="tgl_awal_excel"
+                                        placeholder="Tanggal Awal" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tgl_akhir_excel">Tanggal Akhir</label>
+                                    <input type="date" name="tgl_akhir_excel" class="form-control" id="tgl_akhir_excel"
+                                        placeholder="Tanggal Akhir" required>
+                                </div>
+                                <button id="exportExcel" type="button" class="exportExcel btn btn-primary w-100 mb-2">Cetak
+                                    Excel</button>
+                                <h6 class="mt-2">Keterangan :</h6>
+                                <ul>
+                                    <li class="small">Jangkauan Tanggal Menurut Tanggal Majalah Masuk</li>
+                                    <li class="small">Kosongkan Tanggal Untuk Mencetak Semua</li>
+                                </ul>
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- The Import Excel Modal -->
+                <div class="modal fade" id="import_majalah">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title ">Import Majalah</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <!-- Modal body -->
+
+                            <div class="card m-3 text-center">
+                                <div class="card-body m-3">
+                                    <h5 class="card-title text-center">Download Template Excel</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted text-center">Untuk Import Data</h6>
+                                    <a href="assets/template_import/importmajalah_template.xlsx"><button type="button"
+                                            class="btn btn-primary text-center">Download</button></a>
+                                </div>
+                            </div>
+                            <form action="/importexcel_majalah" method="POST" enctype="multipart/form-data">
+                                @csrf
+
                                 <div class="modal-body px-4">
+                                    <h5>Pilih File yang Akan Diimport</h5>
                                     <div class="form-group">
-                                        <label for="tgl_awal">Tanggal Awal</label>
-                                        <input type="date" name="tgl_awal" class="form-control" id="tgl_awal"
-                                            placeholder="Tanggal Awal" required>
+                                        <input class="" type="file" name="file" id="" required>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="tgl_akhir">Tanggal Akhir</label>
-                                        <input type="date" name="tgl_akhir" class="form-control" id="tgl_akhir"
-                                            placeholder="Tanggal Akhir" required>
-                                    </div>
-                                    <button id="exportPDF" type="button" class="exportPDF btn btn-primary w-100 mb-2">Cetak
-                                        PDF</button>
-                                    <h6 class="mt-2">Keterangan :</h6>
-                                    <ul>
-                                        <li class="small">Jangkauan Tanggal Menurut Tanggal Majalah Masuk</li>
-                                        <li class="small">Kosongkan Tanggal Untuk Mencetak Semua</li>
-                                    </ul>
                                 </div>
 
                                 <!-- Modal footer -->
-                                <div class="modal-footer">
-
+                                <div class="modal-footer float-start">
+                                    <button type="submit" class="btn btn-primary"
+                                        data-bs-dismiss="modal">Import</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                                 </div>
-
-                            </div>
+                            </form>
                         </div>
                     </div>
-
-                    <!-- The Cetak Excel pertanggal Modal -->
-                    <div class="modal fade" id="cetakExcel">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <!-- Modal Header -->
-                                <div class="modal-header">
-                                    <h4 class="modal-title ">Cetak Excel</h4>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                </div>
-                                <!-- Modal body -->
-                                <div class="modal-body px-4">
-                                    <div class="form-group">
-                                        <label for="tgl_awal_excel">Tanggal Awal</label>
-                                        <input type="date" name="tgl_awal_excel" class="form-control" id="tgl_awal_excel"
-                                            placeholder="Tanggal Awal" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tgl_akhir_excel">Tanggal Akhir</label>
-                                        <input type="date" name="tgl_akhir_excel" class="form-control"
-                                            id="tgl_akhir_excel" placeholder="Tanggal Akhir" required>
-                                    </div>
-                                    <button id="exportExcel" type="button"
-                                        class="exportExcel btn btn-primary w-100 mb-2">Cetak
-                                        Excel</button>
-                                    <h6 class="mt-2">Keterangan :</h6>
-                                    <ul>
-                                        <li class="small">Jangkauan Tanggal Menurut Tanggal Majalah Masuk</li>
-                                        <li class="small">Kosongkan Tanggal Untuk Mencetak Semua</li>
-                                    </ul>
-                                </div>
-                                <!-- Modal footer -->
-                                <div class="modal-footer">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- The Import Excel Modal -->
-                    <div class="modal fade" id="import_majalah">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-
-                                <!-- Modal Header -->
-                                <div class="modal-header">
-                                    <h4 class="modal-title ">Import Majalah</h4>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                </div>
-                                <!-- Modal body -->
-
-                                <div class="card m-3 text-center">
-                                    <div class="card-body m-3">
-                                        <h5 class="card-title text-center">Download Template Excel</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted text-center">Untuk Import Data</h6>
-                                        <a href="assets/template_import/importmajalah_template.xlsx"><button
-                                                type="button" class="btn btn-primary text-center">Download</button></a>
-                                    </div>
-                                </div>
-                                <form action="/importexcel_majalah" method="POST" enctype="multipart/form-data">
-                                    @csrf
-
-                                    <div class="modal-body px-4">
-                                        <h5>Pilih File yang Akan Diimport</h5>
-                                        <div class="form-group">
-                                            <input class="" type="file" name="file" id="" required>
-                                        </div>
-                                    </div>
-
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary"
-                                            data-bs-dismiss="modal">Import</button>
-                                        <button type="button" class="btn btn-danger"
-                                            data-bs-dismiss="modal">Tutup</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
@@ -415,11 +424,11 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deleteMajalah/" + id_majalah + ""
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
+                    // Swal.fire(
+                    //     'Dihapus!',
+                    //     'Data Berhasil Dihapus',
+                    //     'success'
+                    // )
                 }
             })
         })

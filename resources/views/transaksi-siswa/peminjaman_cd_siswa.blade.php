@@ -1,6 +1,27 @@
 @extends('layouts.blank')
 
 @section('content')
+    {{-- Notif  Pengembalian CD berhasil --}}
+    @if ($message = Session::get('success_kembalikan_cd'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'CD Berhasil Dikembalikan!',
+                'success'
+            )
+        </script>
+    @endif
+    {{-- Notif  Perpanjangan CD berhasil --}}
+    @if ($message = Session::get('success_perpanjang_cd'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Masa Peminjaman Diperpanjang 1 Minggu!',
+                'success'
+            )
+        </script>
+    @endif
+
     <div class="page-header">
         <h3 class="page-title">
             <span class="page-title-icon bg-gradient-primary text-white me-2">
@@ -69,7 +90,8 @@
                                             name="anggota_id" id="anggota_id">
                                             <option value="">--Nama Peminjam--</option>
                                             @foreach ($anggotas as $anggota)
-                                                <option value="{{ $anggota->id }}">{{ $anggota->nama }}</option>
+                                                <option value="{{ $anggota->id }}">{{ $anggota->nama }}
+                                                    {{ $anggota->kelas }} {{ $anggota->jurusan }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -153,7 +175,8 @@
                                         <tr @if ($pinjam->getSelisih($pinjam->lama) < 0) class="table-danger" @endif>
                                             <td scope="pinjam">{{ $index + $peminjaman->firstItem() }}</td>
                                             <td>{{ $pinjam->anggota->nama ?? 'N/A' }}</td>
-                                            <td>{{ $pinjam->anggota->kelas ?? 'N/A' }}</td>
+                                            <td>{{ $pinjam->anggota->kelas ?? 'N/A' }}
+                                                {{ $pinjam->anggota->jurusan ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->cd->judul_cd ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->getCreatedAttribute() }}</td>
                                             <td>{{ $pinjam->getTenggatWaktu($pinjam->lama) }}</td>
@@ -165,7 +188,7 @@
                                                 <button type="button" class="btn btn-inverse-danger btn-sm perpanjang "
                                                     @if ($pinjam->getSelisih($pinjam->lama) < 0) disabled @endif
                                                     data-bs-toggle="modal " data-id="{{ $pinjam->id }}"
-                                                    data-cd="{{ $pinjam->cd->nama ?? 'N/A' }}"
+                                                    data-cd="{{ $pinjam->cd->judul_cd ?? 'N/A' }}"
                                                     data-anggota="{{ $pinjam->anggota->nama ?? 'N/A' }}">
                                                     Perpanjang
                                                 </button>
@@ -173,7 +196,7 @@
                                                     <button class="btn btn-sm btn-inverse-primary kembalikan"
                                                         cd-id="{{ $pinjam->cd->id ?? 'N/A' }}"
                                                         data-id="{{ $pinjam->id }}"
-                                                        data-cd="{{ $pinjam->cd->nama ?? 'N/A' }}"
+                                                        data-cd="{{ $pinjam->cd->judul_cd ?? 'N/A' }}"
                                                         data-anggota="{{ $pinjam->anggota->nama ?? 'N/A' }}">
                                                         Kembalikan
                                                     </button>
@@ -202,7 +225,7 @@
             var dataanggota = $(this).attr('data-anggota');
             Swal.fire({
                 title: 'Perpanjang Peminjaman?',
-                text: "Majalah " + datacd + " Selama 1 Minggu",
+                text: "CD " + datacd + " Selama 1 Minggu",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -212,11 +235,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/perpanjang_cd/" + idpinjam + ""
-                    Swal.fire(
-                        'Berhasil!',
-                        'Peminjaman Diperpanjang 1 Minggu',
-                        'success'
-                    )
+
                 }
             })
         })
@@ -231,7 +250,7 @@
             var dataanggota = $(this).attr('data-anggota');
             Swal.fire({
                 title: 'Apakah Yakin?',
-                text: "Kembalikan Majalah " + datacd + " Atas Nama " + dataanggota + "",
+                text: "Kembalikan CD " + datacd + " Atas Nama " + dataanggota + "",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -241,11 +260,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/kembalikan_cd/" + idpinjam + "/" + idcd + ""
-                    Swal.fire(
-                        'Berhasil!',
-                        'Majalah Berhasil Dikembalikan',
-                        'success'
-                    )
+
                 }
             })
         })

@@ -67,14 +67,14 @@ class TransaksiGuruController extends Controller
     {   
         TransaksiGuru::where('id', $id)->where('jenis', 'buku')->update(['status' => "Dikembalikan"]);
         Buku::where('id', $id_buku)->increment('jumlah',1);
-        return redirect()->route('guru_pinjam')->with('succeskembalikan', 'Buku Berhasil Dikembalikan');
+        return redirect()->route('guru_pinjam')->with('success_kembalikan_buku', 'Buku Berhasil Dikembalikan');
 
     }
 
     public function perpanjang_buku(Request $request,$id)
     {   
         TransaksiGuru::where('id', $id)->where('jenis', 'buku')->increment('lama',7);
-        return redirect()->route('guru_pinjam')->with('succeskembalikan', 'Buku Berhasil Dikembalikan');
+        return redirect()->route('guru_pinjam')->with('success_perpanjang_buku', 'Buku Berhasil Dikembalikan');
 
     }
 
@@ -109,14 +109,14 @@ class TransaksiGuruController extends Controller
     {
         $data = TransaksiGuru::find($id);
         $data->delete();
-        return redirect()->route('guru_kembali')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('guru_kembali')->with('success_delete_buku', 'Data Berhasil Dihapus');
 
     }
 
     public function deletePengembalianBukuGuruAll()
     {
         TransaksiGuru::where('jenis','buku')->getQuery()->delete();
-        return redirect()->route('guru_kembali')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('guru_kembali')->with('success_delete_buku_all', 'Data Berhasil Dihapus');
 
     }
 
@@ -164,13 +164,13 @@ class TransaksiGuruController extends Controller
     {   
         TransaksiGuru::where('id', $id)->where('jenis', 'majalah')->update(['status' => "Dikembalikan"]);
         Majalah::where('id', $id_majalah)->increment('jumlah',1);
-        return redirect()->route('majalah_guru_pinjam')->with('succeskembalikan', 'Majalah Berhasil Dikembalikan');
+        return redirect()->route('majalah_guru_pinjam')->with('success_kembalikan_majalah', 'Majalah Berhasil Dikembalikan');
     }
 
     public function perpanjang_majalah_guru(Request $request,$id)
     {   
         TransaksiGuru::where('id', $id)->where('jenis', 'majalah')->increment('lama',7);
-        return redirect()->route('majalah_guru_pinjam')->with('succeskembalikan', 'Majalah Berhasil Dikembalikan');
+        return redirect()->route('majalah_guru_pinjam')->with('success_perpanjang_majalah', 'Majalah Berhasil Dikembalikan');
     }
 
     public function exportexcel_peminjaman_majalah_guru(){
@@ -201,13 +201,13 @@ class TransaksiGuruController extends Controller
     {
         $data = TransaksiGuru::find($id);
         $data->delete();
-        return redirect()->route('majalah_guru_kembali')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('majalah_guru_kembali')->with('success_delete_majalah', 'Data Berhasil Dihapus');
     }
 
       public function deletePengembalianMajalahGuruAll()
     {
         TransaksiGuru::where('jenis','majalah')->getQuery()->delete();
-        return redirect()->route('majalah_guru_kembali')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('majalah_guru_kembali')->with('success_delete_majalah_all', 'Data Berhasil Dihapus');
 
     }
 
@@ -255,13 +255,13 @@ class TransaksiGuruController extends Controller
     {   
         TransaksiGuru::where('id', $id)->where('jenis', 'cd')->update(['status' => "Dikembalikan"]);
         CD::where('id', $id_cd)->increment('jumlah',1);
-        return redirect()->route('cd_guru_pinjam')->with('succeskembalikan', 'CD Berhasil Dikembalikan');
+        return redirect()->route('cd_guru_pinjam')->with('success_kembalikan_cd', 'CD Berhasil Dikembalikan');
     }
 
     public function perpanjang_cd_guru(Request $request,$id)
     {   
         TransaksiGuru::where('id', $id)->where('jenis', 'cd')->increment('lama',7);
-        return redirect()->route('cd_guru_pinjam')->with('succeskembalikan', 'CD Berhasil Dikembalikan');
+        return redirect()->route('cd_guru_pinjam')->with('success_perpanjang_cd', 'CD Berhasil Dikembalikan');
     }
 
     public function exportexcel_peminjaman_cd_guru(){
@@ -292,13 +292,13 @@ class TransaksiGuruController extends Controller
     {
         $data = TransaksiGuru::find($id);
         $data->delete();
-        return redirect()->route('cd_guru_kembali')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('cd_guru_kembali')->with('success_delete_cd', 'Data Berhasil Dihapus');
     }
 
         public function deletePengembalianCDGuruAll()
     {
         TransaksiGuru::where('jenis','cd')->getQuery()->delete();
-        return redirect()->route('cd_guru_kembali')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('cd_guru_kembali')->with('success_delete_cd_all', 'Data Berhasil Dihapus');
 
     }
 

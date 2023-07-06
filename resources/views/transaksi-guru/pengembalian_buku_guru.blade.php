@@ -1,6 +1,28 @@
 @extends('layouts.blank')
 
 @section('content')
+    {{-- Notif  Hapus Pengembalian  Buku berhasil --}}
+    @if ($message = Session::get('success_delete_buku'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Pengembalian Buku Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
+    {{-- Notif Hapus Pengembalian Semua Buku berhasil --}}
+    @if ($message = Session::get('success_delete_buku_all'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Semua Pengembalian Buku Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
+
+
     <div class="page-header">
         <h3 class="page-title">
             <span class="page-title-icon bg-gradient-primary text-white me-2">
@@ -111,11 +133,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deletePengembalianBuku/" + idtransaksi + ""
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
+
                 }
             })
         })
@@ -132,11 +150,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deletePengembalianBukuGuruAll/"
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
+
                 }
             })
         })

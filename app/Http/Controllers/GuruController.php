@@ -53,7 +53,7 @@ class GuruController extends Controller
             
             
         ],[
-            'nama.regex' => 'Nama Harus Berisi Alphabet atau Karakter . ,',
+            'nama.regex' => 'Nama Harus Berisi Alphabet',
             'nik.numeric' => 'NIS Harus Berisi Angka',
             'nik.unique' => 'NIS Sudah Ada',
             'jabatan.required' => 'Jabatan Harus Diisi',
@@ -87,7 +87,7 @@ class GuruController extends Controller
     public function deleteGuruAll()
     {
         Guru::getQuery()->delete();
-        return redirect()->route('dataguru')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('dataguru')->with('deletesuccess_all', 'Data Berhasil Dihapus');
 
     }
 
@@ -95,7 +95,7 @@ class GuruController extends Controller
     public function deleteGuruNonAktif()
     {
         Guru::where("status", "NonAktif")->getQuery()->delete();
-        return redirect()->route('dataguru')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('dataguru')->with('deletesuccess_non', 'Data Berhasil Dihapus');
 
     }
 

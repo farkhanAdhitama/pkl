@@ -3,7 +3,7 @@
 @section('content')
     <style>
         .content-wrapper {
-            background-image: url("assets/images/smanka_login.jpg");
+            background-image: url("assets/images/bg-library.png");
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
@@ -19,7 +19,7 @@
                         <div class="col-lg-4 mx-auto">
                             <div class="auth-form-light text-left p-5">
                                 <div class="brand-logo">
-                                    <h3 class="text-primary">Manajemen Perpustakaan</h3>
+                                    <h3 class="text-primary">Sistem Informasi Perpustakaan</h3>
                                     <h3 class="text-primary">SMA Negeri 1 Kajen</h3>
                                 </div>
                                 <h4>Selamat Datang</h4>

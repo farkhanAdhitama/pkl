@@ -50,6 +50,18 @@
         </script>
     @endif
 
+    {{-- Data sudah ada --}}
+    @if ($message = Session::get('add_fails'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Penerbit Sudah Ada',
+                footer: 'Silahkan dicek kembali'
+            })
+        </script>
+    @endif
+
     <div class="row">
         <div class="col-12 grid-margin">
             <div class="float">

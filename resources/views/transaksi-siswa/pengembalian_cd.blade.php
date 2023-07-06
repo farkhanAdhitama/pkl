@@ -1,6 +1,27 @@
 @extends('layouts.blank')
 
 @section('content')
+    {{-- Notif  Pengembalian CD berhasil dihapus --}}
+    @if ($message = Session::get('deletesuccess_cd'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Data Pengembalian CD Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
+
+    {{-- Notif  Pengembalian CD berhasil dihapus semua --}}
+    @if ($message = Session::get('deletesuccess_cd_all'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Semua Data Pengembalian CD Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
     <div class="page-header">
         <h3 class="page-title">
             <span class="page-title-icon bg-gradient-primary text-white me-2">
@@ -66,7 +87,8 @@
                                         <tr>
                                             <td scope="pinjam">{{ $index + $peminjaman->firstItem() }}</td>
                                             <td>{{ $pinjam->anggota->nama ?? 'N/A' }}</td>
-                                            <td>{{ $pinjam->anggota->kelas ?? 'N/A' }}</td>
+                                            <td>{{ $pinjam->anggota->kelas ?? 'N/A' }}
+                                                {{ $pinjam->anggota->jurusan ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->cd->judul_cd ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->getCreatedAttribute() }}</td>
                                             <td>{{ $pinjam->getTanggalKembali() }}</td>
@@ -76,7 +98,7 @@
                                             <td>
                                                 <button class="btn btn-inverse-danger btn-icon delete"
                                                     data-id="{{ $pinjam->id }}"
-                                                    data-cd="{{ $pinjam->cd->nama ?? 'N/A' }}"
+                                                    data-cd="{{ $pinjam->cd->judul_cd ?? 'N/A' }}"
                                                     data-anggota="{{ $pinjam->anggota->nama ?? 'N/A' }}">
                                                     <i class="mdi mdi-delete "></i>
 
@@ -112,11 +134,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deletePengembalianCDSiswa/" + idtransaksi + ""
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
                 }
             })
         })
@@ -134,11 +151,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deletePengembalianCDSiswaAll"
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
                 }
             })
         })

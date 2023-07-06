@@ -1,6 +1,26 @@
 @extends('layouts.blank')
 
 @section('content')
+    {{-- Notif  Hapus Pengembalian  CD berhasil --}}
+    @if ($message = Session::get('success_delete_cd'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Pengembalian CD Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
+    {{-- Notif Hapus Pengembalian Semua CD berhasil --}}
+    @if ($message = Session::get('success_delete_cd_all'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Semua Pengembalian CD Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
     <div class="page-header">
         <h3 class="page-title">
             <span class="page-title-icon bg-gradient-primary text-white me-2">
@@ -74,7 +94,7 @@
                                             <td>
                                                 <button class="btn btn-inverse-danger btn-icon delete"
                                                     data-id="{{ $pinjam->id }}"
-                                                    data-cd="{{ $pinjam->cd->nama ?? 'N/A' }}"
+                                                    data-cd="{{ $pinjam->cd->judul_cd ?? 'N/A' }}"
                                                     data-guru="{{ $pinjam->guru->nama ?? 'N/A' }}">
                                                     <i class="mdi mdi-delete "></i>
 
@@ -110,11 +130,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deletePengembalianCD/" + idtransaksi + ""
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
                 }
             })
         })
@@ -131,11 +146,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deletePengembalianCDGuruAll/"
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
                 }
             })
         })

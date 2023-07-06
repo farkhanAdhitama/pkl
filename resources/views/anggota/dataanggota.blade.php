@@ -5,16 +5,50 @@
         <h3 class="page-title">
             <span class="page-title-icon bg-gradient-primary text-white me-2">
                 <i class="mdi mdi-book-open "></i>
-            </span> Data Anggota Siswa
+            </span> Data Siswa
         </h3>
 
     </div>
+
+    {{-- Notif anggota siswa berhasil ditambah --}}
     @if ($message = Session::get('insertsuccess'))
-        {{-- Notif buku berhasil ditambah --}}
         <script>
             Swal.fire(
                 'Berhasil!',
-                'Data Anggota Berhasil Ditambahkan!',
+                'Data Siswa Berhasil Ditambahkan!',
+                'success'
+            )
+        </script>
+    @endif
+
+    {{-- Notif  siswa berhasil dihapus --}}
+    @if ($message = Session::get('deletesuccess'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Data Siswa Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
+
+    {{-- Notif  siswa berhasil dihapus semua --}}
+    @if ($message = Session::get('deletesuccess_all'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Semua Data Siswa Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
+
+    {{-- Notif  siswa berhasil dihapus semua non aktif --}}
+    @if ($message = Session::get('deletesuccess_non'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Data Siswa Non Aktif Berhasil Dihapus!',
                 'success'
             )
         </script>
@@ -22,11 +56,10 @@
 
     {{-- swal berhasil import --}}
     @if ($message = Session::get('importsuccess'))
-        {{-- Notif buku berhasil ditambah --}}
         <script>
             Swal.fire(
                 'Berhasil!',
-                'Data Anggota Berhasil Ditambahkan!',
+                'Data Siswa Berhasil Ditambahkan!',
                 'success'
             )
         </script>
@@ -52,89 +85,88 @@
     <div class="row">
         <div class="col-12 grid-margin">
             <div class="float">
-
-                <a href="/tambahanggota" type="button" class="btn btn-sm btn-primary mb-3"><i
-                        class="mdi mdi-library-plus mdi-icon"></i> Tambah Anggota Siswa</a>
-
-                <div class="float-end mb-3">
-
-                    <a href="/exportpdf_anggota"><button type="button" class="btn btn-sm btn-info btn-icon-text me-1"> <i
-                                class="mdi mdi-printer btn-icon-append"></i> Cetak PDF </button></a>
+                <div class="text-end mb-3">
+                    <div class="float-start">
+                        <a href="/tambahanggota" type="button" class="btn btn-sm btn-primary mb-3  mt-1"><i
+                                class="mdi mdi-library-plus mdi-icon"></i> Tambah Siswa</a>
+                    </div>
+                    <a href="/exportpdf_anggota"><button type="button"
+                            class="btn btn-sm btn-info btn-icon-text me-1  mt-1">
+                            <i class="mdi mdi-printer btn-icon-append"></i> Cetak PDF </button></a>
                     <a href="/exportexcel_anggota"> <button type="button"
-                            class="btn btn-sm btn-success btn-icon-text me-1"> <i
+                            class="btn btn-sm btn-success btn-icon-text me-1  mt-1"> <i
                                 class="mdi mdi-printer btn-icon-append"></i> Cetak Excel </button></a>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#importanggota"
-                        class="btn btn-sm btn-info btn-icon-text me-1"><i class="mdi mdi-upload btn-icon-prepend"></i>Import
+                        class="btn btn-sm btn-info btn-icon-text me-1  mt-1"><i
+                            class="mdi mdi-upload btn-icon-prepend"></i>Import
                         Data</button>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#hapus_data"
-                        class="btn btn-sm btn-danger btn-icon-text"><i
+                        class="btn btn-sm btn-danger btn-icon-text me-1  mt-1"><i
                             class="mdi mdi-delete
-                                btn-icon-append"></i>Hapus Data</button>
+                                btn-icon-append"></i>Hapus
+                        Data</button>
+                </div>
 
-                    <!-- The Import Anggota Excel Modal -->
-                    <div class="modal fade" id="importanggota">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <!-- Modal Header -->
-                                <div class="modal-header">
-                                    <h4 class="modal-title ">Import Data Anggota Siswa</h4>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                </div>
-                                <!-- Modal body -->
-
-                                <div class="card m-3 text-center">
-                                    <div class="card-body m-3">
-                                        <h5 class="card-title text-center">Download Template Excel</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted text-center">Untuk Import Data</h6>
-                                        <a href="assets/template_import/importanggota_template.xlsx"><button type="button"
-                                                class="btn btn-primary text-center">Download</button></a>
-                                    </div>
-                                </div>
-                                <form action="/importexcel_anggota" method="POST" enctype="multipart/form-data">
-                                    @csrf
-
-                                    <div class="modal-body px-4">
-                                        <h5>Pilih File yang Akan Diimport</h5>
-                                        <div class="form-group">
-                                            <input class="" type="file" name="file" id="" required>
-                                        </div>
-                                    </div>
-
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary"
-                                            data-bs-dismiss="modal">Import</button>
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
-                                    </div>
-                                </form>
-
+                <!-- The Import Anggota Excel Modal -->
+                <div class="modal fade" id="importanggota">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title ">Import Data Anggota Siswa</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
-                        </div>
-                    </div>
-                    <!-- The Hapus Modal -->
-                    <div class="modal fade" id="hapus_data">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <!-- Modal Header -->
-                                <div class="modal-header">
-                                    <h4 class="modal-title ">Hapus Data</h4>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            <!-- Modal body -->
+
+                            <div class="card m-3 text-center">
+                                <div class="card-body m-3">
+                                    <h5 class="card-title text-center">Download Template Excel</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted text-center">Untuk Import Data</h6>
+                                    <a href="assets/template_import/importanggota_template.xlsx"><button type="button"
+                                            class="btn btn-primary text-center">Download</button></a>
                                 </div>
-                                <!-- Modal body -->
+                            </div>
+                            <form action="/importexcel_anggota" method="POST" enctype="multipart/form-data">
+                                @csrf
+
                                 <div class="modal-body px-4">
-                                    <button id="hapus_nonaktif" type="button"
-                                        class="hapus_nonaktif btn btn-danger w-100 mb-2">Hapus Non Aktif</button>
-                                    <button id="hapus_semua" type="button"
-                                        class="hapus_semua btn btn-danger w-100 mb-2">Hapus Semua</button>
+                                    <h5>Pilih File yang Akan Diimport</h5>
+                                    <div class="form-group">
+                                        <input class="" type="file" name="file" id="" required>
+                                    </div>
                                 </div>
+
                                 <!-- Modal footer -->
-                                <div class="modal-footer">
+                                <div class="modal-footer float-start">
+                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Import</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                                 </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- The Hapus Modal -->
+                <div class="modal fade" id="hapus_data">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title ">Hapus Data</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body px-4">
+                                <button id="hapus_nonaktif" type="button"
+                                    class="hapus_nonaktif btn btn-danger w-100 mb-2">Hapus Non Aktif</button>
+                                <button id="hapus_semua" type="button" class="hapus_semua btn btn-danger w-100 mb-2">Hapus
+                                    Semua</button>
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
 
@@ -403,11 +435,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deleteanggota/" + idanggota + ""
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
+
                 }
             })
         })
@@ -424,11 +452,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deleteAnggotaAll/"
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
+
                 }
             })
         })
@@ -445,11 +469,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deleteAnggotaNonAktif/"
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
                 }
             })
         })
