@@ -9,12 +9,46 @@
         </h3>
 
     </div>
+
+    {{-- Notif anggota siswa berhasil ditambah --}}
     @if ($message = Session::get('insertsuccess'))
-        {{-- Notif buku berhasil ditambah --}}
         <script>
             Swal.fire(
                 'Berhasil!',
-                'Data Anggota Berhasil Ditambahkan!',
+                'Data Siswa Berhasil Ditambahkan!',
+                'success'
+            )
+        </script>
+    @endif
+
+    {{-- Notif  siswa berhasil dihapus --}}
+    @if ($message = Session::get('deletesuccess'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Data Siswa Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
+
+    {{-- Notif  siswa berhasil dihapus semua --}}
+    @if ($message = Session::get('deletesuccess_all'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Semua Data Siswa Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
+
+    {{-- Notif  siswa berhasil dihapus semua non aktif --}}
+    @if ($message = Session::get('deletesuccess_non'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Data Siswa Non Aktif Berhasil Dihapus!',
                 'success'
             )
         </script>
@@ -22,11 +56,10 @@
 
     {{-- swal berhasil import --}}
     @if ($message = Session::get('importsuccess'))
-        {{-- Notif buku berhasil ditambah --}}
         <script>
             Swal.fire(
                 'Berhasil!',
-                'Data Anggota Berhasil Ditambahkan!',
+                'Data Siswa Berhasil Ditambahkan!',
                 'success'
             )
         </script>
@@ -104,7 +137,7 @@
                                 </div>
 
                                 <!-- Modal footer -->
-                                <div class="modal-footer">
+                                <div class="modal-footer float-start">
                                     <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Import</button>
                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                                 </div>
@@ -402,11 +435,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deleteanggota/" + idanggota + ""
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
+
                 }
             })
         })
@@ -423,11 +452,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deleteAnggotaAll/"
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
+
                 }
             })
         })
@@ -444,11 +469,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deleteAnggotaNonAktif/"
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
                 }
             })
         })

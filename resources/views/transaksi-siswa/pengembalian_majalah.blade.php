@@ -1,6 +1,27 @@
 @extends('layouts.blank')
 
 @section('content')
+    {{-- Notif  Pengembalian Majalah berhasil dihapus --}}
+    @if ($message = Session::get('deletesuccess_majalah'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Data Pengembalian Majalah Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
+
+    {{-- Notif  Pengembalian Majalah berhasil dihapus semua --}}
+    @if ($message = Session::get('deletesuccess_majalah_all'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Semua Data Pengembalian Majalah Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
     <div class="page-header">
         <h3 class="page-title">
             <span class="page-title-icon bg-gradient-primary text-white me-2">
@@ -68,7 +89,8 @@
                                             <td scope="pinjam">{{ $index + $peminjaman->firstItem() }}</td>
                                             <td>{{ $pinjam->id }}</td>
                                             <td>{{ $pinjam->anggota->nama ?? 'N/A' }}</td>
-                                            <td>{{ $pinjam->anggota->kelas ?? 'N/A' }}</td>
+                                            <td>{{ $pinjam->anggota->kelas ?? 'N/A' }}
+                                                {{ $pinjam->anggota->jurusan ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->majalah->nama ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->getCreatedAttribute() }}</td>
                                             <td>{{ $pinjam->getTanggalKembali() }}</td>
@@ -114,11 +136,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deletePengembalianMajalahSiswa/" + idtransaksi + ""
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
+
                 }
             })
         })
@@ -135,11 +153,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deletePengembalianMajalahSiswaAll"
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
+
                 }
             })
         })

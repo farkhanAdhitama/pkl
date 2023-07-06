@@ -185,8 +185,8 @@
                         <div class="col-sm-6">
                           <h6>Jenis Buku</h6>
                           <p>{{$jenisbuku->nama}}</p>
-                          <h6>Rak</h6>
-                          <p>{{$jenisbuku->rak}}</p>
+                          {{-- <h6>Rak</h6>
+                          <p>{{$jenisbuku->rak}}</p> --}}
                           <h6>Diinput Pada</h6>
                           <p>{{$jenisbuku->getCreatedAttribute()}}</p>
                           <h6>Diperbarui Pada</h6>
@@ -224,10 +224,10 @@
                           <label for="nama">Jenis Buku</label>
                           <input value="{{$jenisbuku->nama}}" type="text" name="nama" class="form-control" id="nama" placeholder="Jenis Buku" required>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                           <label for="rak">Rak</label>
                           <input value="{{$jenisbuku->rak}}" type="number" name="rak" class="form-control" id="rak" placeholder="Rak" required>
-                        </div>
+                        </div> --}}
                         <button type="submit" class="btn btn-primary me-2 ">Submit</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                       </form>

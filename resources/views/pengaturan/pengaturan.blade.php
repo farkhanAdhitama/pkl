@@ -13,7 +13,7 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{ asset('assets/images/smankaLogo.png') }}" />
     {{-- swal berhasil ubah password --}}
-    @if ($message = Session::get('update_success'))
+    @if ($message = Session::get('pass_update_success'))
         <script>
             Swal.fire(
                 'Berhasil!',
@@ -30,6 +30,18 @@
                 title: 'Oops...',
                 text: 'Password Gagal Diperbarui!',
                 footer: 'Pastikan Konfirmasi Password Sama'
+            })
+        </script>
+    @endif
+
+    {{-- swal gagal update password --}}
+    @if ($message = Session::get('curr_pass_fails'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Password Gagal Diperbarui!',
+                footer: 'Password Sekarang Salah'
             })
         </script>
     @endif
@@ -92,10 +104,20 @@
                         @csrf
 
                         <div class="form-group">
+                            <label for="current_password">Password Sekarang</label>
+                            <input type="password" name="current_password" class="form-control" id="current_password"
+                                placeholder="Password Sekarang" required value="{{ old('current_password') }}"
+                                minlength="4" autocomplete="current_password"
+                                class="@error('current_password') is-invalid @enderror">
+                            @error('current_password')
+                                <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="password">Password Baru</label>
                             <input type="password" name="password" class="form-control" id="password"
                                 placeholder="Password Baru (Minimal : 4 Karakter)" required value="{{ old('password') }}"
-                                autocomplete="new-password" class="@error('password') is-invalid @enderror">
+                                minlength="4" autocomplete="new-password" class="@error('password') is-invalid @enderror">
                             @error('password')
                                 <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
                             @enderror
@@ -104,8 +126,11 @@
                         <div class="form-group">
                             <label class="col-sm-12 form-label"for="confirm_password">Konfirmasi Password</label>
                             <input required id="password-confirm" type="password" class="form-control"
-                                placeholder="Konfirmasi Password Baru" name="password_confirmation" required
+                                placeholder="Konfirmasi Password Baru" name="password_confirmation" minlength="4"
                                 autocomplete="new-password">
+                            @error('password')
+                                <sub class="p fst-italic text-danger">{{ "$message" }}</sub>
+                            @enderror
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-gradient-primary btn-rounded btn-fw text-center">Ubah
@@ -152,7 +177,8 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title mb-4">Batas Peminjaman Guru/Staff</h4>
-                    <form action="/update_BatasGuru/1" method="POST" enctype="multipart/form-data" class="forms-sample">
+                    <form action="/update_BatasGuru/1" method="POST" enctype="multipart/form-data"
+                        class="forms-sample">
                         @csrf
 
                         <div class="form-group">

@@ -77,13 +77,21 @@ class PengaturanController extends Controller
                 ->with('update_fails', 'Data Gagal Diubah.')
                 ->withErrors($validasi);
         } else {
-            $request['password'] = Hash::make($request->password);
             $data = User::find($id);
-            $data->update($request->all());
+            
+            if (Hash::check($request->current_password, $data->password)) {
+                $request['password'] = Hash::make($request->password);
+                $data->update($request->all());
+                return redirect()
+                    ->back()
+                    ->with('pass_update_success', 'Data Berhasil Diubah.');
+            }else{
+                return redirect()
+                    ->back()
+                    ->with('curr_pass_fails', 'Data Gagal Diubah.');
+            }
 
-            return redirect()
-                ->back()
-                ->with('update_success', 'Data Berhasil Diubah.');
+            
         }
     }
 

@@ -10,7 +10,7 @@
 
     </div>
     @if ($message = Session::get('insertsuccess'))
-        {{-- Notif buku berhasil ditambah --}}
+        {{-- Notif guru berhasil ditambah --}}
         <script>
             Swal.fire(
                 'Berhasil!',
@@ -20,9 +20,41 @@
         </script>
     @endif
 
+    {{-- Notif  Guru berhasil dihapus --}}
+    @if ($message = Session::get('deletesuccess'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Data Guru Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
+
+    {{-- Notif  Guru berhasil dihapus semua --}}
+    @if ($message = Session::get('deletesuccess_all'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Semua Data Guru Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
+
+    {{-- Notif  Guru berhasil dihapus semua non aktif --}}
+    @if ($message = Session::get('deletesuccess_non'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Data Guru Non Aktif Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
+
     {{-- swal berhasil import --}}
     @if ($message = Session::get('importsuccess'))
-        {{-- Notif buku berhasil ditambah --}}
         <script>
             Swal.fire(
                 'Berhasil!',
@@ -70,72 +102,68 @@
                         class="btn btn-sm btn-danger btn-icon-text me-1 mt-1"><i
                             class="mdi mdi-delete btn-icon-append "></i>Hapus
                         Data</button>
+                </div>
 
-
-                    <!-- The Import Guru Excel Modal -->
-                    <div class="modal fade" id="importguru">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <!-- Modal Header -->
-                                <div class="modal-header">
-                                    <h4 class="modal-title ">Import Data Guru/Staff</h4>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                </div>
-                                <!-- Modal body -->
-
-                                <div class="card m-3 text-center">
-                                    <div class="card-body m-3">
-                                        <h5 class="card-title text-center">Download Template Excel</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted text-center">Untuk Import Data</h6>
-                                        <a href="assets/template_import/importguru_template.xlsx"><button type="button"
-                                                class="btn btn-primary text-center">Download</button></a>
-                                    </div>
-                                </div>
-                                <form action="/importexcel_guru" method="POST" enctype="multipart/form-data">
-                                    @csrf
-
-                                    <div class="modal-body px-4">
-                                        <h5>Pilih File yang Akan Diimport</h5>
-                                        <div class="form-group">
-                                            <input class="" type="file" name="file" id="" required>
-                                        </div>
-                                    </div>
-
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary"
-                                            data-bs-dismiss="modal">Import</button>
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
-                                    </div>
-                                </form>
-
+                <!-- The Import Guru Excel Modal -->
+                <div class="modal fade" id="importguru">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title ">Import Data Guru/Staff</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
-                        </div>
-                    </div>
-                    <!-- The Hapus Modal -->
-                    <div class="modal fade" id="hapus_data">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <!-- Modal Header -->
-                                <div class="modal-header">
-                                    <h4 class="modal-title ">Hapus Data</h4>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            <!-- Modal body -->
+
+                            <div class="card m-3 text-center">
+                                <div class="card-body m-3">
+                                    <h5 class="card-title text-center">Download Template Excel</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted text-center">Untuk Import Data</h6>
+                                    <a href="assets/template_import/importguru_template.xlsx"><button type="button"
+                                            class="btn btn-primary text-center">Download</button></a>
                                 </div>
-                                <!-- Modal body -->
+                            </div>
+                            <form action="/importexcel_guru" method="POST" enctype="multipart/form-data">
+                                @csrf
+
                                 <div class="modal-body px-4">
-                                    <button id="hapus_nonaktif" type="button"
-                                        class="hapus_nonaktif btn btn-danger w-100 mb-2">Hapus Non Aktif</button>
-                                    <button id="hapus_semua" type="button"
-                                        class="hapus_semua btn btn-danger w-100 mb-2">Hapus Semua</button>
+                                    <h5>Pilih File yang Akan Diimport</h5>
+                                    <div class="form-group">
+                                        <input class="" type="file" name="file" id="" required>
+                                    </div>
                                 </div>
+
                                 <!-- Modal footer -->
-                                <div class="modal-footer">
+                                <div class="modal-footer float-start">
+                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Import</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                                 </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- The Hapus Modal -->
+                <div class="modal fade" id="hapus_data">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title ">Hapus Data</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body px-4">
+                                <button id="hapus_nonaktif" type="button"
+                                    class="hapus_nonaktif btn btn-danger w-100 mb-2">Hapus Non Aktif</button>
+                                <button id="hapus_semua" type="button" class="hapus_semua btn btn-danger w-100 mb-2">Hapus
+                                    Semua</button>
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
 
@@ -404,11 +432,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deleteguru/" + idguru + ""
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
                 }
             })
         })
@@ -425,11 +448,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deleteGuruAll/"
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
                 }
             })
         })
@@ -446,11 +464,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deleteGuruNonAktif/"
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
+
                 }
             })
         })

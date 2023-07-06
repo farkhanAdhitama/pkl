@@ -10,58 +10,6 @@
             </h3>
 
         </div>
-        {{-- swall berhasil insert --}}
-        @if ($message = Session::get('addsuccess'))
-            {{-- Notif buku berhasil ditambah --}}
-            <script>
-                Swal.fire(
-                    'Berhasil!',
-                    'Data Buku Berhasil Ditambahkan!',
-                    'success'
-                )
-            </script>
-        @endif
-
-        {{-- swal berhasil import --}}
-        @if ($message = Session::get('importsuccess'))
-            {{-- Notif buku berhasil ditambah --}}
-            <script>
-                Swal.fire(
-                    'Berhasil!',
-                    'Data Buku Berhasil Ditambahkan!',
-                    'success'
-                )
-            </script>
-        @endif
-
-        {{-- swal gagal export pertanggal --}}
-        @if ($message = Session::get('export_gagal'))
-            <script>
-                Swal.fire(
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Gagal Cetak PDF Per Tanggal',
-                    footer: 'Pastikan Tanggal Awal dan Akhir Terisi'
-                )
-            </script>
-        @endif
-
-        @if ($message = Session::get('deletesuccess'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ $message }}
-            </div>
-        @endif
-
-        {{-- Jika berhasil Update --}}
-        @if ($message = Session::get('updatesuccess'))
-            <script>
-                Swal.fire(
-                    'Berhasil!',
-                    'Data Buku Berhasil Diperbarui!',
-                    'success'
-                )
-            </script>
-        @endif
         <div class="row">
             <div class="col-12 grid-margin">
                 <div class="float">
@@ -194,7 +142,7 @@
                                     </div>
 
                                     <!-- Modal footer -->
-                                    <div class="modal-footer">
+                                    <div class="modal-footer float-start ">
                                         <button type="submit" class="btn btn-primary"
                                             data-bs-dismiss="modal">Import</button>
                                         <button type="button" class="btn btn-danger"
@@ -873,6 +821,72 @@
             </div>
         </div>
     </div>
+
+
+    {{-- swall berhasil insert --}}
+    @if ($message = Session::get('addsuccess'))
+        {{-- Notif buku berhasil ditambah --}}
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Data Buku Berhasil Ditambahkan!',
+                'success'
+            )
+        </script>
+    @endif
+
+    {{-- swall berhasil delete --}}
+    @if ($message = Session::get('deletesuccess'))
+        {{-- Notif buku berhasil ditambah --}}
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Data Buku Berhasil Dihapus!',
+                'success'
+            )
+        </script>
+    @endif
+
+    {{-- swal berhasil import --}}
+    @if ($message = Session::get('importsuccess'))
+        {{-- Notif buku berhasil ditambah --}}
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Data Buku Berhasil Ditambahkan!',
+                'success'
+            )
+        </script>
+    @endif
+
+    {{-- swal gagal export pertanggal --}}
+    @if ($message = Session::get('export_gagal'))
+        <script>
+            Swal.fire(
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Gagal Cetak PDF Per Tanggal',
+                footer: 'Pastikan Tanggal Awal dan Akhir Terisi'
+            )
+        </script>
+    @endif
+
+    @if ($message = Session::get('deletesuccess'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ $message }}
+        </div>
+    @endif
+
+    {{-- Jika berhasil Update --}}
+    @if ($message = Session::get('updatesuccess'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Data Buku Berhasil Diperbarui!',
+                'success'
+            )
+        </script>
+    @endif
     <!-- page-body-wrapper ends -->
     <script>
         $('.delete').click(function() {
@@ -890,25 +904,9 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deletebuku/" + idbuku + ""
-                    Swal.fire(
-                        'Dihapus!',
-                        'Data Berhasil Dihapus',
-                        'success'
-                    )
                 }
             })
         })
-        // $('.tambah_buku').click(function() {
-        //     $.ajax({
-        //         url: '{{ route('tambahbuku') }}',
-        //         success: function(data) {
-        //             $('#container').html(data);
-        //         },
-        //         error: function() {
-        //             console.log('Error occurred');
-        //         }
-        //     });
-        // })
     </script>
     <script>
         $('#exportPDF').click(function() {

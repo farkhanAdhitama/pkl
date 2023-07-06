@@ -86,7 +86,7 @@ class AnggotaController extends Controller
     public function deleteAnggotaAll()
     {
         Anggota::getQuery()->delete();
-        return redirect()->route('dataanggota')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('dataanggota')->with('deletesuccess_all', 'Data Berhasil Dihapus');
 
     }
 
@@ -94,7 +94,7 @@ class AnggotaController extends Controller
     public function deleteAnggotaNonAktif()
     {
         Anggota::where("status", "NonAktif")->getQuery()->delete();
-        return redirect()->route('dataanggota')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('dataanggota')->with('deletesuccess_non', 'Data Berhasil Dihapus');
 
     }
 

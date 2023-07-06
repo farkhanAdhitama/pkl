@@ -1,6 +1,27 @@
 @extends('layouts.blank')
 
 @section('content')
+    {{-- Notif  Pengembalian Buku berhasil --}}
+    @if ($message = Session::get('successkembalikan_buku'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Buku Berhasil Dikembalikan!',
+                'success'
+            )
+        </script>
+    @endif
+    {{-- Notif  Perpanjangan Buku berhasil --}}
+    @if ($message = Session::get('successperpanjang_buku'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Masa Peminjaman Diperpanjang 1 Minggu!',
+                'success'
+            )
+        </script>
+    @endif
+
     <div class="page-header">
         <h3 class="page-title">
             <span class="page-title-icon bg-gradient-primary text-white me-2">
@@ -84,6 +105,7 @@
                                                 <option value="">--Nama Peminjam--</option>
                                                 @foreach ($anggotas as $anggota)
                                                     <option value="{{ $anggota->id }}">{{ $anggota->nama }}
+                                                        {{ $anggota->kelas }} {{ $anggota->jurusan }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -163,7 +185,9 @@
                                         <tr @if ($pinjam->getSelisih($pinjam->lama) < 0) class="table-danger" @endif>
                                             <td scope="pinjam">{{ $index + $peminjaman->firstItem() }}</td>
                                             <td>{{ $pinjam->anggota->nama ?? 'N/A' }}</td>
-                                            <td>{{ $pinjam->anggota->kelas ?? 'N/A' }}</td>
+                                            <td>{{ $pinjam->anggota->kelas ?? 'N/A' }}
+                                                {{ $pinjam->anggota->jurusan ?? 'N/A' }}
+                                            </td>
                                             <td>{{ $pinjam->buku->judul_buku ?? 'N/A' }}</td>
                                             <td>{{ $pinjam->getCreatedAttribute() }}</td>
                                             <td>{{ $pinjam->getTenggatWaktu($pinjam->lama) }}</td>
@@ -205,7 +229,7 @@
             </div>
         </div>
     </div>
-    </div>
+
 
     {{-- perpanjang swal --}}
     <script>
@@ -225,11 +249,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/perpanjang/" + idpinjam + ""
-                    Swal.fire(
-                        'Berhasil!',
-                        'Peminjaman Diperpanjang 1 Minggu',
-                        'success'
-                    )
                 }
             })
         })
@@ -254,11 +273,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/kembalikan/" + idpinjam + "/" + idbuku + ""
-                    Swal.fire(
-                        'Berhasil!',
-                        'Buku Berhasil Dikembalikan',
-                        'success'
-                    )
                 }
             })
         })

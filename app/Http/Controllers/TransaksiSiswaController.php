@@ -66,7 +66,7 @@ class TransaksiSiswaController extends Controller
     {   
         TransaksiSiswa::where('id', $id)->update(['status' => "Dikembalikan"]);
         Buku::where('id', $id_buku)->increment('jumlah',1);
-        return redirect()->route('peminjaman_buku')->with('succeskembalikan', 'Buku Berhasil Dikembalikan');
+        return redirect()->route('peminjaman_buku')->with('successkembalikan_buku', 'Buku Berhasil Dikembalikan');
 
     }
 
@@ -74,7 +74,7 @@ class TransaksiSiswaController extends Controller
     {   
 
         TransaksiSiswa::where('id', $id)->where('jenis', 'buku')->increment('lama',7);
-        return redirect()->route('peminjaman_buku')->with('succeskembalikan', 'Buku Berhasil Dikembalikan');
+        return redirect()->route('peminjaman_buku')->with('successperpanjang_buku', 'Buku Berhasil Dikembalikan');
 
     }
 
@@ -116,14 +116,14 @@ class TransaksiSiswaController extends Controller
     {
         $data = TransaksiSiswa::find($id);
         $data->delete();
-        return redirect()->route('pengembalian_buku')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('pengembalian_buku')->with('deletesuccess_buku', 'Data Berhasil Dihapus');
 
     }
 
     public function deletePengembalianBukuSiswaAll()
     {
         TransaksiSiswa::where('jenis','buku')->getQuery()->delete();
-        return redirect()->route('pengembalian_buku')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('pengembalian_buku')->with('deletesuccess_buku_all', 'Data Berhasil Dihapus');
 
     }
 
@@ -165,14 +165,14 @@ class TransaksiSiswaController extends Controller
     {   
         TransaksiSiswa::where('id', $id)->update(['status' => "Dikembalikan"]);
         Majalah::where('id', $id_majalah)->increment('jumlah',1);
-        return redirect()->route('peminjaman_majalah')->with('succeskembalikan', 'Majalah Berhasil Dikembalikan');
+        return redirect()->route('peminjaman_majalah')->with('success_kembalikan_majalah', 'Majalah Berhasil Dikembalikan');
 
     }
 
     public function perpanjang_majalah(Request $request,$id)
     {   
         TransaksiSiswa::where('id', $id)->where('jenis', 'majalah')->increment('lama',7);
-        return redirect()->route('peminjaman_majalah')->with('succeskembalikan', 'Majalah Berhasil Dikembalikan');
+        return redirect()->route('peminjaman_majalah')->with('success_perpanjang_majalah', 'Majalah Berhasil Dikembalikan');
     }
 
     public function exportexcel_peminjaman_majalah(){
@@ -213,14 +213,14 @@ class TransaksiSiswaController extends Controller
     {
         $data = TransaksiSiswa::find($id_majalah);
         $data->delete();
-        return redirect()->route('pengembalian_majalah')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('pengembalian_majalah')->with('deletesuccess_majalah', 'Data Berhasil Dihapus');
 
     }
 
      public function deletePengembalianMajalahSiswaAll()
     {
         TransaksiSiswa::where('jenis','majalah')->getQuery()->delete();
-        return redirect()->route('pengembalian_majalah')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('pengembalian_majalah')->with('deletesuccess_majalah_all', 'Data Berhasil Dihapus');
 
     }
 
@@ -262,14 +262,14 @@ class TransaksiSiswaController extends Controller
     {   
         TransaksiSiswa::where('id', $id)->update(['status' => "Dikembalikan"]);
         CD::where('id', $id_cd)->increment('jumlah',1);
-        return redirect()->route('peminjaman_cd')->with('succeskembalikan', 'CD Berhasil Dikembalikan');
+        return redirect()->route('peminjaman_cd')->with('success_kembalikan_cd', 'CD Berhasil Dikembalikan');
 
     }
 
     public function perpanjang_cd(Request $request,$id)
     {   
         TransaksiSiswa::where('id', $id)->where('jenis', 'cd')->increment('lama',7);
-        return redirect()->route('peminjaman_cd')->with('succeskembalikan', 'CD Berhasil Dikembalikan');
+        return redirect()->route('peminjaman_cd')->with('success_perpanjang_cd', 'CD Berhasil Dikembalikan');
     }
 
     public function exportexcel_peminjaman_cd(){
@@ -310,14 +310,14 @@ class TransaksiSiswaController extends Controller
     {
         $data = TransaksiSiswa::find($id);
         $data->delete();
-        return redirect()->route('pengembalian_cd')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('pengembalian_cd')->with('deletesuccess_cd', 'Data Berhasil Dihapus');
 
     }
 
      public function deletePengembalianCDSiswaAll()
     {
         TransaksiSiswa::where('jenis','cd')->getQuery()->delete();
-        return redirect()->route('pengembalian_cd')->with('deletesuccess', 'Data Berhasil Dihapus');
+        return redirect()->route('pengembalian_cd')->with('deletesuccess_cd_all', 'Data Berhasil Dihapus');
 
     }
 

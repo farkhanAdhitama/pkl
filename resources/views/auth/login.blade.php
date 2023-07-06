@@ -3,7 +3,7 @@
 @section('content')
     <style>
         .content-wrapper {
-            background-image: url("assets/images/smanka_login.jpg");
+            background-image: url("assets/images/bg-library.png");
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;

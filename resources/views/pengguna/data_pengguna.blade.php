@@ -9,22 +9,30 @@
         </h3>
         {{-- swall berhasil insert --}}
         @if ($message = Session::get('insertsuccess'))
-            {{-- Notif buku berhasil ditambah --}}
             <script>
                 Swal.fire(
                     'Berhasil!',
-                    'Data Pengguna Ditambahkan!',
+                    'Data Pengguna Berhasil Ditambahkan!',
+                    'success'
+                )
+            </script>
+        @endif
+        {{-- swall berhasil delte --}}
+        @if ($message = Session::get('deletesuccess'))
+            <script>
+                Swal.fire(
+                    'Berhasil!',
+                    'Data Pengguna Berhasil Dihapus!',
                     'success'
                 )
             </script>
         @endif
         {{-- swall berhasil update --}}
         @if ($message = Session::get('updatesuccess'))
-            {{-- Notif buku berhasil ditambah --}}
             <script>
                 Swal.fire(
                     'Berhasil!',
-                    'Data Pengguna Diperbarui!',
+                    'Data Pengguna Berhasil Diperbarui!',
                     'success'
                 )
             </script>
@@ -106,13 +114,21 @@
                                         </label>
                                         <select class="form-control selectpicker" data-live-search="true" name="level"
                                             id="level">
-                                            <option value="Operator">Operator</option>
+                                            {{-- <option value="Operator">Operator</option> --}}
                                             <option value="Administrator">Administrator</option>
                                         </select>
                                         @error('level')
                                             <sub class="p fst-italic text-danger invalid-feedback" role="alert">
                                                 {{ "$message" }}</sub>
                                         @enderror
+                                    </div>
+
+                                    <div class="modal_footer my-1">
+                                        Keterangan :
+                                        <ul>
+                                            <li>Password Administrator Default : 1234</li>
+                                            <li>Level yang dipilih otomatis adalah Administrator</li>
+                                        </ul>
                                     </div>
 
                                     <button type="submit"class="btn btn-primary me-2">Submit</button>
@@ -158,7 +174,7 @@
                                                 <a href="#">
                                                     <button <?php  if ($user->level == 'Operator'){
                                                         ?>
-                                                        class="btn btn-inverse-danger btn-icon delete disabled"
+                                                        class="btn btn-inverse-danger btn-icon delete disabled " hidden
                                                         <?php
                                                             };
                                                         ?> class="btn btn-inverse-danger btn-icon delete "
@@ -237,7 +253,7 @@
                                                                 @enderror
                                                             </div> --}}
 
-                                                            <div class="form-group">
+                                                            {{-- <div class="form-group">
                                                                 <label for="level">Level</label>
                                                                 <select class="form-control selectpicker"
                                                                     data-live-search="true" name="level"
@@ -250,7 +266,7 @@
                                                                         role="alert">
                                                                         {{ "$message" }}</sub>
                                                                 @enderror
-                                                            </div>
+                                                            </div> --}}
 
                                                             <button type="submit"
                                                                 class="btn btn-primary me-2 ">Submit</button>
@@ -292,11 +308,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = "/deleteUser/" + iduser + ""
-                    Swal.fire(
-                        'Dihapus!',
-                        'Pengguna Berhasil Dihapus',
-                        'success'
-                    )
                 }
             })
         })
